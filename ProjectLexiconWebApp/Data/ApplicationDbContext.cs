@@ -17,6 +17,7 @@ namespace ProjectLexiconWebApp.Data
         public DbSet <Shipper> Shippers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -60,6 +61,28 @@ namespace ProjectLexiconWebApp.Data
             modelBuilder.Entity<Product>().HasData(p2);
             modelBuilder.Entity<Product>().HasData(p3);
             modelBuilder.Entity<Product>().HasData(p4);
+
+            /*modelBuilder.Entity<Order>()
+                .HasMany(order => order.Products)
+                .WithMany(product => product.Orders)
+                .UsingEntity(j => j.HasData(new { OrdersId = 1, ProductsId = 2 }));*/
+
+
+
+            Customer c1 = new Customer() { Id = 1, FirstName = "Pedro", LastName = "Feitoza", EMail = "user@user.com", Address = "Kungsgatan 1", ZipCode = "00000", City = "Göteborg", Phone = "46780964", CreatedAt = DateTime.Today, Wallet = 1000.0m };
+
+            modelBuilder.Entity<Customer>().HasData(c1);
+
+
+            Order order1 = new Order() { Id = 1, TotalCost = 0.0m, OrderDate = DateTime.Today, Status = "pending", CustomerId = 1};
+
+
+            OrderItem orderItem1 = new OrderItem() { Id = 1, OrderId = order1.Id, ProductId = p1.Id, Quantity = 2};
+
+            modelBuilder.Entity<Order>().HasData(order1);
+            modelBuilder.Entity<OrderItem>().HasData(orderItem1);
+
+
 
         }
 
