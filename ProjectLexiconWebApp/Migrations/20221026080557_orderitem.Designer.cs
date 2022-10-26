@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectLexiconWebApp.Data;
 
@@ -11,9 +12,10 @@ using ProjectLexiconWebApp.Data;
 namespace ProjectLexiconWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221026080557_orderitem")]
+    partial class orderitem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,28 +38,6 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "New Foods"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Holistic"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Happy Green"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "RawFood"
-                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Category", b =>
@@ -75,33 +55,6 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Nuts and seeds"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Drink"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Tea"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Sweeteners"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Food"
-                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Customer", b =>
@@ -139,6 +92,9 @@ namespace ProjectLexiconWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Wallet")
                         .HasColumnType("decimal(18,2)");
 
@@ -149,21 +105,6 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "Kungsgatan 1",
-                            City = "Göteborg",
-                            CreatedAt = new DateTime(2022, 10, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            EMail = "user@user.com",
-                            FirstName = "Pedro",
-                            LastName = "Feitoza",
-                            Phone = "46780964",
-                            Wallet = 1000.0m,
-                            ZipCode = "00000"
-                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Order", b =>
@@ -190,8 +131,8 @@ namespace ProjectLexiconWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("TotalCost")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("TotalCost")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -202,16 +143,6 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasIndex("ShipperId");
 
                     b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CustomerId = 1,
-                            OrderDate = new DateTime(2022, 10, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            Status = "pending",
-                            TotalCost = 0.0m
-                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.OrderItem", b =>
@@ -224,6 +155,9 @@ namespace ProjectLexiconWebApp.Migrations
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -238,15 +172,6 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderItems");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            OrderId = 1,
-                            ProductId = 1,
-                            Quantity = 2
-                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Product", b =>
@@ -291,56 +216,6 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 4,
-                            Description = "",
-                            Discount = 0.0m,
-                            Name = "Honey",
-                            Price = 34.5m,
-                            ProductRate = 8.0,
-                            Quantity = 20,
-                            Size = "100g"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 1,
-                            Description = "",
-                            Discount = 0.0m,
-                            Name = "Macadamia nuts",
-                            Price = 132.35m,
-                            ProductRate = 8.0,
-                            Quantity = 20,
-                            Size = "100g"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 5,
-                            Description = "",
-                            Discount = 0.0m,
-                            Name = "Granola",
-                            Price = 80.6m,
-                            ProductRate = 8.0,
-                            Quantity = 20,
-                            Size = "500g"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CategoryId = 3,
-                            Description = "",
-                            Discount = 0.0m,
-                            Name = "Chamomile",
-                            Price = 60.00m,
-                            ProductRate = 3.0,
-                            Quantity = 20,
-                            Size = "100g"
-                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Shipper", b =>

@@ -8,6 +8,7 @@
         public decimal Price { get; set; }
         public decimal Discount { get; set; }
         public string? Picture { get; set; }
+        public string Size { get; set; } = string.Empty;
         public int Quantity { get; set; }        
         public double ProductRate { get; set; }
         public bool InStock 
@@ -19,6 +20,8 @@
         }
 
         public Category Category { get; set; }
+
+        public int CategoryId { get; set; }
 
         public List<Order> Orders { get; set; } = new List<Order>();
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectLexiconWebApp.Data;
 
@@ -11,9 +12,10 @@ using ProjectLexiconWebApp.Data;
 namespace ProjectLexiconWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221025144158_Products_Brands_Categories")]
+    partial class Products_Brands_Categories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,21 @@ namespace ProjectLexiconWebApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("OrderProduct", b =>
+                {
+                    b.Property<int>("OrdersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrdersId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("OrderProduct");
+                });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Brand", b =>
                 {
@@ -139,6 +156,9 @@ namespace ProjectLexiconWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Wallet")
                         .HasColumnType("decimal(18,2)");
 
@@ -149,21 +169,6 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "Kungsgatan 1",
-                            City = "Göteborg",
-                            CreatedAt = new DateTime(2022, 10, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            EMail = "user@user.com",
-                            FirstName = "Pedro",
-                            LastName = "Feitoza",
-                            Phone = "46780964",
-                            Wallet = 1000.0m,
-                            ZipCode = "00000"
-                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Order", b =>
@@ -174,14 +179,11 @@ namespace ProjectLexiconWebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("ShipperId")
                         .HasColumnType("int");
@@ -190,63 +192,16 @@ namespace ProjectLexiconWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("TotalCost")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("TotalCost")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("ProductId");
-
                     b.HasIndex("ShipperId");
 
                     b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CustomerId = 1,
-                            OrderDate = new DateTime(2022, 10, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            Status = "pending",
-                            TotalCost = 0.0m
-                        });
-                });
-
-            modelBuilder.Entity("ProjectLexiconWebApp.Models.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderItems");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            OrderId = 1,
-                            ProductId = 1,
-                            Quantity = 2
-                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Product", b =>
@@ -360,40 +315,30 @@ namespace ProjectLexiconWebApp.Migrations
                     b.ToTable("Shippers");
                 });
 
-            modelBuilder.Entity("ProjectLexiconWebApp.Models.Order", b =>
+            modelBuilder.Entity("OrderProduct", b =>
                 {
-                    b.HasOne("ProjectLexiconWebApp.Models.Customer", "Customer")
-                        .WithMany("Orders")
-                        .HasForeignKey("CustomerId")
+                    b.HasOne("ProjectLexiconWebApp.Models.Order", null)
+                        .WithMany()
+                        .HasForeignKey("OrdersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProjectLexiconWebApp.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProjectLexiconWebApp.Models.Order", b =>
+                {
+                    b.HasOne("ProjectLexiconWebApp.Models.Customer", null)
                         .WithMany("Orders")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("ProjectLexiconWebApp.Models.Shipper", null)
                         .WithMany("Orders")
                         .HasForeignKey("ShipperId");
-
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("ProjectLexiconWebApp.Models.OrderItem", b =>
-                {
-                    b.HasOne("ProjectLexiconWebApp.Models.Order", null)
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjectLexiconWebApp.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Product", b =>
@@ -408,16 +353,6 @@ namespace ProjectLexiconWebApp.Migrations
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Customer", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("ProjectLexiconWebApp.Models.Order", b =>
-                {
-                    b.Navigation("OrderItems");
-                });
-
-            modelBuilder.Entity("ProjectLexiconWebApp.Models.Product", b =>
                 {
                     b.Navigation("Orders");
                 });

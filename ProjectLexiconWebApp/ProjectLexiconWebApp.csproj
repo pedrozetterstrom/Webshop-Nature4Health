@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,4 +19,7 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="ViewModels\" />
+  </ItemGroup>
 </Project>
