@@ -11,6 +11,8 @@
         public string City { get; set; } = string.Empty;
         public string Phone { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
+
+        //FREE fake money - Daniel
         public decimal Wallet { get; set; }        
         public string FullName { get { return FirstName + " " + LastName; } }
         
