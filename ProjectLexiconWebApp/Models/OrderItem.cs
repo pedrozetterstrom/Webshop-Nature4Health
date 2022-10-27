@@ -11,9 +11,19 @@ namespace ProjectLexiconWebApp.Models
         public Product Product { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
-        public decimal Price 
+        public decimal Price
         {
-            get { return (Quantity * Product.Price);  }
+            get
+            {
+                if (Product.DiscountedPrice > 0)
+                {
+                    return (Quantity * Product.DiscountedPrice);
+                }
+                else
+                {
+                    return (Quantity * Product.UnitPrice);
+                }
+            }
         }
 
 

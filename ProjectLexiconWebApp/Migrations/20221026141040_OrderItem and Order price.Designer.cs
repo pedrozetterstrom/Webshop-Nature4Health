@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectLexiconWebApp.Data;
 
@@ -11,9 +12,10 @@ using ProjectLexiconWebApp.Data;
 namespace ProjectLexiconWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221026141040_OrderItem and Order price")]
+    partial class OrderItemandOrderprice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,7 +158,7 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 1,
                             Address = "Kungsgatan 1",
                             City = "Göteborg",
-                            CreatedAt = new DateTime(2022, 10, 27, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedAt = new DateTime(2022, 10, 26, 0, 0, 0, 0, DateTimeKind.Local),
                             EMail = "user@user.com",
                             FirstName = "Pedro",
                             LastName = "Feitoza",
@@ -205,7 +207,7 @@ namespace ProjectLexiconWebApp.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            OrderDate = new DateTime(2022, 10, 27, 0, 0, 0, 0, DateTimeKind.Local),
+                            OrderDate = new DateTime(2022, 10, 26, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = "pending"
                         });
                 });
@@ -242,27 +244,6 @@ namespace ProjectLexiconWebApp.Migrations
                             OrderId = 1,
                             ProductId = 1,
                             Quantity = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            OrderId = 1,
-                            ProductId = 2,
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            OrderId = 1,
-                            ProductId = 3,
-                            Quantity = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            OrderId = 1,
-                            ProductId = 4,
-                            Quantity = 2
                         });
                 });
 
@@ -280,7 +261,7 @@ namespace ProjectLexiconWebApp.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("DiscountedPrice")
+                    b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
@@ -315,48 +296,48 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 1,
                             CategoryId = 4,
                             Description = "",
-                            DiscountedPrice = 0.0m,
+                            Discount = 0.0m,
                             Name = "Honey",
                             ProductRate = 8.0,
                             Quantity = 20,
                             Size = "100g",
-                            UnitPrice = 34.5m
+                            UnitPrice = 0m
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 1,
                             Description = "",
-                            DiscountedPrice = 0.0m,
+                            Discount = 0.0m,
                             Name = "Macadamia nuts",
                             ProductRate = 8.0,
                             Quantity = 20,
                             Size = "100g",
-                            UnitPrice = 132.35m
+                            UnitPrice = 0m
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 5,
                             Description = "",
-                            DiscountedPrice = 0.0m,
+                            Discount = 0.0m,
                             Name = "Granola",
                             ProductRate = 8.0,
                             Quantity = 20,
                             Size = "500g",
-                            UnitPrice = 80.6m
+                            UnitPrice = 0m
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 3,
                             Description = "",
-                            DiscountedPrice = 0.0m,
+                            Discount = 0.0m,
                             Name = "Chamomile",
                             ProductRate = 3.0,
                             Quantity = 20,
                             Size = "100g",
-                            UnitPrice = 60.00m
+                            UnitPrice = 0m
                         });
                 });
 

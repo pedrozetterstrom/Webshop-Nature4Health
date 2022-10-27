@@ -8,7 +8,7 @@ namespace ProjectLexiconWebApp.ViewModels
 
 
         public List<Order> Orders { get; set; }
-        public List<OrderItem> OrderItems { get; set; }
+        //public List<OrderItem> OrderItems { get; set; }
 
 
         public OrdersViewModel()

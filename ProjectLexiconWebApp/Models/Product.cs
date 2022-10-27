@@ -5,8 +5,8 @@
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
-        public decimal Price { get; set; }
-        public decimal Discount { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal DiscountedPrice { get; set; } = 0;
         public string? Picture { get; set; }
         public string Size { get; set; } = string.Empty;
         public int Quantity { get; set; }        

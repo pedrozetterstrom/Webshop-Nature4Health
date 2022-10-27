@@ -22,4 +22,8 @@
   <ItemGroup>
     <None Remove="ViewModels\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Orders\Index.cshtml" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,62 @@
+﻿@model OrdersViewModel
+
+
+<div>
+    <h2>Orders</h2>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Total Cost</th>
+                <th scope="col">Order Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Customer ID</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Order Items</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model.Orders.Count != 0)
+            {
+                    @foreach( var order in Model.Orders)
+                   {
+                            <tr>
+                                <td>@order.Id</td>
+                                <td>@order.TotalCost</td>
+                                <td>@order.OrderDate</td>
+                                <td>@order.Status</td>
+                                <td>@order.CustomerId</td>
+                                <td>@order.Customer.FullName</td>
+                            </tr>
+                   }
+            }
+        </tbody>
+        <tr>
+            <td>
+                <table>
+                    @if (Model.Orders.Count != 0)
+                    {
+                        @foreach (var item in Model.Orders)
+                        {
+                            @foreach (var orderitem in item.OrderItems)
+                            {
+                                <tr>
+                                    <td>@orderitem.Id</td>
+                                    <td>@orderitem.OrderId</td>
+                                    <td>@orderitem.Product.Name</td>
+                                    <td>@orderitem.Quantity</td>
+                                    <td>@orderitem.Price</td>
+                                </tr>
+                            }
+
+                        }
+                    }
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
