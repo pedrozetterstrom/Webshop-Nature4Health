@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectLexiconWebApp.Data;
 
@@ -11,9 +12,10 @@ using ProjectLexiconWebApp.Data;
 namespace ProjectLexiconWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221027201451_rename_columns")]
+    partial class rename_columns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,7 +158,7 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 1,
                             Address = "Kungsgatan 1",
                             City = "Göteborg",
-                            CreatedAt = new DateTime(2022, 10, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedAt = new DateTime(2022, 10, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             EMail = "user@user.com",
                             FirstName = "Pedro",
                             LastName = "Feitoza",
@@ -200,7 +202,7 @@ namespace ProjectLexiconWebApp.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            OrderDate = new DateTime(2022, 10, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            OrderDate = new DateTime(2022, 10, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = "pending"
                         });
                 });
@@ -379,23 +381,6 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Shippers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "PostNord"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "DHL"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "DB Schenker"
-                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Order", b =>
