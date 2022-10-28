@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Brand>
+
+@if(ViewBag.BrandDeleted != null)
+{
+    <h4>Status: @ViewBag.BrandDeleted</h4>
+}
+
+<h2>CRUD for Brands</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary btn-sm">Create a Brand</a>
+</p>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aBrand in Model)
+        {
+            <tr>
+                <td>@aBrand.Id</td>
+                <td>@aBrand.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id=@aBrand.Id class="btn btn-primary btn-sm">EDIT</a>
+                    <a asp-action="Delete" asp-route-id=@aBrand.Id class="btn btn-danger btn-sm">DELETE</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
