@@ -88,6 +88,14 @@ namespace ProjectLexiconWebApp.Data
             modelBuilder.Entity<OrderItem>().HasData(orderItem3);
             modelBuilder.Entity<OrderItem>().HasData(orderItem4);
 
+            //Seed shipper table
+            modelBuilder.Entity<Shipper>().HasData
+            (
+                new Shipper { Id = 1, Name="PostNord"},
+                new Shipper { Id = 2, Name = "DHL" },
+                new Shipper { Id = 3, Name = "DB Schenker" }                
+            );
+
         }
 
     }
