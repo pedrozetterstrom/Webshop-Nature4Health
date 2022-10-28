@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Shipper>
+
+@if (ViewBag.ShipperDeleted != null)
+{
+    <h4>Status: @ViewBag.ShipperDeleted</h4>
+}
+
+<h2>CRUD for Shippers</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary btn-sm">Create a Shipper</a>
+</p>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aShipper in Model)
+        {
+            <tr>
+                <td>@aShipper.Id</td>
+                <td>@aShipper.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id=@aShipper.Id class="btn btn-primary btn-sm">EDIT</a>
+                    <a asp-action="Delete" asp-route-id=@aShipper.Id class="btn btn-danger btn-sm">DELETE</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
