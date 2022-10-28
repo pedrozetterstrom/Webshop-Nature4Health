@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Category>
+
+@if(ViewBag.CategoryDeleted != null)
+{
+    <h4>Status: @ViewBag.CategoryDeleted</h4>
+}
+
+<h2>CRUD for Categories</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary btn-sm">Create a Category</a>
+</p>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aCategory in Model)
+        {
+            <tr>
+                <td>@aCategory.Id</td>
+                <td>@aCategory.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id=@aCategory.Id class="btn btn-primary btn-sm">EDIT</a>
+                    <a asp-action="Delete" asp-route-id=@aCategory.Id class="btn btn-danger btn-sm">DELETE</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
