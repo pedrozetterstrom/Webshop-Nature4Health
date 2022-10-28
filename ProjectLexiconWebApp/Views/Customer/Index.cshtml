@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Customer>
+
+@{
+    
+    
+}
+
+
+@if(ViewBag.CustomerDeleted != null)
+{
+    <h4>Status: @ViewBag.CustomerDeleted</h4>
+}
+
+<h2>CRUD for Customers</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary btn-sm">Create a Customer</a>
+</p>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>EMail</th>
+            <th>Address</th>
+            <th>ZipCode</th>
+            <th>City</th>
+            <th>Phone</th>
+            <th>CreatedAt</th>
+            <th>Wallet</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aCustomer in Model)
+        {
+            <tr>
+                <td>@aCustomer.Id</td>
+                <td>@aCustomer.FirstName</td>
+                <td>@aCustomer.LastName</td>
+                <td>@aCustomer.EMail</td>
+                <td>@aCustomer.Address</td>
+                <td>@aCustomer.ZipCode</td>
+                <td>@aCustomer.City</td>
+                <td>@aCustomer.Phone</td>
+                <td>@aCustomer.CreatedAt</td>
+                <td>@aCustomer.Wallet</td>
+                
+                <td>
+                    <a asp-action="Edit" asp-route-id=@aCustomer.Id class="btn btn-primary btn-sm">EDIT</a>
+                    <a asp-action="Delete" asp-route-id=@aCustomer.Id class="btn btn-danger btn-sm">DELETE</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

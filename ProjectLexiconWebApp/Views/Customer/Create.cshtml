@@ -1,0 +1,56 @@
+﻿@model Customer
+
+@{
+    ViewData["Title"] = "Create Customer";
+}
+
+
+<h1>Form for creating a Customer</h1>
+
+<form asp-controller="Customer" asp-action="Create" method="post" class="form-control">
+
+	<div asp-validation-summary="All"></div>
+
+	<div class="form-group">
+		<label asp-for="FirstName"></label>
+		<input asp-for="FirstName" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="LastName"></label>
+		<input asp-for="LastName" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="EMail"></label>
+		<input asp-for="EMail" class="form-control" />
+	</div>
+	
+	<div class="form-group">
+		<label asp-for="Address"></label>
+		<input asp-for="Address" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="ZipCode"></label>
+		<input asp-for="ZipCode" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="City"></label>
+		<input asp-for="City" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Phone"></label>
+		<input asp-for="Phone" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Wallet"></label>
+		<input asp-for="Wallet" class="form-control" />
+	</div>
+
+	<input type="submit" value="ADD CUSTOMER" class="btn btn-primary btn-sm" />
+
+</form>
