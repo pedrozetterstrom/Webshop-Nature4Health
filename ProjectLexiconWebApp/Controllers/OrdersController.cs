@@ -26,7 +26,6 @@ namespace ProjectLexiconWebApp.Controllers
         // GET:
         public IActionResult Index()
         {
-
             ordersModel.Orders = _dbContext.Orders
                 .Include(customer => customer.Customer)
                 .Include(order => order.OrderItems)
@@ -34,6 +33,50 @@ namespace ProjectLexiconWebApp.Controllers
                 .ToList();
 
             return View(ordersModel);
+        }
+
+        public IActionResult Details(int id)
+        {
+            ordersModel.Orders = _dbContext.Orders
+                .Include(customer => customer.Customer)
+                .Include(order => order.OrderItems)
+                .ThenInclude(orderitem => orderitem.Product)
+                .ToList();
+            ordersModel.Order = ordersModel.Orders.FirstOrDefault(o => o.Id == id);
+
+            return View(ordersModel.Order);
+        }
+
+        public IActionResult ChangeStatus(int id)
+        {
+            ordersModel.Order = _dbContext.Orders.FirstOrDefault(o => o.Id == id);
+            if (ordersModel.Order.Status.Contains("pending"))
+            {
+                ordersModel.Order.Status = "sent";
+                return RedirectToAction("Details");
+            }
+            if (ordersModel.Order.Status.Contains("sent"))
+            {
+                ordersModel.Order.Status = "delivered";
+                return RedirectToAction("Details");
+            }
+            if (ordersModel.Order.Status.Contains("delivered"))
+            {
+                ordersModel.Order.Status = "pending";
+                return RedirectToAction("Details");
+            }
+            return RedirectToAction("Details", new {id = id});
+        }
+
+        public IActionResult DeleteOrderItem(int id)
+        {
+            var item = _dbContext.OrderItems.FirstOrDefault(i => i.Id == id);
+            if(item != null)
+            {
+                _dbContext.OrderItems.Remove(item);
+                _dbContext.SaveChanges();
+            }
+            return RedirectToAction("Details");
         }
     }
 }
