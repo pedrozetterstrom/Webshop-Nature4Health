@@ -14,7 +14,7 @@ namespace ProjectLexiconWebApp.Models
         public string? Picture { get; set; }
         public string Size { get; set; } = string.Empty;
         public int Quantity { get; set; }
-        public double ProductRate { get; set; }
+        public double? ProductRate { get; set; }
         public bool InStock
         {
             get
@@ -25,11 +25,11 @@ namespace ProjectLexiconWebApp.Models
 
 
         public Category Category { get; set; }
-        public int CategoryId { get; set; }
-       // public Brand Brand { get; set; } //Brand name is good to have in Products table
-      //  public int BrandId { get; set; }
+        public int? CategoryId { get; set; }
+        public Brand Brand { get; set; } //Brand name is good to have in Products table
+        public int? BrandId { get; set; }
 
-       // public List<Order> Orders { get; set; } = new List<Order>();
+        // public List<Order> Orders { get; set; } = new List<Order>();
 
     }
 }

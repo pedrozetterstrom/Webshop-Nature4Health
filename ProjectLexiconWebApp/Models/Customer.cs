@@ -15,9 +15,9 @@
         //FREE fake money - Daniel
         public decimal Wallet { get; set; }        
         public string FullName { get { return FirstName + " " + LastName; } }
-        
+
         //FK
-       // public int RoleId { get; set; }
+        public int RoleId { get; set; }
         //Navigation
         public List<Order> Orders { get; set; } = new List<Order>(); 
     }

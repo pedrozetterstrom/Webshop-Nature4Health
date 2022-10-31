@@ -30,13 +30,9 @@ namespace ProjectLexiconWebApp.Models
 
 
         //Navigations - Relationships to Shippers
-        //public Shipper Shipper { get; set; }
-        //public int ShipperId { get; set; }      //FK    
-
-        //public List<Product> Products { get; set; } = new List<Product>();
+        public Shipper Shipper { get; set; }
+        public int? ShipperId { get; set; } 
 
         public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
-
-
     }
 }
