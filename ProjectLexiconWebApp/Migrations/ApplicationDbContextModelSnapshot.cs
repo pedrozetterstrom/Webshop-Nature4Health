@@ -30,7 +30,8 @@ namespace ProjectLexiconWebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("BrandName")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -41,22 +42,22 @@ namespace ProjectLexiconWebApp.Migrations
                         new
                         {
                             Id = 1,
-                            BrandName = "New Foods"
+                            Name = "New Foods"
                         },
                         new
                         {
                             Id = 2,
-                            BrandName = "Holistic"
+                            Name = "Holistic"
                         },
                         new
                         {
                             Id = 3,
-                            BrandName = "Happy Green"
+                            Name = "Happy Green"
                         },
                         new
                         {
                             Id = 4,
-                            BrandName = "RawFood"
+                            Name = "RawFood"
                         });
                 });
 
@@ -68,7 +69,7 @@ namespace ProjectLexiconWebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("CategoryName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -80,27 +81,27 @@ namespace ProjectLexiconWebApp.Migrations
                         new
                         {
                             Id = 1,
-                            CategoryName = "Nuts and seeds"
+                            Name = "Nuts and seeds"
                         },
                         new
                         {
                             Id = 2,
-                            CategoryName = "Drink"
+                            Name = "Drink"
                         },
                         new
                         {
                             Id = 3,
-                            CategoryName = "Tea"
+                            Name = "Tea"
                         },
                         new
                         {
                             Id = 4,
-                            CategoryName = "Sweeteners"
+                            Name = "Sweeteners"
                         },
                         new
                         {
                             Id = 5,
-                            CategoryName = "Food"
+                            Name = "Food"
                         });
                 });
 
@@ -139,6 +140,9 @@ namespace ProjectLexiconWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Wallet")
                         .HasColumnType("decimal(18,2)");
 
@@ -156,11 +160,12 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 1,
                             Address = "Kungsgatan 1",
                             City = "Göteborg",
-                            CreatedAt = new DateTime(2022, 10, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedAt = new DateTime(2022, 10, 31, 0, 0, 0, 0, DateTimeKind.Local),
                             EMail = "user@user.com",
                             FirstName = "Pedro",
                             LastName = "Feitoza",
                             Phone = "46780964",
+                            RoleId = 0,
                             Wallet = 1000.0m,
                             ZipCode = "00000"
                         });
@@ -200,7 +205,7 @@ namespace ProjectLexiconWebApp.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            OrderDate = new DateTime(2022, 10, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            OrderDate = new DateTime(2022, 10, 31, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = "pending"
                         });
                 });
@@ -269,29 +274,26 @@ namespace ProjectLexiconWebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BrandId")
+                    b.Property<int?>("BrandId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Discount")
+                    b.Property<decimal>("DiscountedPrice")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Picture")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("ProductRate")
+                    b.Property<double?>("ProductRate")
                         .HasColumnType("float");
 
                     b.Property<int>("Quantity")
@@ -300,6 +302,9 @@ namespace ProjectLexiconWebApp.Migrations
                     b.Property<string>("Size")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -313,54 +318,54 @@ namespace ProjectLexiconWebApp.Migrations
                         new
                         {
                             Id = 1,
-                            BrandId = 0,
+                            BrandId = 1,
                             CategoryId = 4,
                             Description = "",
-                            Discount = 0.0m,
-                            Price = 34.5m,
-                            ProductName = "Honey",
+                            DiscountedPrice = 0.0m,
+                            Name = "Honey",
                             ProductRate = 8.0,
                             Quantity = 20,
-                            Size = "100g"
+                            Size = "100g",
+                            UnitPrice = 34.5m
                         },
                         new
                         {
                             Id = 2,
-                            BrandId = 0,
+                            BrandId = 2,
                             CategoryId = 1,
                             Description = "",
-                            Discount = 0.0m,
-                            Price = 132.35m,
-                            ProductName = "Macadamia nuts",
+                            DiscountedPrice = 0.0m,
+                            Name = "Macadamia nuts",
                             ProductRate = 8.0,
                             Quantity = 20,
-                            Size = "100g"
+                            Size = "100g",
+                            UnitPrice = 132.35m
                         },
                         new
                         {
                             Id = 3,
-                            BrandId = 0,
+                            BrandId = 3,
                             CategoryId = 5,
                             Description = "",
-                            Discount = 0.0m,
-                            Price = 80.6m,
-                            ProductName = "Granola",
+                            DiscountedPrice = 0.0m,
+                            Name = "Granola",
                             ProductRate = 8.0,
                             Quantity = 20,
-                            Size = "500g"
+                            Size = "500g",
+                            UnitPrice = 80.6m
                         },
                         new
                         {
                             Id = 4,
-                            BrandId = 0,
+                            BrandId = 4,
                             CategoryId = 3,
                             Description = "",
-                            Discount = 0.0m,
-                            Price = 60.00m,
-                            ProductName = "Chamomile",
+                            DiscountedPrice = 0.0m,
+                            Name = "Chamomile",
                             ProductRate = 3.0,
                             Quantity = 20,
-                            Size = "100g"
+                            Size = "100g",
+                            UnitPrice = 60.00m
                         });
                 });
 
@@ -406,11 +411,13 @@ namespace ProjectLexiconWebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectLexiconWebApp.Models.Shipper", null)
+                    b.HasOne("ProjectLexiconWebApp.Models.Shipper", "Shipper")
                         .WithMany("Orders")
                         .HasForeignKey("ShipperId");
 
                     b.Navigation("Customer");
+
+                    b.Navigation("Shipper");
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.OrderItem", b =>
@@ -434,15 +441,11 @@ namespace ProjectLexiconWebApp.Migrations
                 {
                     b.HasOne("ProjectLexiconWebApp.Models.Brand", "Brand")
                         .WithMany()
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BrandId");
 
                     b.HasOne("ProjectLexiconWebApp.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.Navigation("Brand");
 

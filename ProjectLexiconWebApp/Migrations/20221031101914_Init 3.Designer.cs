@@ -12,8 +12,8 @@ using ProjectLexiconWebApp.Data;
 namespace ProjectLexiconWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221026082021_changeDataType")]
-    partial class changeDataType
+    [Migration("20221031101914_Init 3")]
+    partial class Init3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,7 @@ namespace ProjectLexiconWebApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -154,6 +155,22 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Kungsgatan 1",
+                            City = "Göteborg",
+                            CreatedAt = new DateTime(2022, 10, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            EMail = "user@user.com",
+                            FirstName = "Pedro",
+                            LastName = "Feitoza",
+                            Phone = "46780964",
+                            RoleId = 0,
+                            Wallet = 1000.0m,
+                            ZipCode = "00000"
+                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Order", b =>
@@ -170,9 +187,6 @@ namespace ProjectLexiconWebApp.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ShipperId")
                         .HasColumnType("int");
 
@@ -180,18 +194,22 @@ namespace ProjectLexiconWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("TotalCost")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("ProductId");
-
                     b.HasIndex("ShipperId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CustomerId = 1,
+                            OrderDate = new DateTime(2022, 10, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Status = "pending"
+                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.OrderItem", b =>
@@ -204,9 +222,6 @@ namespace ProjectLexiconWebApp.Migrations
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -221,6 +236,36 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderItems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            OrderId = 1,
+                            ProductId = 1,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            OrderId = 1,
+                            ProductId = 2,
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            OrderId = 1,
+                            ProductId = 3,
+                            Quantity = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            OrderId = 1,
+                            ProductId = 4,
+                            Quantity = 2
+                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Product", b =>
@@ -231,13 +276,16 @@ namespace ProjectLexiconWebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Discount")
+                    b.Property<decimal>("DiscountedPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
@@ -247,10 +295,7 @@ namespace ProjectLexiconWebApp.Migrations
                     b.Property<string>("Picture")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<double>("ProductRate")
+                    b.Property<double?>("ProductRate")
                         .HasColumnType("float");
 
                     b.Property<int>("Quantity")
@@ -260,7 +305,12 @@ namespace ProjectLexiconWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
 
@@ -270,50 +320,54 @@ namespace ProjectLexiconWebApp.Migrations
                         new
                         {
                             Id = 1,
+                            BrandId = 1,
                             CategoryId = 4,
                             Description = "",
-                            Discount = 0.0m,
+                            DiscountedPrice = 0.0m,
                             Name = "Honey",
-                            Price = 34.5m,
                             ProductRate = 8.0,
                             Quantity = 20,
-                            Size = "100g"
+                            Size = "100g",
+                            UnitPrice = 34.5m
                         },
                         new
                         {
                             Id = 2,
+                            BrandId = 2,
                             CategoryId = 1,
                             Description = "",
-                            Discount = 0.0m,
+                            DiscountedPrice = 0.0m,
                             Name = "Macadamia nuts",
-                            Price = 132.35m,
                             ProductRate = 8.0,
                             Quantity = 20,
-                            Size = "100g"
+                            Size = "100g",
+                            UnitPrice = 132.35m
                         },
                         new
                         {
                             Id = 3,
+                            BrandId = 3,
                             CategoryId = 5,
                             Description = "",
-                            Discount = 0.0m,
+                            DiscountedPrice = 0.0m,
                             Name = "Granola",
-                            Price = 80.6m,
                             ProductRate = 8.0,
                             Quantity = 20,
-                            Size = "500g"
+                            Size = "500g",
+                            UnitPrice = 80.6m
                         },
                         new
                         {
                             Id = 4,
+                            BrandId = 4,
                             CategoryId = 3,
                             Description = "",
-                            Discount = 0.0m,
+                            DiscountedPrice = 0.0m,
                             Name = "Chamomile",
-                            Price = 60.00m,
                             ProductRate = 3.0,
                             Quantity = 20,
-                            Size = "100g"
+                            Size = "100g",
+                            UnitPrice = 60.00m
                         });
                 });
 
@@ -332,6 +386,23 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Shippers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "PostNord"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "DHL"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "DB Schenker"
+                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Order", b =>
@@ -342,15 +413,13 @@ namespace ProjectLexiconWebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectLexiconWebApp.Models.Product", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("ProductId");
-
-                    b.HasOne("ProjectLexiconWebApp.Models.Shipper", null)
+                    b.HasOne("ProjectLexiconWebApp.Models.Shipper", "Shipper")
                         .WithMany("Orders")
                         .HasForeignKey("ShipperId");
 
                     b.Navigation("Customer");
+
+                    b.Navigation("Shipper");
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.OrderItem", b =>
@@ -372,11 +441,15 @@ namespace ProjectLexiconWebApp.Migrations
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Product", b =>
                 {
+                    b.HasOne("ProjectLexiconWebApp.Models.Brand", "Brand")
+                        .WithMany()
+                        .HasForeignKey("BrandId");
+
                     b.HasOne("ProjectLexiconWebApp.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Brand");
 
                     b.Navigation("Category");
                 });
@@ -389,11 +462,6 @@ namespace ProjectLexiconWebApp.Migrations
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Order", b =>
                 {
                     b.Navigation("OrderItems");
-                });
-
-            modelBuilder.Entity("ProjectLexiconWebApp.Models.Product", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Shipper", b =>

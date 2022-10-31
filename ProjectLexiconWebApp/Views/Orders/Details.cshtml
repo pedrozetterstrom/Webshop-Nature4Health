@@ -36,7 +36,7 @@
                 }
                 @if (Model.Status.Contains("delivered"))
                 {
-                    <a class="text-primary" asp-action="ChangeStatus" asp-route-id="@Model.Id">@Model.Status</a>
+                    <a class="text-success" asp-action="ChangeStatus" asp-route-id="@Model.Id">@Model.Status</a>
                 }
         </dd>
         <dt class="col-sm-2">
@@ -86,6 +86,6 @@
 </div>
 <div>
     <a class="text-success" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a class="text-danger" asp-action="DeleteOrder" asp-route-id="@Model?.Id">Delete</a> |
+    <a class="text-danger" asp-action="DeleteOrder" asp-route-id="@Model?.Id">Delete Order</a> |
     <a asp-action="Index">Back to List</a>
 </div>

@@ -53,19 +53,22 @@ namespace ProjectLexiconWebApp.Controllers
             if (ordersModel.Order.Status.Contains("pending"))
             {
                 ordersModel.Order.Status = "sent";
-                return RedirectToAction("Details");
+                _dbContext.SaveChanges();
+                return RedirectToAction("Details", new { id = id });
             }
             if (ordersModel.Order.Status.Contains("sent"))
             {
                 ordersModel.Order.Status = "delivered";
-                return RedirectToAction("Details");
+                _dbContext.SaveChanges();
+                return RedirectToAction("Details", new { id = id });
             }
             if (ordersModel.Order.Status.Contains("delivered"))
             {
                 ordersModel.Order.Status = "pending";
-                return RedirectToAction("Details");
+                _dbContext.SaveChanges();
+                return RedirectToAction("Details", new { id = id });
             }
-            return RedirectToAction("Details", new {id = id});
+            return RedirectToAction("Details", new { id = id });
         }
 
         public IActionResult DeleteOrderItem(int id)
@@ -74,6 +77,16 @@ namespace ProjectLexiconWebApp.Controllers
             if(item != null)
             {
                 _dbContext.OrderItems.Remove(item);
+                _dbContext.SaveChanges();
+            }
+            return RedirectToAction("Details");
+        }
+        public IActionResult DeleteOrder(int id)
+        {
+            var order = _dbContext.OrderItems.FirstOrDefault(i => i.Id == id);
+            if (order != null)
+            {
+                _dbContext.OrderItems.Remove(order);
                 _dbContext.SaveChanges();
             }
             return RedirectToAction("Details");
