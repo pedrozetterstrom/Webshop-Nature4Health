@@ -47,6 +47,20 @@ namespace ProjectLexiconWebApp.Controllers
             return View(ordersModel.Order);
         }
 
+        [HttpPost]
+        public IActionResult Edit(int id, int quantity)
+        {
+            var orderitem = _dbContext.OrderItems.FirstOrDefault(o => o.Id == id);
+            if (orderitem != null)
+            {
+                orderitem.Quantity = quantity;
+                _dbContext.OrderItems.Update(orderitem);
+                _dbContext.SaveChanges();
+            }
+
+            return RedirectToAction("Details", new { id = id });
+        }
+
         public IActionResult ChangeStatus(int id)
         {
             ordersModel.Order = _dbContext.Orders.FirstOrDefault(o => o.Id == id);
@@ -79,7 +93,7 @@ namespace ProjectLexiconWebApp.Controllers
                 _dbContext.OrderItems.Remove(item);
                 _dbContext.SaveChanges();
             }
-            return RedirectToAction("Details");
+            return RedirectToAction("Details", new {id = item.OrderId});
         }
         public IActionResult DeleteOrder(int id)
         {
@@ -89,7 +103,7 @@ namespace ProjectLexiconWebApp.Controllers
                 _dbContext.OrderItems.Remove(order);
                 _dbContext.SaveChanges();
             }
-            return RedirectToAction("Details");
+            return RedirectToAction("Index");
         }
     }
 }
