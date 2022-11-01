@@ -58,7 +58,7 @@ namespace ProjectLexiconWebApp.Controllers
                 _dbContext.SaveChanges();
             }
 
-            return RedirectToAction("Details", new { id = id });
+            return RedirectToAction("Details", new { id = orderitem.OrderId });
         }
 
         public IActionResult ChangeStatus(int id)
