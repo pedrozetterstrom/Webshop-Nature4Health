@@ -1,0 +1,45 @@
+﻿@model Product
+
+<h2>Details about @Model.Name</h2>
+
+@*
+<div class="row gx-5">
+    <img src="~/images/@Model.Picture" alt="Picture NOT FOUND" class="img-fluid col-5" />    
+    <div class="col-7">
+    <div class="col-4">
+        <h4>@Model.Name</h4>
+        <p>@Model.Description</p>
+        <h3 class="pull-right">@Model.UnitPrice.ToString("c")</h3>
+        <h6>Product Rate= @Model.ProductRate</h6>
+        <h6>Product Size= @Model.Size</h6>
+        <h6>Webblager= @Model.InStock</h6>
+        <div class="addToCart">
+            <p class="button">
+                <a class="btn btn-success" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.Id">Add to cart</a>
+                <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Product Page</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+*@
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <img class="card-img-top" src="~/images/@Model.Picture" alt="Card image cap">
+        </div>
+        <div class="col">
+            <p>@Model.Description</p>            
+            <h6>Product Rate= @Model.ProductRate</h6>
+            <h6>Product Size= @Model.Size</h6>
+            <h6>Webblager= @Model.InStock</h6>
+            <h3>@Model.UnitPrice.ToString("c")</h3>
+            <p>
+                <a class="btn btn-success" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.Id">Add to cart</a>
+                <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Product Page</a>
+            </p>
+        </div>
+        <div class="w-100"></div>
+    </div>
+</div>
