@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectLexiconWebApp.Data;
 
@@ -11,9 +12,10 @@ using ProjectLexiconWebApp.Data;
 namespace ProjectLexiconWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221101132346_Init 4")]
+    partial class Init4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,22 +49,6 @@ namespace ProjectLexiconWebApp.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "0b970d62-6701-4de2-bddb-3a657beed82b",
-                            ConcurrencyStamp = "4e62a554-11e9-46d0-bb00-60ae73ce7d02",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "e8ac3ffc-b8ec-4731-aa95-230f2a0c4cc6",
-                            ConcurrencyStamp = "41991a94-899a-4163-b310-7b4090890beb",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -118,12 +104,10 @@ namespace ProjectLexiconWebApp.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -152,13 +136,6 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "dd745e28-585a-4222-b50c-f85d4fc7e54b",
-                            RoleId = "0b970d62-6701-4de2-bddb-3a657beed82b"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -167,12 +144,10 @@ namespace ProjectLexiconWebApp.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -269,30 +244,6 @@ namespace ProjectLexiconWebApp.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "dd745e28-585a-4222-b50c-f85d4fc7e54b",
-                            AccessFailedCount = 0,
-                            Address = "Adminsgatan 1",
-                            City = "Borås",
-                            ConcurrencyStamp = "9aafb88b-f7f1-47c0-a5e4-3a36e0bfba2e",
-                            Email = "admin@n4h.com",
-                            EmailConfirmed = false,
-                            FirstName = "Daniel",
-                            LastName = "O.",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@N4H.COM",
-                            NormalizedUserName = "ADMIN@N4H.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBMj+4KPoJZSExyrDIAdgCgYdol+4t6lyvP4cq830i6MZu+m7BYMFEfha32EyKRRGg==",
-                            Phone = "10101010101",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "eb2b2bae-75b7-4174-ae14-01a067dc3b52",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@n4h.com",
-                            ZipCode = "10001"
-                        });
                 });
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.Brand", b =>
@@ -433,7 +384,7 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 1,
                             Address = "Kungsgatan 1",
                             City = "Göteborg",
-                            CreatedAt = new DateTime(2022, 11, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedAt = new DateTime(2022, 11, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             EMail = "user@user.com",
                             FirstName = "Pedro",
                             LastName = "Feitoza",
@@ -478,7 +429,7 @@ namespace ProjectLexiconWebApp.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            OrderDate = new DateTime(2022, 11, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            OrderDate = new DateTime(2022, 11, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = "pending"
                         });
                 });

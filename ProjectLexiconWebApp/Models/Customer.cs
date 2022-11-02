@@ -1,4 +1,6 @@
-﻿namespace ProjectLexiconWebApp.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace ProjectLexiconWebApp.Models
 {
     public class Customer
     {

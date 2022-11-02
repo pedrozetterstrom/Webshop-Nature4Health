@@ -51,6 +51,12 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Customer.Id)
         </dd>
+        <dt class="col-sm-2">
+            Shipper
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Shipper)
+        </dd>
     </dl>
 </div>
 <div>
@@ -75,7 +81,7 @@
                         <td>@orderitem.Id</td>
                         <td>@orderitem.Product.Name</td>
                         @if(orderitem.Product.DiscountedPrice > 0){ <td>@orderitem.Product.UnitPrice</td> } else{ <td>@orderitem.Product.UnitPrice</td> }
-                        <td>@orderitem.Quantity<form asp-action="Edit" method="post">Change quantity to: <input type="number" name="quantity" /></form></td>
+                        <td><form asp-action="Edit" method="post">Quantity: <input type="hidden" name="id" value="@orderitem.Id" /><input type="number" min="0" name= "quantity" value="@orderitem.Quantity" onclick="" /><button class="btn btn-outline-success" type="submit" value="Edit" /></form></td>
                         <td>@orderitem.Price</td>
                         <td><a class="text-danger" asp-action="DeleteOrderItem" asp-route-id="@orderitem.Id">Delete</a></td>
                     </tr>
@@ -85,7 +91,6 @@
     </table>
 </div>
 <div>
-    <a class="text-success" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a class="text-danger" asp-action="DeleteOrder" asp-route-id="@Model?.Id">Delete Order</a> |
     <a asp-action="Index">Back to List</a>
 </div>
