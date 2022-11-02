@@ -6,6 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//Enable Session support - Step 1
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(5);
+});
 
 //Add EF Core support, configure/setup for Dependency Injection
 /*builder.Services.AddDbContext<ApplicationDbContext>(options => {                                 //What db to use
@@ -19,6 +24,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 var app = builder.Build();
+
+//Enable session - Step 2
+app.UseSession();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

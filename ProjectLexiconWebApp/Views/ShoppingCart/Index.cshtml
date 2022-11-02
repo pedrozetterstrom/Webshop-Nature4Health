@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ShoppingCartViewModel>
+
+@{
+    ViewData["Title"] = "Shopping Cart";    
+}
+
+
+<h1>Current item(s) in ShoppingCart</h1>
+<h4>Total Price: @ViewBag.TotalCost</h4>
+@*Dont show if cart is empty*@
+@if(Model.Any())
+{
+    <a class="btn btn-primary" asp-controller="ShoppingCart" asp-action="PlaceAnOrder">Place An Order</a>
+}
+
+<h6>DEBUG - Session string content={@ViewBag.SessionString}</h6>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product Picture</th>
+            <th>Product Name</th>            
+            <th>Size</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aShoppingCartViewModel in Model)
+        {
+            <tr>
+                @*<td><img src="~/images/honey.png" alt="Not found pic" width="30" height="30"/></td>*@
+                <td><img src=@aShoppingCartViewModel.Picture alt="Not found pic" width="80" height="45" /></td>
+                <td>@aShoppingCartViewModel.ProductName</td>
+                <td>@aShoppingCartViewModel.Size</td>
+                <td>
+                    <a asp-action="RemoveFromCart" asp-route-id=@aShoppingCartViewModel.Id class="btn btn-danger btn-sm">-</a>
+                    @aShoppingCartViewModel.Quantity
+                    <a asp-action="AddToCart" asp-route-id=@aShoppingCartViewModel.Id class="btn btn-success btn-sm">+</a>
+                </td>
+                <td>@aShoppingCartViewModel.UnitPrice.ToString("C")</td>
+                <td>@(aShoppingCartViewModel.UnitPrice * aShoppingCartViewModel.Quantity) kr</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-success" asp-controller="Home" asp-action="Index">Go To Product Page</a>
+<a class="btn btn-danger" asp-controller="ShoppingCart" asp-action="ClearCart">Clear Cart</a>
+

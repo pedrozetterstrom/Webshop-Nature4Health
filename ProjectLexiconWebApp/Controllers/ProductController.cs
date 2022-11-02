@@ -127,7 +127,11 @@ namespace ProjectLexiconWebApp.Controllers
             return RedirectToAction("Index");
         }
 
-
+        public IActionResult Details(int id) 
+        {
+            Product product = _dbContext.Products.FirstOrDefault(product => product.Id == id);
+            return View(product);
+        }
 
     }
 }

@@ -49,7 +49,7 @@ namespace ProjectLexiconWebApp.Data
                 modelBuilder.Entity<Category>().HasData(category5);
 
 
-            Product p1 = new Product() { Id = 1, Name = "Honey", Description = "", UnitPrice = 34.5m, DiscountedPrice = 0.0m, Size = "100g", Quantity = 20, ProductRate = 8, CategoryId = 4, BrandId = 1 };
+            Product p1 = new Product() { Id = 1, Name = "Honey", Description = "", UnitPrice = 34.5m, DiscountedPrice = 0.0m, Size = "100g", Quantity = 20, ProductRate = 8, CategoryId = 4, BrandId = 1 , Picture="../wwwroot/12345.png"};
 
             Product p2 = new Product() { Id = 2, Name = "Macadamia nuts", Description = "", UnitPrice = 132.35m, DiscountedPrice = 0.0m, Size = "100g", Quantity = 20, ProductRate = 8, CategoryId = 1, BrandId = 2 };
 
