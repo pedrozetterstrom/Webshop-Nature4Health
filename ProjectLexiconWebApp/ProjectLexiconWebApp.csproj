@@ -28,5 +28,6 @@
 
   <ItemGroup>
     <None Include="Views\Orders\Index.cshtml" />
+    <None Include="Views\Role\Index.cshtml" />
   </ItemGroup>
 </Project>

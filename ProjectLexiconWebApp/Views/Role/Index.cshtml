@@ -1,0 +1,67 @@
+﻿@model UserRoleViewModel;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Role Manager</h1>
+<h2 class="text-info">Assign Roles</h2>
+<form asp-action="Search" method="post"><input type="text" name="search" /> <button type="submit" class="btn btn-outline-success">Search</button></form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">User ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Role</th>
+            <th scope="col">Alter role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <th scope="row">@user.UserId</th>
+                <td>@user.UserName</td>
+                <td>@user.FirstName @user.LastName</td>
+                <td>@if (user.Roles.Contains("Admin"))
+                    {
+                        <span>Admin</span>
+                    }
+                    else
+                    {
+                        <span>User</span>
+                    }</td>
+                <td>@if (user.Roles.Contains("Admin"))
+                    {
+                        <a class="btn btn-outline-danger" asp-action="MakeUser" asp-route-id="@user.UserId">Make User</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-outline-success" asp-action="MakeAdmin" asp-route-id="@user.UserId">Make Admin</a>
+                    }</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2 class="text-info">Roles list</h2>
+<form asp-action="Create" method="post"><input class="input-group-sm" type="text" name="roleName" required="required" />    <button type="submit" class="btn btn-outline-success">Create new role</button></form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Role ID</th>
+            <th scope="col">Role name</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model.IdentityRoles)
+        {
+            <tr>
+                <th scope="row">@role.Id</th>
+                <td>@role.NormalizedName</td>
+                <td><a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@role.Id">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
