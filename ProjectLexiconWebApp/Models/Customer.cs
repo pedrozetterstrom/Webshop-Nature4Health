@@ -19,7 +19,7 @@ namespace ProjectLexiconWebApp.Models
         public string FullName { get { return FirstName + " " + LastName; } }
 
         //FK
-        public int UserId { get; set; }
+        //public int UserId { get; set; }
         //Navigation
         public List<Order> Orders { get; set; } = new List<Order>(); 
     }
