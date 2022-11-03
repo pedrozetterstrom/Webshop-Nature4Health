@@ -2,7 +2,7 @@
 
 namespace ProjectLexiconWebApp.Models
 {
-    public class Customer
+    public class Customer 
     {
         public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
@@ -19,7 +19,7 @@ namespace ProjectLexiconWebApp.Models
         public string FullName { get { return FirstName + " " + LastName; } }
 
         //FK
-        public int RoleId { get; set; }
+        public int UserId { get; set; }
         //Navigation
         public List<Order> Orders { get; set; } = new List<Order>(); 
     }
