@@ -4,16 +4,18 @@
     ViewData["Title"] = "Product Page";
 }
 
-<h1>All Products to Buy</h1>
+<h3>Our Products</h3>
 
 <div class="row row-cols-1 row-cols-md-4 mb-3 text-center">
     @foreach(var aProduct in Model)
     {
-        <div class="col">
-            <div class="card h-100">
+        <div class="col mb-3">
+            <div class="card h-100 border border-dark border-2 rounded shadow">
                 <div class="card-header">
-                    <h5><a asp-controller="Product" asp-action="Details" asp-route-id="@aProduct.Id" class="text-decoration-none">@aProduct.Name @aProduct.Size</a></h5>
-                    <img class="card-img-top" src="../images/@aProduct.Picture" alt="Card image cap" />
+                    <h5><strong><a asp-controller="Product" asp-action="Details" asp-route-id="@aProduct.Id" class="text-decoration-none" style="color:#157347">@aProduct.Name @aProduct.Size</a></strong></h5>
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@aProduct.Id">
+                        <img class="card-img-top border border-dark border-2 rounded shadow" src="../images/@aProduct.Picture" alt="Card image cap" />
+                    </a>
                 </div>
                 
                 <div class="card-body ">                    
@@ -30,7 +32,14 @@
 
                 <div class="card-footer">
                     <h5>@aProduct.UnitPrice.ToString("c")</h5>
-                    <a class="btn btn-primary" asp-controller="Home" asp-action="AddToShoppingCart" asp-route-Id="@aProduct.Id"> + Add to cart</a>
+                    @if (aProduct.InStock)
+                    {
+                        <a class="btn btn-success border border-dark border-1 rounded shadow" asp-controller="Home" asp-action="AddToShoppingCart" asp-route-Id="@aProduct.Id"> + Add to cart</a>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-success" disabled>Out of stock</button>
+                    }
                 </div>
             </div>
         </div>
