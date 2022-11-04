@@ -74,11 +74,10 @@ namespace ProjectLexiconWebApp.Controllers
                 _context.Customers.Remove(customerToDelete);
                 //_context.Remove(customerToDelete);
                 await _context.SaveChangesAsync();
-            }
+            }           
+             return View("Index", _context.Customers.ToList());
+            //return RedirectToAction("Index");
 
-            //return RedirectToAction("Index");            
-            return View("Index", _context.Customers.ToList());
-            
         }
     }
 }

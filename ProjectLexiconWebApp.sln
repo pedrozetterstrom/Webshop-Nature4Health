@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectLexiconWebApp", "ProjectLexiconWebApp\ProjectLexiconWebApp.csproj", "{08BA2116-5D4C-4C10-B83E-E5E0FEA1719F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectLexiconWebAppTests", "ProjectLexiconWebAppTests\ProjectLexiconWebAppTests.csproj", "{75AEE09A-81EE-4BE1-BC19-EFEBB335F590}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{08BA2116-5D4C-4C10-B83E-E5E0FEA1719F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08BA2116-5D4C-4C10-B83E-E5E0FEA1719F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08BA2116-5D4C-4C10-B83E-E5E0FEA1719F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75AEE09A-81EE-4BE1-BC19-EFEBB335F590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75AEE09A-81EE-4BE1-BC19-EFEBB335F590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75AEE09A-81EE-4BE1-BC19-EFEBB335F590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75AEE09A-81EE-4BE1-BC19-EFEBB335F590}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

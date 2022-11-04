@@ -24,12 +24,11 @@ namespace ProjectLexiconWebApp.Models
         }
 
 
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
         public int? CategoryId { get; set; }
-        public Brand Brand { get; set; } //Brand name is good to have in Products table
+        public Brand? Brand { get; set; } //Brand name is good to have in Products table
         public int? BrandId { get; set; }
 
-        // public List<Order> Orders { get; set; } = new List<Order>();
 
     }
 }

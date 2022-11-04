@@ -41,8 +41,13 @@
                 <span asp-validation-for="@Model.Quantity"> </span>
             </div>
             <div>
+                <label>Select Product Brand:</label>
+                <select asp-for="@Model.BrandId" asp-items="@ViewBag.Brands"></select>
+                <span asp-validation-for="@Model.BrandId"> </span>
+            </div>
+            <div>
                 <label>Select Product Category:</label>
-                <select asp-for="@Model.CategoryId" asp-items="@@ViewBag.Categories"></select>
+                <select asp-for="@Model.CategoryId" asp-items="@ViewBag.Categories"></select>
                 <span asp-validation-for="@Model.CategoryId"> </span>
             </div>
             <button id="submit" type="submit">Save</button>

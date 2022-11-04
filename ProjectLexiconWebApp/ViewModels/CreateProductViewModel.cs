@@ -33,12 +33,12 @@ namespace ProjectLexiconWebApp.ViewModels
         [Display(Name = "Quantity:")]
         public int Quantity { get; set; }
 
-       /* [Required(ErrorMessage = "Category is required")]
-        [Display(Name = "Category:")]
-        public int BrandId { get; set; }*/
+        [Required(ErrorMessage = "Brand name is required")]
+        [Display(Name = "Brand Name:")]
+        public int BrandId { get; set; }
 
-        [Required(ErrorMessage = "Category is required")]
-        [Display(Name = "Category:")]
+        [Required(ErrorMessage = "Category name is required")]
+        [Display(Name = "Category Name:")]
         public int CategoryId { get; set; }
 
 

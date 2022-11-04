@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Data;
 using ProjectLexiconWebApp.Models;
 
@@ -61,6 +62,25 @@ namespace ProjectLexiconWebApp.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             Category categoryToDelete = await _context.Categories.FindAsync(id);
+
+            List<Product> productsList = await _context.Products.Where(product => product.CategoryId == id).ToListAsync();
+            if(productsList.Count() != 0)
+            {
+                foreach(var product in productsList)
+                {
+                    product.Name = product.Name;
+                    product.Description = product.Description;
+                    product.UnitPrice = product.UnitPrice;
+                    product.DiscountedPrice = product.DiscountedPrice;
+                    product.Picture = product.Picture;
+                    product.Size = product.Size;
+                    product.Quantity = product.Quantity;
+                    product.CategoryId = null;
+
+                    _context.Products.Update(product);
+                    await _context.SaveChangesAsync();
+                }
+            }
 
             if (categoryToDelete != null)
             {
