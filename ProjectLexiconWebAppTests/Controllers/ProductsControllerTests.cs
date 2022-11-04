@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Controllers;
 using ProjectLexiconWebApp.Data;
-using ProjectLexiconWebApp.Migrations;
+//using ProjectLexiconWebApp.Migrations;
 using ProjectLexiconWebApp.Models;
 using ProjectLexiconWebApp.ViewModels;
 
