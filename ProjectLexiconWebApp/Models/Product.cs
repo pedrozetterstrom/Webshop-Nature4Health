@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
 namespace ProjectLexiconWebApp.Models
@@ -9,7 +10,9 @@ namespace ProjectLexiconWebApp.Models
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
+        [Precision(18, 2)]
         public decimal UnitPrice { get; set; }
+        [Precision(18, 2)]
         public decimal DiscountedPrice { get; set; }
         public string? Picture { get; set; }
         public string Size { get; set; } = string.Empty;

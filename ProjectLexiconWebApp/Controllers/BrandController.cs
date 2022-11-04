@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Data;
-using ProjectLexiconWebApp.Migrations;
+//using ProjectLexiconWebApp.Migrations;
 using ProjectLexiconWebApp.Models;
 
 namespace ProjectLexiconWebApp.Controllers

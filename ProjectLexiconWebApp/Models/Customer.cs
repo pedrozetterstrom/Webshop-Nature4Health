@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjectLexiconWebApp.Models
 {
@@ -14,7 +15,7 @@ namespace ProjectLexiconWebApp.Models
         public string Phone { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
 
-        //FREE fake money - Daniel
+        [Precision(18, 2)]
         public decimal Wallet { get; set; }        
         public string FullName { get { return FirstName + " " + LastName; } }
 

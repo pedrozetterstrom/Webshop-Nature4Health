@@ -51,15 +51,15 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "49c13023-a56d-40bd-a240-3b5b83a6b260",
-                            ConcurrencyStamp = "f99da1f1-449d-4862-b44c-04db8a27d515",
+                            Id = "243f73b5-62d5-4a71-903f-267050abe7d5",
+                            ConcurrencyStamp = "af48163a-de52-40ab-abd1-1abeaca9a886",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f0fa68fd-23c8-42f9-b0a8-1fad8113b00e",
-                            ConcurrencyStamp = "5bbfa1e5-f70a-4873-ab32-c3153b148e87",
+                            Id = "64656bf0-1d14-45ca-8369-3c2d21568bdb",
+                            ConcurrencyStamp = "e8570f30-33e6-4708-9055-0a1858d5baff",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -156,8 +156,8 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "4835f283-bc9b-4fe1-bb11-2c38ff7bfe6a",
-                            RoleId = "49c13023-a56d-40bd-a240-3b5b83a6b260"
+                            UserId = "8b2ddc63-3d40-46f8-ab91-0249cc4ed585",
+                            RoleId = "243f73b5-62d5-4a71-903f-267050abe7d5"
                         });
                 });
 
@@ -273,11 +273,11 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4835f283-bc9b-4fe1-bb11-2c38ff7bfe6a",
+                            Id = "8b2ddc63-3d40-46f8-ab91-0249cc4ed585",
                             AccessFailedCount = 0,
                             Address = "Adminsgatan 1",
                             City = "Borås",
-                            ConcurrencyStamp = "c178a368-4cd7-4358-9e9b-71f6bfd1ee14",
+                            ConcurrencyStamp = "24636beb-2ff2-4364-8cd4-997e389cb29f",
                             Email = "admin@n4h.com",
                             EmailConfirmed = false,
                             FirstName = "Daniel",
@@ -285,10 +285,10 @@ namespace ProjectLexiconWebApp.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@N4H.COM",
                             NormalizedUserName = "ADMIN@N4H.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGxUNMcRGja4JJsWOFwKjZPZpcanLyjdz9WodUSh5Km+JDwUvgCcrGk6iw1FgUVYZw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOcFBWB9+P0wouswTV9Y/Dg4ELouGpW3WbgF92C4nkM9eF7erAwmGOJ1cab3i+uPfg==",
                             Phone = "10101010101",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "96f29405-7a96-4108-9662-24ca84da27f2",
+                            SecurityStamp = "8e69b4ad-c01e-451a-afd6-9ea97862af13",
                             TwoFactorEnabled = false,
                             UserName = "admin@n4h.com",
                             ZipCode = "10001"
@@ -413,10 +413,8 @@ namespace ProjectLexiconWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Wallet")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ZipCode")
@@ -433,12 +431,11 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 1,
                             Address = "Kungsgatan 1",
                             City = "Göteborg",
-                            CreatedAt = new DateTime(2022, 11, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedAt = new DateTime(2022, 11, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             EMail = "user@user.com",
                             FirstName = "Pedro",
                             LastName = "Feitoza",
                             Phone = "46780964",
-                            RoleId = 0,
                             Wallet = 1000.0m,
                             ZipCode = "00000"
                         });
@@ -478,7 +475,7 @@ namespace ProjectLexiconWebApp.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            OrderDate = new DateTime(2022, 11, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            OrderDate = new DateTime(2022, 11, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = "pending"
                         });
                 });
@@ -557,6 +554,7 @@ namespace ProjectLexiconWebApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("DiscountedPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
@@ -577,6 +575,7 @@ namespace ProjectLexiconWebApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("UnitPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -593,10 +592,10 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 1,
                             BrandId = 1,
                             CategoryId = 4,
-                            Description = "",
+                            Description = "Sweet and good for your body. Perfect combo with tea.",
                             DiscountedPrice = 0.0m,
                             Name = "Honey",
-                            Picture = "../wwwroot/12345.png",
+                            Picture = "honey-main.png",
                             ProductRate = 8.0,
                             Quantity = 20,
                             Size = "100g",
@@ -607,9 +606,10 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 2,
                             BrandId = 2,
                             CategoryId = 1,
-                            Description = "",
+                            Description = "De extra stora macadamia nötterna är torrostade och smaksatta med en liten gnutta havssalt. Torrostningen framhäver den fina nötsmaken och gör dem lagom knapriga. Macadamianötter är en av de fetaste nötterna och är rika på omega fettsyror, protein samt fibrer och en del mineraler.",
                             DiscountedPrice = 0.0m,
                             Name = "Macadamia nuts",
+                            Picture = "macadamina-main.png",
                             ProductRate = 8.0,
                             Quantity = 20,
                             Size = "100g",
@@ -620,9 +620,10 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 3,
                             BrandId = 3,
                             CategoryId = 5,
-                            Description = "",
+                            Description = "Starta dagen med den smakrika och knapriga granolan från Clean Eating. Gjord på naturliga ingredienser utan tillsatser. Clean Eating Granola är ugnsrostad i kokosolja och sötad med honung och juice från frukter som ger en naturligt god och söt smak. Granolan passar både stora som små i familjen, och är ett nyttigare och godare alternativ till frukosten eller mellanmålet. Clean Eating Granola finns i tre goda smaker som passar de flesta smaklökar!",
                             DiscountedPrice = 0.0m,
                             Name = "Granola",
+                            Picture = "granola-main.png",
                             ProductRate = 8.0,
                             Quantity = 20,
                             Size = "500g",
@@ -633,9 +634,10 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 4,
                             BrandId = 4,
                             CategoryId = 3,
-                            Description = "",
+                            Description = "Örtagubben Kamomill (Matricaria recutita) består av torkade kamomillblommor från ekologisk odling. Kamomill har en aromatisk doft och en milt bitter smak som många uppskattar. Kamomill är en välbekant blomma i den svenska floran, och en vanlig ört att använda i örtteer. Drick en kopp kamomillte på kvällen när du vill lugna ner dig och komma till ro inför natten. Kamomill är en ettårig, aromatiskt doftande ört som kan bli upp till fyra decimeter hög. Blomkorgarna är prästkragelika och sitter på långa skaft. Kamomill är ett ogräs som förekommer tämligen allmänt upp till Gästrikland och blommar från juni till oktober. Ursprungligen hör den hemma i södra och östra Europa men är numera spridd i nästan hela Europa, såväl som i Kanada och USA.",
                             DiscountedPrice = 0.0m,
                             Name = "Chamomile",
+                            Picture = "chamomile-main.png",
                             ProductRate = 3.0,
                             Quantity = 20,
                             Size = "100g",

@@ -51,13 +51,13 @@ namespace ProjectLexiconWebApp.Data
             modelBuilder.Entity<Category>().HasData(category5);
 
 
-            Product p1 = new Product() { Id = 1, Name = "Honey", Description = "", UnitPrice = 34.5m, DiscountedPrice = 0.0m, Size = "100g", Quantity = 20, ProductRate = 8, CategoryId = 4, BrandId = 1 , Picture="../wwwroot/12345.png"};
+            Product p1 = new Product() { Id = 1, Name = "Honey", Description = "Sweet and good for your body. Perfect combo with tea.", UnitPrice = 34.5m, DiscountedPrice = 0.0m, Size = "100g", Quantity = 20, ProductRate = 8, CategoryId = 4, BrandId = 1 , Picture= "honey-main.png" };
 
-            Product p2 = new Product() { Id = 2, Name = "Macadamia nuts", Description = "", UnitPrice = 132.35m, DiscountedPrice = 0.0m, Size = "100g", Quantity = 20, ProductRate = 8, CategoryId = 1, BrandId = 2 };
+            Product p2 = new Product() { Id = 2, Name = "Macadamia nuts", Description = "De extra stora macadamia nötterna är torrostade och smaksatta med en liten gnutta havssalt. Torrostningen framhäver den fina nötsmaken och gör dem lagom knapriga. Macadamianötter är en av de fetaste nötterna och är rika på omega fettsyror, protein samt fibrer och en del mineraler.", UnitPrice = 132.35m, DiscountedPrice = 0.0m, Size = "100g", Quantity = 20, ProductRate = 8, CategoryId = 1, BrandId = 2, Picture = "macadamina-main.png" };
 
-            Product p3 = new Product() { Id = 3, Name = "Granola", Description = "", UnitPrice = 80.6m, DiscountedPrice = 0.0m, Size = "500g", Quantity = 20, ProductRate = 8, CategoryId = 5, BrandId = 3 };
+            Product p3 = new Product() { Id = 3, Name = "Granola", Description = "Starta dagen med den smakrika och knapriga granolan från Clean Eating. Gjord på naturliga ingredienser utan tillsatser. Clean Eating Granola är ugnsrostad i kokosolja och sötad med honung och juice från frukter som ger en naturligt god och söt smak. Granolan passar både stora som små i familjen, och är ett nyttigare och godare alternativ till frukosten eller mellanmålet. Clean Eating Granola finns i tre goda smaker som passar de flesta smaklökar!", UnitPrice = 80.6m, DiscountedPrice = 0.0m, Size = "500g", Quantity = 20, ProductRate = 8, CategoryId = 5, BrandId = 3, Picture = "granola-main.png" };
 
-            Product p4 = new Product() { Id = 4, Name = "Chamomile", Description = "", UnitPrice = 60.00m, DiscountedPrice = 0.0m, Size = "100g", Quantity = 20, ProductRate = 3, CategoryId = 3, BrandId = 4 };
+            Product p4 = new Product() { Id = 4, Name = "Chamomile", Description = "Örtagubben Kamomill (Matricaria recutita) består av torkade kamomillblommor från ekologisk odling. Kamomill har en aromatisk doft och en milt bitter smak som många uppskattar. Kamomill är en välbekant blomma i den svenska floran, och en vanlig ört att använda i örtteer. Drick en kopp kamomillte på kvällen när du vill lugna ner dig och komma till ro inför natten. Kamomill är en ettårig, aromatiskt doftande ört som kan bli upp till fyra decimeter hög. Blomkorgarna är prästkragelika och sitter på långa skaft. Kamomill är ett ogräs som förekommer tämligen allmänt upp till Gästrikland och blommar från juni till oktober. Ursprungligen hör den hemma i södra och östra Europa men är numera spridd i nästan hela Europa, såväl som i Kanada och USA.", UnitPrice = 60.00m, DiscountedPrice = 0.0m, Size = "100g", Quantity = 20, ProductRate = 3, CategoryId = 3, BrandId = 4, Picture = "chamomile-main.png" };
 
             modelBuilder.Entity<Product>().HasData(p1);
             modelBuilder.Entity<Product>().HasData(p2);
@@ -70,7 +70,7 @@ namespace ProjectLexiconWebApp.Data
             //    .UsingEntity(j => j.HasData(new { OrdersId = 1, ProductsId = 2 }));
 
 
-            Customer c1 = new Customer() { Id = 1, FirstName = "Pedro", LastName = "Feitoza", EMail = "user@user.com", Address = "Kungsgatan 1", ZipCode = "00000", City = "Göteborg", Phone = "46780964", CreatedAt = DateTime.Today, Wallet = 1000.0m };
+            Customer c1 = new Customer() { Id = 1, FirstName = "Pedro", LastName = "Feitoza", EMail = "user@user.com", Address = "Kungsgatan 1", ZipCode = "00000", City = "Göteborg", Phone = "46780964", CreatedAt = DateTime.Today, Wallet = 1000.0M };
 
             modelBuilder.Entity<Customer>().HasData(c1);
 
