@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Data;
+using ProjectLexiconWebApp.Migrations;
 using ProjectLexiconWebApp.Models;
 
 namespace ProjectLexiconWebApp.Controllers
@@ -16,6 +18,7 @@ namespace ProjectLexiconWebApp.Controllers
 
         public IActionResult Index()
         {
+           
             return View(_context.Brands.ToList());
         }
 
@@ -62,6 +65,28 @@ namespace ProjectLexiconWebApp.Controllers
         public async Task<IActionResult> Delete(int id)
         {            
             Brand brandToDelete = await _context.Brands.FindAsync(id);
+
+            List<Product> productsList = await _context.Products.Where(product => product.BrandId == id).ToListAsync();
+            if (productsList.Count() != 0)
+            {
+                foreach (var product in productsList)
+                {
+                    product.Name = product.Name;
+                    product.Description = product.Description;
+                    product.UnitPrice = product.UnitPrice;
+                    product.DiscountedPrice = product.DiscountedPrice;
+                    product.Picture = product.Picture;
+                    product.Size = product.Size;
+                    product.Quantity = product.Quantity;
+                    product.CategoryId = product.CategoryId;
+                    product.BrandId = null;
+
+                    _context.Products.Update(product);
+                    await _context.SaveChangesAsync();
+                }
+                
+            }
+
 
             if (brandToDelete != null)
             {

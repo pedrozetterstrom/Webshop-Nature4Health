@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectLexiconWebApp.Data;
 
@@ -11,9 +12,10 @@ using ProjectLexiconWebApp.Data;
 namespace ProjectLexiconWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221103070520_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,15 +53,15 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "49c13023-a56d-40bd-a240-3b5b83a6b260",
-                            ConcurrencyStamp = "f99da1f1-449d-4862-b44c-04db8a27d515",
+                            Id = "2ee205d3-be7c-4e14-b56c-6628a5c9f85f",
+                            ConcurrencyStamp = "1e2acffe-36d5-43ed-bd81-a5bac461dda0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f0fa68fd-23c8-42f9-b0a8-1fad8113b00e",
-                            ConcurrencyStamp = "5bbfa1e5-f70a-4873-ab32-c3153b148e87",
+                            Id = "ab3c0b5f-2e06-4ce6-bf85-527da5d5f563",
+                            ConcurrencyStamp = "ddf4a4bb-3826-441f-9e3f-0ba9a8ffdfd5",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -156,8 +158,8 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "4835f283-bc9b-4fe1-bb11-2c38ff7bfe6a",
-                            RoleId = "49c13023-a56d-40bd-a240-3b5b83a6b260"
+                            UserId = "4fb5001d-fd58-44af-bc58-ee135968be61",
+                            RoleId = "2ee205d3-be7c-4e14-b56c-6628a5c9f85f"
                         });
                 });
 
@@ -273,11 +275,11 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4835f283-bc9b-4fe1-bb11-2c38ff7bfe6a",
+                            Id = "4fb5001d-fd58-44af-bc58-ee135968be61",
                             AccessFailedCount = 0,
                             Address = "Adminsgatan 1",
                             City = "Borås",
-                            ConcurrencyStamp = "c178a368-4cd7-4358-9e9b-71f6bfd1ee14",
+                            ConcurrencyStamp = "1050710b-31e8-42c9-82e8-e47cc5de8281",
                             Email = "admin@n4h.com",
                             EmailConfirmed = false,
                             FirstName = "Daniel",
@@ -285,10 +287,10 @@ namespace ProjectLexiconWebApp.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@N4H.COM",
                             NormalizedUserName = "ADMIN@N4H.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGxUNMcRGja4JJsWOFwKjZPZpcanLyjdz9WodUSh5Km+JDwUvgCcrGk6iw1FgUVYZw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHAZWw6n+KqwIK7VM6iAlJ4/UI0hoCh/QwpeNItItRfrvPJ/5/HnV2crhVkXvLC4cQ==",
                             Phone = "10101010101",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "96f29405-7a96-4108-9662-24ca84da27f2",
+                            SecurityStamp = "a4f40b22-df97-4df4-b959-902fc0e1c9cf",
                             TwoFactorEnabled = false,
                             UserName = "admin@n4h.com",
                             ZipCode = "10001"
