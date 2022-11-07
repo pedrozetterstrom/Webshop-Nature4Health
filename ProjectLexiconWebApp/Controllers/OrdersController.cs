@@ -99,10 +99,10 @@ namespace ProjectLexiconWebApp.Controllers
         }
         public IActionResult DeleteOrder(int id)
         {
-            var order = _dbContext.OrderItems.FirstOrDefault(i => i.Id == id);
+            var order = _dbContext.Orders.FirstOrDefault(o => o.Id == id);
             if (order != null)
             {
-                _dbContext.OrderItems.Remove(order);
+                _dbContext.Orders.Remove(order);
                 _dbContext.SaveChanges();
             }
             return RedirectToAction("Index");
