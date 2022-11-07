@@ -72,7 +72,41 @@ namespace ProjectLexiconWebAppTests.Controllers
 
 
         [Fact]
-        public async void TestCreateCategory_ValidModelState()
+        public async void TestCreateCategory_ValidModelState_ReturnIndexView()
+        {
+            var dbContext = await GetApplicationContext();
+            using var categoryController = new CategoryController(dbContext);
+
+            Category category = new Category
+            {
+                Name = "Fruits",
+            };
+            var result = await categoryController.Create(category);
+
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Null(redirectToActionResult.ControllerName);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+
+        }
+
+        [Fact]
+        public async void TestCreateCategory_InvalidModelState_ReturnEditView()
+        {
+            var dbContext = await GetApplicationContext();
+            using var categoryController = new CategoryController(dbContext);
+            categoryController.ModelState.AddModelError("Name", "The name is required");
+            Category category = new Category
+            {
+                Name = string.Empty
+            };
+            var result = await categoryController.Create(category); 
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var categoryModel = Assert.IsType<Category>(viewResult.Model);
+        }
+
+
+        [Fact]
+        public async void TestCreateCategory_InvalidCategoryName_ReturnErrorPage()
         {
             var dbContext = await GetApplicationContext();
             using var categoryController = new CategoryController(dbContext);
@@ -82,10 +116,8 @@ namespace ProjectLexiconWebAppTests.Controllers
                 Name = "Drink",
             };
             var result = await categoryController.Create(category);
-
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Null(redirectToActionResult.ControllerName);
-            Assert.Equal("Index", redirectToActionResult.ActionName);
+            var viewResult = Assert.IsType<PartialViewResult>(result);
+            Assert.Equal("_ErrorPage", viewResult.ViewName);
 
         }
 
@@ -97,12 +129,12 @@ namespace ProjectLexiconWebAppTests.Controllers
             using var categoryController = new CategoryController(dbContext);
             var result = categoryController.Edit(1);
             var viewResult = Assert.IsType<ViewResult>(result);
-            var brand = Assert.IsType<Category>(viewResult.Model);
+            var category = Assert.IsType<Category>(viewResult.Model);
         }
 
 
         [Fact]
-        public async void TestEditCategory()
+        public async void TestEditCategory_ValidCategoryName_ReturnIndexView()
         {
             var dbContext = await GetApplicationContext();
             using var categoryController = new CategoryController(dbContext);
@@ -110,13 +142,68 @@ namespace ProjectLexiconWebAppTests.Controllers
             Category category = new Category
             {
                 Id = 1,
-                Name = "Tea",
+                Name = "Vegetables",
             };
-
             var result = await categoryController.Edit(category);
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Null(redirectToActionResult.ControllerName);
             Assert.Equal("Index", redirectToActionResult.ActionName);
+        }
+
+
+        [Fact]
+        public async void TestEditCategory_InvalidCategoryName_ReturnErrorPage()
+        {
+            var dbContext = await GetApplicationContext();
+            using var categoryController = new CategoryController(dbContext);
+
+            Category category = new Category
+            {
+                Id = 2,
+                Name = "Tea"
+            };
+            var result = await categoryController.Edit(category);
+            var viewResult = Assert.IsType<PartialViewResult>(result);
+            Assert.Equal("_ErrorPage", viewResult.ViewName);
+        }
+
+        [Fact]
+        public async void TestEditCategory_InvalidModelState_ReturnEditView()
+        {
+            var dbContext = await GetApplicationContext();
+            using var categoryController = new CategoryController(dbContext);
+            categoryController.ModelState.AddModelError("Name", "The name is required");
+            Category category = new Category
+            {
+                Name = " "
+            };
+            var result = await categoryController.Create(category);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var categoryModel = Assert.IsType<Category>(viewResult.Model);
+        }
+
+
+        [Fact]
+        public async void TestDeleteCategory_ValidID_ReturnIndexView()
+        {
+            var dbContext = await GetApplicationContext();
+            using var categoryController = new CategoryController(dbContext);
+
+            var result = await categoryController.Delete(1);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("Index", viewResult.ViewName);
+        }
+
+
+
+        [Fact]
+        public async void TestDeleteCategory_InvalidID_ReturnErrorPage()
+        {
+            var dbContext = await GetApplicationContext();
+            using var categoryController = new CategoryController(dbContext); 
+            var result = await categoryController.Delete(-1);
+            var viewResult = Assert.IsType<PartialViewResult>(result);
+            Assert.Equal("_ErrorPage", viewResult.ViewName);
         }
 
 

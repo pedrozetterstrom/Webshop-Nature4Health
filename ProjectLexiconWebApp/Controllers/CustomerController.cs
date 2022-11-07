@@ -27,13 +27,21 @@ namespace ProjectLexiconWebApp.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Create(Customer myCustomer)
+        public async Task<IActionResult> Create([Bind("FirstName, LastName, EMail, Address, ZipCode, City, Phone , Wallet ")] Customer myCustomer)
         {
             if (ModelState.IsValid)
             {
-                _context.Customers.Add(myCustomer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (_context.Customers.Any(customer => customer.FirstName == myCustomer.FirstName && customer.LastName == myCustomer.LastName && customer.EMail == myCustomer.EMail))
+                {
+                    ViewBag.ErrorMessage = $"Error!!! Customer {myCustomer.FullName } with email address {myCustomer.EMail} is already in the list!";
+                    return PartialView("_ErrorPage");
+                }
+                else
+                {
+                    _context.Customers.Add(myCustomer);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }            
             }
 
             return View(myCustomer);
@@ -53,8 +61,12 @@ namespace ProjectLexiconWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (_context.Customers.Any(customer => customer.FirstName == customerToEdit.FirstName && customer.LastName == customerToEdit.LastName && customer.EMail == customerToEdit.EMail))
+                {
+                    ViewBag.ErrorMessage = $"Error!!! Customer {customerToEdit.FullName} with email address {customerToEdit.EMail} is already in the list!";
+                    return PartialView("_ErrorPage");
+                }
                 _context.Update(customerToEdit);
-                //_context.Customers.Update(customerToEdit);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -74,9 +86,14 @@ namespace ProjectLexiconWebApp.Controllers
                 _context.Customers.Remove(customerToDelete);
                 //_context.Remove(customerToDelete);
                 await _context.SaveChangesAsync();
-            }           
-             return View("Index", _context.Customers.ToList());
-            //return RedirectToAction("Index");
+                return View("Index", _context.Customers.ToList());
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Error!!! Invalid customer";
+                return PartialView("_ErrorPage");
+            }        
+            
 
         }
     }

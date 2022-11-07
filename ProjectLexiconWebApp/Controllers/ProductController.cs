@@ -54,7 +54,8 @@ namespace ProjectLexiconWebApp.Controllers
 
                  if(_dbContext.Products.Any(product => product.Name == vm.ProductName && product.Size == vm.Size))
                  {
-                     return RedirectToAction("Index");
+                    ViewBag.ErrorMessage = $"Error!!! Product with name {vm.ProductName} and size: {vm.Size} is already in the product list!";
+                    return PartialView("_ErrorPage");
                  }
              
                 Product newProduct = new Product { Name = vm.ProductName, Description = vm.Description, UnitPrice = vm.Price, DiscountedPrice = vm.Discount, Picture = vm.Picture, Size = vm.Size, Quantity = vm.Quantity, BrandId = vm.BrandId, CategoryId = vm.CategoryId };
@@ -90,6 +91,12 @@ namespace ProjectLexiconWebApp.Controllers
 
             if (ModelState.IsValid)
             {
+                if (_dbContext.Products.Any(product => product.Name == pmodel.Name && product.Size == pmodel.Size && product.Id != pmodel.Id))
+                {
+                    ViewBag.ErrorMessage = $"Error!!! Product with name: {pmodel.Name} and size: {pmodel.Size} is already in the product list!";
+                    return PartialView("_ErrorPage");
+                }
+
                 Product product = _dbContext.Products.FirstOrDefault(prod => prod.Id == pmodel.Id);
                 if (product != null)
                 {
@@ -127,9 +134,13 @@ namespace ProjectLexiconWebApp.Controllers
             {
                  _dbContext.Products.Remove(product);
                  _dbContext.SaveChanges();
+                 return RedirectToAction("Index");
             }
-
-            return RedirectToAction("Index");
+            else
+            {
+                ViewBag.ErrorMessage = "Error!!! Product Not Found";
+                return PartialView("_ErrorPage");
+            }
         }
 
 
