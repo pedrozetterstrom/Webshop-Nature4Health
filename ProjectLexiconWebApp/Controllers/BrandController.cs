@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Data;
-//using ProjectLexiconWebApp.Migrations;
 using ProjectLexiconWebApp.Models;
 
 namespace ProjectLexiconWebApp.Controllers
-{    
+{
+    [Authorize(Roles = "Admin")]
     public class BrandController : Controller
     {
         private readonly ApplicationDbContext _context;
