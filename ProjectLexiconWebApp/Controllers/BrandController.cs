@@ -30,10 +30,15 @@ namespace ProjectLexiconWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Brand myBrand)
+        public async Task<IActionResult> Create([Bind("Name")] Brand myBrand)
         {
             if (ModelState.IsValid)
             {
+                if (_context.Brands.Any(brand => brand.Name == myBrand.Name))
+                {
+                    ViewBag.ErrorMessage = $"Error!!! Brand {myBrand.Name} is already in the brand list!";
+                    return PartialView("_ErrorPage");
+                }
                 _context.Brands.Add(myBrand);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -50,10 +55,15 @@ namespace ProjectLexiconWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Brand myBrand)
+        public async Task<IActionResult> Edit([Bind("Name")] Brand myBrand)
         {
             if (ModelState.IsValid)
             {
+                if (_context.Brands.Any(brand => brand.Name == myBrand.Name))
+                {
+                    ViewBag.ErrorMessage = $"Error!!! Brand {myBrand.Name} is already in the brand list!";
+                    return PartialView("_ErrorPage");
+                }
                 _context.Update(myBrand);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -67,7 +77,7 @@ namespace ProjectLexiconWebApp.Controllers
             Brand brandToDelete = await _context.Brands.FindAsync(id);
 
             List<Product> productsList = await _context.Products.Where(product => product.BrandId == id).ToListAsync();
-            if (productsList.Count() != 0)
+          /*  if (productsList.Count() != 0)
             {
                 foreach (var product in productsList)
                 {
@@ -85,17 +95,23 @@ namespace ProjectLexiconWebApp.Controllers
                     await _context.SaveChangesAsync();
                 }
                 
-            }
-
-
-            if (brandToDelete != null)
+            }*/
+           if(productsList.Count() > 0)
             {
-                ViewBag.BrandDeleted = $"The Brand '{brandToDelete.Name}' was deleted!";
-
-                _context.Brands.Remove(brandToDelete);
-                await _context.SaveChangesAsync();
+                ViewBag.ErrorMessage = $"Error!!! Brand {brandToDelete.Name} can not be deleted!";
+                return PartialView("_ErrorPage");
             }
-          
+            else
+            {
+                if (brandToDelete != null)
+                {
+                    ViewBag.BrandDeleted = $"The Brand '{brandToDelete.Name}' was deleted!";
+
+                    _context.Brands.Remove(brandToDelete);
+                    await _context.SaveChangesAsync();
+                }          
+            }
+         
             return View("Index", _context.Brands.ToList());
 
         }

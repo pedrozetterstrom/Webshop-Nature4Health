@@ -2,11 +2,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Data;
 using ProjectLexiconWebApp.Models;
+using ProjectLexiconWebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 //Enable Session support - Step 1
 builder.Services.AddSession(options =>
@@ -41,10 +45,31 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 6;
 });
 
+
+builder.Services.AddScoped<IProductService, ProductsServices>();
+
+
 var app = builder.Build();
 
-//Enable session - Step 2
-app.UseSession();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
+}
+
+app.UseCors(options =>
+{
+    options.WithOrigins("http://localhost:3000");
+    options.AllowAnyMethod();
+    options.AllowAnyHeader();
+
+});
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -55,6 +80,10 @@ if (!app.Environment.IsDevelopment())
 }
 
 builder.Services.AddRazorPages();
+//Enable session - Step 2
+app.UseSession();
+
+
 //Must come First                   //Don't change the order, otherwise it can crash
 app.UseRouting();
 //Second

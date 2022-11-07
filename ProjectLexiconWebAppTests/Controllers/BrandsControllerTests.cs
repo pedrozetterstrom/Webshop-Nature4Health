@@ -90,7 +90,7 @@ namespace ProjectLexiconWebAppTests.Controllers
             Brand brand = new Brand
             {
              
-                Name = "Holistic",
+                Name = "New Brand",
                
             };
 
@@ -102,6 +102,40 @@ namespace ProjectLexiconWebAppTests.Controllers
 
         }
 
+        [Fact]
+        public async void TestCreateBrand_InvalidModelState()
+        {
+            var dbContext = await GetApplicationContext();
+            using var brandsController = new BrandController(dbContext);
+            brandsController.ModelState.AddModelError("Name", "Brand name is required");
+            Brand brand = new Brand
+            {
+                Name = String.Empty
+            };
+
+            var result = await brandsController.Create(brand);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var brandmodel = Assert.IsType<Brand>(viewResult.Model);
+
+        }
+
+
+
+        [Fact]
+        public async void TestCreateBrand_BrandAlreadyInList_ReturnErrorPage()
+        {
+            var dbContext = await GetApplicationContext();
+            using var brandsController = new BrandController(dbContext);
+            Brand brand = new Brand
+            {
+                Name = "RawFood"
+            };
+
+            var result = await brandsController.Create(brand);
+            var viewResult = Assert.IsType<PartialViewResult>(result);
+            Assert.Equal("_ErrorPage", viewResult.ViewName);
+
+        }
 
         [Fact]
         public async void Return_EditView()
@@ -116,7 +150,7 @@ namespace ProjectLexiconWebAppTests.Controllers
 
 
         [Fact]
-        public async void TestEditBrand()
+        public async void TestEditBrand_ValidModelState()
         {
             var dbContext = await GetApplicationContext();
             using var brandsController = new BrandController(dbContext);
@@ -132,6 +166,67 @@ namespace ProjectLexiconWebAppTests.Controllers
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Null(redirectToActionResult.ControllerName);
             Assert.Equal("Index", redirectToActionResult.ActionName);
+        }
+
+
+        [Fact]
+        public async void TestEditBrand_InvalidModelState_ReturnEditView()
+        {
+            var dbContext = await GetApplicationContext();
+            using var brandsController = new BrandController(dbContext);
+            brandsController.ModelState.AddModelError("Name", "Brand name is required");
+            Brand brand = new Brand
+            {
+                Id = 1,
+                Name = string.Empty
+
+            };
+
+            var result = await brandsController.Edit(brand);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var brandmodel = Assert.IsType<Brand>(viewResult.Model);
+        }
+
+
+        [Fact]
+        public async void TestEditBrand_BrandAlreadyInList_ReturnErrorPage()
+        {
+            var dbContext = await GetApplicationContext();
+            using var brandsController = new BrandController(dbContext);
+            Brand brand = new Brand
+            {
+                Id = 1,
+                Name = "RawFood"
+
+            };
+
+            var result = await brandsController.Edit(brand);
+            var viewResult = Assert.IsType<PartialViewResult>(result);
+            Assert.Equal("_ErrorPage", viewResult.ViewName);
+        }
+
+
+        [Fact]
+        public async void TestDeleteBrand_ValidID()
+        {
+            var dbContext = await GetApplicationContext();
+            using var brandsController = new BrandController(dbContext);
+
+            var result = await brandsController.Delete(5);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Equal("Index", viewResult.ViewName);
+        }
+
+
+        /* brand id is being used for identifying a prooduct in the database */
+        [Fact]
+        public async void TestDeleteBrand_ReturnErrorPage()
+        {
+            var dbContext = await GetApplicationContext();
+            using var brandsController = new BrandController(dbContext);
+            var result = await brandsController.Delete(1);
+            var viewResult = Assert.IsType<PartialViewResult>(result);
+            Assert.Equal("_ErrorPage", viewResult.ViewName);
         }
 
 
