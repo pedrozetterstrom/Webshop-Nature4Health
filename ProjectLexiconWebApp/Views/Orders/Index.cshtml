@@ -2,10 +2,33 @@
 
 
 <div>
-    <h2>Orders</h2>
+    <h2>Management Page</h2>
 </div>
 
+<ul class="list-group list-group-horizontal-sm">
+
+    <li class="list-group-item">
+        <a class="nav-link text-dark" asp-controller="Customer" asp-action="Index">Customers</a>
+    </li>
+    <li class="list-group-item">
+        <a class="nav-link text-dark" asp-controller="Brand" asp-action="Index">Brands</a>
+    </li>
+    <li class="list-group-item">
+        <a class="nav-link text-dark" asp-controller="Shipper" asp-action="Index">Shippers</a>
+    </li>
+    <li class="list-group-item">
+        <a class="nav-link text-dark" asp-controller="Category" asp-action="Index">Categories</a>
+    </li>
+    <li class="list-group-item">
+        <a class="nav-link text-dark" asp-controller="Product" asp-action="Index">Products</a>
+    </li>
+    <li class="list-group-item">
+        <a class="nav-link text-dark" asp-controller="Role" asp-action="Index">Roles</a>
+    </li>
+</ul>
+
 <div>
+    <h2 class="text-info">Orders</h2>
     <table class="table table-striped">
         <thead>
             <tr>

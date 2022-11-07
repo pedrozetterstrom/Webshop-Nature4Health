@@ -7,6 +7,7 @@ using ProjectLexiconWebApp.ViewModels;
 
 namespace ProjectLexiconWebApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         readonly RoleManager<IdentityRole> _roleManager;
@@ -19,7 +20,6 @@ namespace ProjectLexiconWebApp.Controllers
             _context = context;
         }
 
-        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             await GetUserList();
@@ -112,22 +112,22 @@ namespace ProjectLexiconWebApp.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(string roleName)
-        {
-            IdentityRole role = new();
-            role.Name = roleName;
-            role.NormalizedName = role.Name.ToUpper();
-            await _roleManager.CreateAsync(role);
+        //[HttpPost]
+        //public async Task<IActionResult> Create(string roleName)
+        //{
+        //    IdentityRole role = new();
+        //    role.Name = roleName;
+        //    role.NormalizedName = role.Name.ToUpper();
+        //    await _roleManager.CreateAsync(role);
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
 
-        public async Task<IActionResult> Delete(string id)
-        {
-            IdentityRole role = await _roleManager.FindByIdAsync(id);
-            await _roleManager.DeleteAsync(role);
-            return RedirectToAction("Index");
-        }
+        //public async Task<IActionResult> Delete(string id)
+        //{
+        //    IdentityRole role = await _roleManager.FindByIdAsync(id);
+        //    await _roleManager.DeleteAsync(role);
+        //    return RedirectToAction("Index");
+        //}
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Data;
 using ProjectLexiconWebApp.Models;
@@ -6,7 +7,8 @@ using ProjectLexiconWebApp.ViewModels;
 
 namespace ProjectLexiconWebApp.Controllers
 {
-	public class CategoryController : Controller
+    [Authorize(Roles = "Admin")]
+        public class CategoryController : Controller
 	{
         private readonly ApplicationDbContext _context;
 
