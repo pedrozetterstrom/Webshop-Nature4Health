@@ -175,7 +175,8 @@ namespace ProjectLexiconWebApp.Controllers
         //4. 
         //[HttpPost]
         public async Task<IActionResult> PlaceAnOrder()
-        {            
+        {
+            ReceiptViewModel receiptViewModel = new ReceiptViewModel();     //Receipt
             string currentSessionString = HttpContext.Session.GetString("CurrentCustomerCart");
             decimal totalCost = await GetTotalCost();
 
@@ -184,6 +185,12 @@ namespace ProjectLexiconWebApp.Controllers
             //Get Customer
             Customer currentCustomer = await _context.Customers.FirstOrDefaultAsync(aCustomer => aCustomer.Id == currentCustomerId);
             decimal customerMoneyAmount = currentCustomer.Wallet;
+            
+            receiptViewModel.CustomerId = currentCustomer.Id;               //Receipt
+            receiptViewModel.FullName = currentCustomer.FullName;
+            receiptViewModel.Address = currentCustomer.Address;
+            receiptViewModel.ZipCode = currentCustomer.ZipCode;
+
 
             //Customer enough $$$
             if (customerMoneyAmount < totalCost)
@@ -204,6 +211,11 @@ namespace ProjectLexiconWebApp.Controllers
             };
             _context.Orders.Add(newOrder);
             _context.SaveChanges();
+
+
+            //This actually works :D :D :D
+            receiptViewModel.OrderNumber = newOrder.Id; //Receipt
+            receiptViewModel.OrderDate = newOrder.OrderDate;
 
             foreach (var item in cartDictionary)
             {
@@ -235,6 +247,18 @@ namespace ProjectLexiconWebApp.Controllers
                     _context.OrderItems.Add(newOrderItem);
                     _context.SaveChanges();
 
+                    receiptViewModel.ListItems.Add
+                    (
+                        new ReceiptLineOrder 
+                        {
+                            ProductId = myProduct.Id,
+                            ProductName = myProduct.Name,
+                            Size = myProduct.Size,
+                            Quantity = currentCountProductInCart,
+                            UnitPrice = myProduct.UnitPrice
+                        }
+                    );
+
                     //remove customer $$$ wallet with (myProduct.UnitPrice*currentCountProductInCart) amount
                     //currentCustomer.Wallet -= (myProduct.UnitPrice * currentCountProductInCart);
                 }
@@ -244,8 +268,11 @@ namespace ProjectLexiconWebApp.Controllers
             currentCustomer.Wallet -= totalCost;
             _context.Update(currentCustomer);
             _context.SaveChanges();
-            
-            return View("Passed");
+
+            Console.WriteLine(receiptViewModel);
+
+            return View("Receipt", receiptViewModel);
+            //return View("Passed");
         }
 
         //Calculate total cost based on session string "CurrentCustomerCart"
@@ -266,6 +293,11 @@ namespace ProjectLexiconWebApp.Controllers
 
             return totalCost;
 
+        }
+
+        public IActionResult Receipt() 
+        {
+            return View();
         }
     }
 }

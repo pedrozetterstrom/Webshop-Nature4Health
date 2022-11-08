@@ -51,19 +51,15 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasData(
                         new
                         {
-
-                            Id = "dd28889b-3e16-444d-9e4b-9be3dc345298",
-                            ConcurrencyStamp = "6dadb8c2-e904-4de5-806b-5c73968242bb",
-
+                            Id = "9ad3724f-3268-4968-9eed-dd2143f00438",
+                            ConcurrencyStamp = "ae8dc718-1d38-4ec0-baea-24610eaff6e8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-
-                            Id = "02b9ab74-299c-4985-9e78-10eb0f943008",
-                            ConcurrencyStamp = "bfcb9097-57ca-49f3-8dca-3710a49eb2c6",
-
+                            Id = "e4b0391c-ea1c-43cc-8597-ffe0f378205e",
+                            ConcurrencyStamp = "6e6e3ac4-29f0-4e3d-8656-aea56bf00793",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -160,10 +156,8 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasData(
                         new
                         {
-
-                            UserId = "9822b3f1-7b56-4dac-baa9-6c1fdf77d11c",
-                            RoleId = "dd28889b-3e16-444d-9e4b-9be3dc345298"
-
+                            UserId = "ec822180-b46a-483a-a357-d651079a49ae",
+                            RoleId = "9ad3724f-3268-4968-9eed-dd2143f00438"
                         });
                 });
 
@@ -279,13 +273,11 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasData(
                         new
                         {
-
-                            Id = "9822b3f1-7b56-4dac-baa9-6c1fdf77d11c",
+                            Id = "ec822180-b46a-483a-a357-d651079a49ae",
                             AccessFailedCount = 0,
                             Address = "Adminsgatan 1",
                             City = "Borås",
-                            ConcurrencyStamp = "2ad11c0f-ac4d-4f18-a8fe-4883d6e4c569",
-
+                            ConcurrencyStamp = "617dcb1d-8d71-45ca-8b1c-baf1de320288",
                             Email = "admin@n4h.com",
                             EmailConfirmed = false,
                             FirstName = "Daniel",
@@ -293,12 +285,10 @@ namespace ProjectLexiconWebApp.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@N4H.COM",
                             NormalizedUserName = "ADMIN@N4H.COM",
-
-                            PasswordHash = "AQAAAAEAACcQAAAAEGk9RwRPNebOKUaP1VYCsdDls+Jm0r0cS1WonUAKkuFEzOa8Ftacksrj7POlmbNb/w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBv3JRePqkGL8rz3TJhQKipUm6VnaVeSuMDWcQtWZKYTxLk4H6phEvIL3Ti6UkOeQw==",
                             Phone = "10101010101",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "54d6d7da-e0ac-4749-9077-7082eb24fe6b",
-
+                            SecurityStamp = "fd7c0aeb-206e-44e2-81c9-cbad1d6b0969",
                             TwoFactorEnabled = false,
                             UserName = "admin@n4h.com",
                             ZipCode = "10001"
@@ -444,9 +434,7 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 1,
                             Address = "Kungsgatan 1",
                             City = "Göteborg",
-
-                            CreatedAt = new DateTime(2022, 11, 6, 0, 0, 0, 0, DateTimeKind.Local),
-
+                            CreatedAt = new DateTime(2022, 11, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             EMail = "user@user.com",
                             FirstName = "Pedro",
                             LastName = "Feitoza",
@@ -490,9 +478,7 @@ namespace ProjectLexiconWebApp.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-
-                            OrderDate = new DateTime(2022, 11, 6, 0, 0, 0, 0, DateTimeKind.Local),
-
+                            OrderDate = new DateTime(2022, 11, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = "pending"
                         });
                 });
