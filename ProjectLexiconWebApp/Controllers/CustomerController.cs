@@ -63,7 +63,7 @@ namespace ProjectLexiconWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_context.Customers.Any(customer => customer.FirstName == customerToEdit.FirstName && customer.LastName == customerToEdit.LastName && customer.EMail == customerToEdit.EMail))
+                if (_context.Customers.Any(customer => customer.FirstName == customerToEdit.FirstName && customer.LastName == customerToEdit.LastName && customer.EMail == customerToEdit.EMail && customer.Id != customerToEdit.Id))
                 {
                     ViewBag.ErrorMessage = $"Error!!! Customer {customerToEdit.FullName} with email address {customerToEdit.EMail} is already in the list!";
                     return PartialView("_ErrorPage");

@@ -1,0 +1,111 @@
+﻿@model ApplicationUser
+
+
+<div>
+    <h2> User Information</h2>   
+</div>
+
+    <div class="container bootstrap snippets bootdey">
+        <div class="panel-body inf-content">
+            <div class="row">
+             
+                <div class="col-md-6">
+                    <div class="table-responsive">
+                        <table class="table table-user-information">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon glyphicon-user  text-primary"></span>
+                                            First Name
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        @Model.FirstName
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon glyphicon-cloud text-primary"></span>
+                                            Last Name
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        @Model.LastName
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon glyphicon-bookmark text-primary"></span>
+                                            Address
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        @Model.Address
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon glyphicon-bookmark text-primary"></span>
+                                            ZipCode
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        @Model.ZipCode
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon glyphicon-bookmark text-primary"></span>
+                                            City
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        @Model.City
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon glyphicon-eye-open text-primary"></span>
+                                            Email
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        @Model.Email
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <span class="glyphicon glyphicon-eye-open text-primary"></span>
+                                            Phone
+                                        </strong>
+                                    </td>
+                                    <td class="text-primary">
+                                        @Model.Phone
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div> 
+                    <a class="btn btn-success" asp-action="EditUserProfile" asp-route-email="@Model.Email" asp-route-email="@Model.Email">Edit</a>
+                </div>
+                <div >
+                    <a class="btn btn-success" asp-action="ShoppingHistory" asp-route-email="@Model.Email">Shopping History</a>
+                </div>
+            </div>
+        </div>
+
+    </div>

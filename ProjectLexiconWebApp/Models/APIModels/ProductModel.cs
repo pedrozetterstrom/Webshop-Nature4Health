@@ -13,7 +13,7 @@ namespace ProjectLexiconWebApp.Models.APIModels
         public string Size { get; set; } = string.Empty;
         public int Quantity { get; set; }
         public double? ProductRate { get; set; }
-        public string InStock { get; set; } = string.Empty;
+        public string? InStock { get; set; } = string.Empty;
         public string? BrandName { get; set; } = string.Empty;
         public string CategoryName { get; set; } = string.Empty;
 

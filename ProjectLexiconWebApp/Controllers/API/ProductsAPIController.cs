@@ -88,9 +88,34 @@ namespace ProjectLexiconWebApp.Controllers.API
         }
 
 
+        [HttpPost("Post")]
+        public async Task<ActionResult<ProductModel>> CreateProduct([FromBody] ProductModel product)
+        {
+
+            try
+            {
+                if(product != null)
+                {
+                    await _productService.CreateProduct(product);
+                    return CreatedAtRoute(nameof(GetProduct), new {name = product.Name }, product);
+                }
+                else
+                {
+                    return BadRequest("The product data was inconsistent!");
+                }
+            }
+            catch
+            {
+                return BadRequest("Invalid Request");
+            }
+
+        }
 
 
 
-    }
+
+
+
+        }
 }
 
