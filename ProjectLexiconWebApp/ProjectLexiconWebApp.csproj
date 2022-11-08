@@ -11,6 +11,7 @@
     <Folder Include="Services\" />
     <Folder Include="Models\APIModels\" />
     <Folder Include="Controllers\API\" />
+    <Folder Include="Views\ShoppingHistory\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +32,7 @@
     <None Remove="Models\APIModels\" />
     <None Remove="Controllers\API\" />
     <None Remove="Swashbuckle.AspNetCore" />
+    <None Remove="Views\ShoppingHistory\" />
   </ItemGroup>
 
   <ItemGroup>

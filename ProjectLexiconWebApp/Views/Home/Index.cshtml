@@ -19,13 +19,13 @@
                 </div>
                 
                 <div class="card-body ">                    
-                    @if (aProduct.Description.Length <=85)
+                    @if (aProduct.Description?.Length <=85)
                     {
                         <p>@aProduct.Description</p>
                     }
                     else
                     {
-                        <p>@aProduct.Description.Substring(0, 85)...</p>
+                        <p>@aProduct.Description?.Substring(0, 85)...</p>
                     }                                                            
                 </div>   
 

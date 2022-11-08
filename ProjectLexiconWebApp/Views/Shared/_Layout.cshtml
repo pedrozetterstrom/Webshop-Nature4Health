@@ -44,8 +44,12 @@
                             <a class="nav-link text-dark" asp-controller="Product" asp-action="Index">Products</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="ShoppingHistory" asp-action="Index" asp-route-id="@User.Identity.Name">Shopping History</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Role" asp-action="Index">Role Manager</a>
-                        </li>                         
+                        </li>
                         <li class="nav-item">
                             <partial name="_LoginPartial" />
                         </li>

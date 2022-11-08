@@ -1,0 +1,49 @@
+﻿
+@model Order
+
+@if(Model.OrderItems.Count() == 0)
+{
+   <h4>Nothing to show!!!</h4>
+}
+
+<h2>Order Details</h2>
+<p> <a class="btn btn-success" href="/ShoppingHistory/ShoppingHistory?email=@Model.Customer.EMail">Back to Orders</a> </p>
+<h4>Customer Name: @Model.Customer.FirstName @Model.Customer.LastName</h4>
+<h5>Order Total Price: @Model.TotalCost</h5>
+<h5>Order Date: @Model.OrderDate</h5>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Unit Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model.OrderItems.Count() != 0)
+            {
+                @foreach (var item in Model.OrderItems)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Product.Name</td>
+                        @if (item.Product.DiscountedPrice > 0)
+                        {
+                            <td>@item.Product.UnitPrice</td>
+                        }
+                        else
+                        {
+                            <td>@item.Product.UnitPrice</td>
+                        }
+                        <td>@item.Quantity</td>
+                        <td>@item.Price</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
