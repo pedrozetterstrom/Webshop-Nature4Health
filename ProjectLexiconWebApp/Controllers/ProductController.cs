@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Data;
@@ -7,6 +8,7 @@ using ProjectLexiconWebApp.ViewModels;
 
 namespace ProjectLexiconWebApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
@@ -141,13 +143,6 @@ namespace ProjectLexiconWebApp.Controllers
                 ViewBag.ErrorMessage = "Error!!! Product Not Found";
                 return PartialView("_ErrorPage");
             }
-        }
-
-
-        public IActionResult Details(int id) 
-        {
-            Product product = _dbContext.Products.FirstOrDefault(product => product.Id == id);
-            return View(product);
         }
 
     }

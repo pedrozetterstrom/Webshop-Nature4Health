@@ -1,0 +1,88 @@
+﻿@model ReceiptViewModel
+
+@{
+    ViewData["Title"] = "Receipt";
+}
+
+<h2>Logo N4H</h2>
+
+<h4>Receipt</h4>
+<h6>Order Number: @Model.OrderNumber</h6>
+<h6>CustomerId: @Model.CustomerId</h6>
+<h6>Order Date: @Model.OrderDate</h6>
+
+<br />
+<h4>Billing Address</h4>
+<h6>@Model.FullName</h6>
+<h6>@Model.Address</h6>
+<h6>@Model.ZipCode</h6>
+<br />
+
+
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>ProductId</th>
+            <th>Product Name</th>
+            <th>Size</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+
+    <tbody>       
+        @foreach (var aOrderLine in Model.ListItems)
+        {
+            <tr>
+                <td>@aOrderLine.ProductId</td>
+                <td>@aOrderLine.ProductName</td>
+                <td>@aOrderLine.Size</td>
+                <td>@aOrderLine.Quantity</td>
+                <td>@aOrderLine.UnitPrice.ToString("C")</td>
+                <td>@aOrderLine.TotalUnitsPrice.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Net Price</td>
+            <td>@Model.NetPrice.ToString("C")</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>VAT (@Model.VatInProcent)</td>
+            <td>@Model.VatCost.ToString("C")</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Sum</td>
+            <td><strong>@Model.Sum.ToString("C")</strong></td>
+        </tr>
+    </tfoot>
+</table>
+
+<br />
+<br />
+
+<p>
+    <h6>Nature4Health, www.natureforhealth.se</h6>
+    <h6>Hälsogatan 99</h6>
+    <h6>436 12 Göteborg</h6>
+</p>
+<p>
+    <h6>OrgNr: 762356-2356</h6>
+    <h6>VAT: SE34534534534534534</h6>
+    <h6>Tel: 031-313131</h6>
+    <h6>Innehar F-skattebevis</h6>
+</p>

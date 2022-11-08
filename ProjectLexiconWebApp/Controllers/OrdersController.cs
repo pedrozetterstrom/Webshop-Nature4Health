@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Data;
@@ -11,6 +12,7 @@ using ProjectLexiconWebApp.ViewModels;
 
 namespace ProjectLexiconWebApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class OrdersController : Controller
     {
 
@@ -97,10 +99,10 @@ namespace ProjectLexiconWebApp.Controllers
         }
         public IActionResult DeleteOrder(int id)
         {
-            var order = _dbContext.OrderItems.FirstOrDefault(i => i.Id == id);
+            var order = _dbContext.Orders.FirstOrDefault(o => o.Id == id);
             if (order != null)
             {
-                _dbContext.OrderItems.Remove(order);
+                _dbContext.Orders.Remove(order);
                 _dbContext.SaveChanges();
             }
             return RedirectToAction("Index");

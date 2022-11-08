@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjectLexiconWebApp.Data;
 using ProjectLexiconWebApp.Models;
 
 namespace ProjectLexiconWebApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CustomerController : Controller
     {
         private readonly ApplicationDbContext _context;
