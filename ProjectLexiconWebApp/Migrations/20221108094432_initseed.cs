@@ -94,7 +94,8 @@ namespace ProjectLexiconWebApp.Migrations
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Wallet = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
+                    Wallet = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -311,14 +312,14 @@ namespace ProjectLexiconWebApp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "243f73b5-62d5-4a71-903f-267050abe7d5", "af48163a-de52-40ab-abd1-1abeaca9a886", "Admin", "ADMIN" },
-                    { "64656bf0-1d14-45ca-8369-3c2d21568bdb", "e8570f30-33e6-4708-9055-0a1858d5baff", "User", "USER" }
+                    { "9ad3724f-3268-4968-9eed-dd2143f00438", "ae8dc718-1d38-4ec0-baea-24610eaff6e8", "Admin", "ADMIN" },
+                    { "e4b0391c-ea1c-43cc-8597-ffe0f378205e", "6e6e3ac4-29f0-4e3d-8656-aea56bf00793", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Address", "City", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "ZipCode" },
-                values: new object[] { "8b2ddc63-3d40-46f8-ab91-0249cc4ed585", 0, "Adminsgatan 1", "Borås", "24636beb-2ff2-4364-8cd4-997e389cb29f", "admin@n4h.com", false, "Daniel", "O.", false, null, "ADMIN@N4H.COM", "ADMIN@N4H.COM", "AQAAAAEAACcQAAAAEOcFBWB9+P0wouswTV9Y/Dg4ELouGpW3WbgF92C4nkM9eF7erAwmGOJ1cab3i+uPfg==", "10101010101", null, false, "8e69b4ad-c01e-451a-afd6-9ea97862af13", false, "admin@n4h.com", "10001" });
+                values: new object[] { "ec822180-b46a-483a-a357-d651079a49ae", 0, "Adminsgatan 1", "Borås", "617dcb1d-8d71-45ca-8b1c-baf1de320288", "admin@n4h.com", false, "Daniel", "O.", false, null, "ADMIN@N4H.COM", "ADMIN@N4H.COM", "AQAAAAEAACcQAAAAEBv3JRePqkGL8rz3TJhQKipUm6VnaVeSuMDWcQtWZKYTxLk4H6phEvIL3Ti6UkOeQw==", "10101010101", null, false, "fd7c0aeb-206e-44e2-81c9-cbad1d6b0969", false, "admin@n4h.com", "10001" });
 
             migrationBuilder.InsertData(
                 table: "Brands",
@@ -345,8 +346,8 @@ namespace ProjectLexiconWebApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "Id", "Address", "City", "CreatedAt", "EMail", "FirstName", "LastName", "Phone", "Wallet", "ZipCode" },
-                values: new object[] { 1, "Kungsgatan 1", "Göteborg", new DateTime(2022, 11, 4, 0, 0, 0, 0, DateTimeKind.Local), "user@user.com", "Pedro", "Feitoza", "46780964", 1000.0m, "00000" });
+                columns: new[] { "Id", "Address", "City", "CreatedAt", "EMail", "FirstName", "LastName", "Phone", "UserId", "Wallet", "ZipCode" },
+                values: new object[] { 1, "Kungsgatan 1", "Göteborg", new DateTime(2022, 11, 8, 0, 0, 0, 0, DateTimeKind.Local), "user@user.com", "Pedro", "Feitoza", "46780964", null, 1000.0m, "00000" });
 
             migrationBuilder.InsertData(
                 table: "Shippers",
@@ -361,12 +362,12 @@ namespace ProjectLexiconWebApp.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "243f73b5-62d5-4a71-903f-267050abe7d5", "8b2ddc63-3d40-46f8-ab91-0249cc4ed585" });
+                values: new object[] { "9ad3724f-3268-4968-9eed-dd2143f00438", "ec822180-b46a-483a-a357-d651079a49ae" });
 
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "CustomerId", "OrderDate", "ShipperId", "Status" },
-                values: new object[] { 1, 1, new DateTime(2022, 11, 4, 0, 0, 0, 0, DateTimeKind.Local), null, "pending" });
+                values: new object[] { 1, 1, new DateTime(2022, 11, 8, 0, 0, 0, 0, DateTimeKind.Local), null, "pending" });
 
             migrationBuilder.InsertData(
                 table: "Products",
