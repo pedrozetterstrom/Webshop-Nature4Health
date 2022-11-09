@@ -12,12 +12,10 @@ namespace ProjectLexiconWebApp.Controllers
     {
         readonly RoleManager<IdentityRole> _roleManager;
         readonly UserManager<ApplicationUser> _userManager;
-        readonly ApplicationDbContext _context;
-        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
-            _context = context;
         }
 
         public async Task<IActionResult> Index()

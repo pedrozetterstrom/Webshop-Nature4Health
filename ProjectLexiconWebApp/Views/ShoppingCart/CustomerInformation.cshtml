@@ -1,0 +1,43 @@
+﻿@model Customer;
+
+@{
+    ViewData["Title"] = "Customer Information";
+}
+
+<h1>Complete order</h1>
+
+<form asp-action="CustomerInformation" method="post">
+    <div class="form-row form-control-sm">
+            <label asp-for="@Model.FirstName"></label>
+            <input asp-for="@Model.FirstName" type="text" name="FirstName" value="@Model.FirstName" required="required" />
+
+            <label asp-for="@Model.LastName"></label>
+            <input asp-for="@Model.LastName" type="text" name="LastName" value="@Model.LastName" required="required" />
+    </div>
+
+    <div class="form-row form-control-sm">
+
+            <label asp-for="@Model.Address"></label>
+            <input asp-for="@Model.Address" type="text" name="Adress" value="@Model.Address" required="required" />
+
+            <label asp-for="@Model.ZipCode"></label>
+            <input asp-for="@Model.ZipCode" type="number" name="ZipCode" value="@Model.ZipCode" required="required" />
+
+            <label asp-for="@Model.City"></label>
+            <input asp-for="@Model.City" type="text" name="City" value="@Model.City" required="required" />
+
+    </div>
+
+    <div class="form-row form-control-sm">
+
+            <label asp-for="@Model.EMail"></label>
+            <input asp-for="@Model.EMail" type="text" name="EMail" value="@Model.EMail" required="required" />
+
+            <label asp-for="@Model.Phone"></label>
+            <input asp-for="@Model.Phone" type="text" name="Phone" value="@Model.Phone" required="required" />
+
+    </div>
+
+    <button class="btn btn-outline-success" type="submit">Confirm information</button>
+</form>
+

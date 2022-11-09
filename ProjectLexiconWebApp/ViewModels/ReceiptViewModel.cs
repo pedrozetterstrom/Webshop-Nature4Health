@@ -1,17 +1,11 @@
-﻿namespace ProjectLexiconWebApp.ViewModels
+﻿using ProjectLexiconWebApp.Models;
+
+namespace ProjectLexiconWebApp.ViewModels
 {
     public class ReceiptViewModel
     {
-        public int OrderNumber { get; set; }
-        public int CustomerId { get; set; }
-
-        public string FullName { get; set; }
-
-        public string  Address { get; set; }
-
-        public string ZipCode { get; set; }
-        public DateTime OrderDate { get; set; }
-        public List<ReceiptLineOrder> ListItems { get; set; } = new List<ReceiptLineOrder>();
+        public Order Order { get; set; }
+        public List<Shipper> Shippers { get; set; }
 
         //In decimal form
         public decimal Vat { get; set; } = 0.25M;
@@ -38,9 +32,9 @@
             {
                 decimal totalSum = 0.0M;
 
-                foreach (var item in ListItems) 
+                foreach (var item in Order.OrderItems) 
                 {
-                    totalSum += (item.UnitPrice * item.Quantity);
+                    totalSum += (item.Product.UnitPrice * item.Quantity);
                 }
 
                 return totalSum; 

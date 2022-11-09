@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using ProjectLexiconWebApp.ViewModels;
 using System.Security.Policy;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Identity;
 
 namespace ProjectLexiconWebApp.Controllers
 {
@@ -15,10 +16,12 @@ namespace ProjectLexiconWebApp.Controllers
     {
 
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ShoppingCartController(ApplicationDbContext context)
+        public ShoppingCartController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         //The session file stores the value of productsId in format
@@ -28,7 +31,7 @@ namespace ProjectLexiconWebApp.Controllers
         //1 -> 3
         //4 -> 1
         //2 -> 1
-        private Dictionary<int, int> CreateCartDicFromSessionData() 
+        private Dictionary<int, int> CreateCartDicFromSessionData()
         {
             // 1|4|1|2|1
             string sessionString = HttpContext.Session.GetString("CurrentCustomerCart");
@@ -43,16 +46,16 @@ namespace ProjectLexiconWebApp.Controllers
             {
                 int validId = Int32.Parse(item);
                 listOfValidProductId.Add(validId);
-            }            
+            }
             // 1 4 1 2 1
             // listOfValidProductId
-                        
+
 
             Dictionary<int, int> cartDictionary = new Dictionary<int, int>();
 
             foreach (int aValidID in listOfValidProductId)
             {
-                if (cartDictionary.ContainsKey(aValidID)) 
+                if (cartDictionary.ContainsKey(aValidID))
                 {
                     int value = cartDictionary[aValidID];
                     value++;
@@ -60,26 +63,26 @@ namespace ProjectLexiconWebApp.Controllers
 
 
                 }
-                else 
+                else
                 {
                     cartDictionary.Add(aValidID, 1);
                 }
             }
 
             return cartDictionary;
-           
+
 
         }
 
         //Show current Shopping Cart items
         public IActionResult Index()
-        {            
-            List<ShoppingCartViewModel> listShoppingCartViewModels = new List<ShoppingCartViewModel>();                       
+        {
+            List<ShoppingCartViewModel> listShoppingCartViewModels = new List<ShoppingCartViewModel>();
 
             Dictionary<int, int> cartDictionary = CreateCartDicFromSessionData();
             Decimal totalPriceOfCart = 0.0M;
 
-            foreach (var item in cartDictionary) 
+            foreach (var item in cartDictionary)
             {
                 int key = item.Key;         //Aka product ID
                 int value = item.Value;     //Count proucts of that ID
@@ -91,7 +94,7 @@ namespace ProjectLexiconWebApp.Controllers
                     Id = key,
                     //Picture = "~/images/honey.png",
                     //Picture = myProduct.Picture,                    
-                    Picture = "../images/"+myProduct.Picture,
+                    Picture = "../images/" + myProduct.Picture,
                     Quantity = value,
                     //ProductName = _context.Products.FirstOrDefault(prospectProduct => prospectProduct.Id == key).Name,
                     ProductName = myProduct.Name,
@@ -101,7 +104,7 @@ namespace ProjectLexiconWebApp.Controllers
                     Size = myProduct.Size
                 };
                 totalPriceOfCart += (myShoppingViewModel.Quantity * myShoppingViewModel.UnitPrice);
-                listShoppingCartViewModels.Add(myShoppingViewModel);                             
+                listShoppingCartViewModels.Add(myShoppingViewModel);
             }
 
             //This one works    
@@ -116,12 +119,12 @@ namespace ProjectLexiconWebApp.Controllers
         }
 
         //Adds ONE 'product id' to session string
-        public IActionResult AddToCart(int id) 
+        public IActionResult AddToCart(int id)
         {
             Product productToAdd = _context.Products.FirstOrDefault(prospectProduct => prospectProduct.Id == id);
 
             string currentSessionString = HttpContext.Session.GetString("CurrentCustomerCart");
-            
+
             string sessionStringToInsert = productToAdd.Id + "|";
 
             currentSessionString += sessionStringToInsert;
@@ -141,7 +144,7 @@ namespace ProjectLexiconWebApp.Controllers
 
             List<int> validProductId = new List<int>();
 
-            foreach (string word in removedLastItem) 
+            foreach (string word in removedLastItem)
             {
                 int idProduct = Int32.Parse(word);
                 validProductId.Add(idProduct);
@@ -160,7 +163,7 @@ namespace ProjectLexiconWebApp.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult ClearCart() 
+        public IActionResult ClearCart()
         {
             HttpContext.Session.SetString("CurrentCustomerCart", "");
 
@@ -174,30 +177,58 @@ namespace ProjectLexiconWebApp.Controllers
         //3. Customer logged in
         //4. 
         //[HttpPost]
-        public async Task<IActionResult> PlaceAnOrder()
+        public IActionResult PlaceAnOrder()
         {
-            ReceiptViewModel receiptViewModel = new ReceiptViewModel();     //Receipt
+            Customer currentCustomer = new();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = _userManager.Users.FirstOrDefault(u => u.Email == User.Identity.Name);
+                if (_context.Customers.FirstOrDefault(c => c.UserId == user.Id) != null)
+                {
+                    currentCustomer = _context.Customers.FirstOrDefault(c => c.UserId == user.Id);
+                }
+                else
+                {
+                    currentCustomer.FirstName = user.FirstName;
+                    currentCustomer.LastName = user.LastName;
+                    currentCustomer.Address = user.Address;
+                    currentCustomer.ZipCode = user.ZipCode;
+                    currentCustomer.City = user.City;
+                    currentCustomer.Phone = user.Phone;
+                    currentCustomer.EMail = user.Email;
+                    currentCustomer.CreatedAt = DateTime.Now;
+                    currentCustomer.UserId = user.Id;
+                    currentCustomer.Wallet = 0.0m;
+                    _context.Customers.Add(currentCustomer);
+                    _context.SaveChanges();
+                }
+
+
+            }
+            else
+            {
+                return View("CustomerInformation", currentCustomer);
+            }
+
+            return RedirectToAction("RegisterOrder", currentCustomer);
+
+        }
+
+        [HttpPost]
+        public IActionResult CustomerInformation(Customer currentCustomer)
+        {
+            currentCustomer.CreatedAt = DateTime.Now;
+            currentCustomer.Wallet = 0.0m;
+            _context.Customers.Add(currentCustomer);
+            _context.SaveChanges();
+            return RedirectToAction("RegisterOrder", currentCustomer);
+        }
+
+        public IActionResult RegisterOrder(Customer currentCustomer)
+        {
+
             string currentSessionString = HttpContext.Session.GetString("CurrentCustomerCart");
-            decimal totalCost = await GetTotalCost();
-
-            //Hard code a customer - Pedro
-            int currentCustomerId = 1;
-            //Get Customer
-            Customer currentCustomer = await _context.Customers.FirstOrDefaultAsync(aCustomer => aCustomer.Id == currentCustomerId);
-            decimal customerMoneyAmount = currentCustomer.Wallet;
-            
-            receiptViewModel.CustomerId = currentCustomer.Id;               //Receipt
-            receiptViewModel.FullName = currentCustomer.FullName;
-            receiptViewModel.Address = currentCustomer.Address;
-            receiptViewModel.ZipCode = currentCustomer.ZipCode;
-
-
-            //Customer enough $$$
-            if (customerMoneyAmount < totalCost)
-                return View("Denied");            
-
-
-            //ProductId -> CountOfProducts (aka cart)
             Dictionary<int, int> cartDictionary = CreateCartDicFromSessionData();
 
             //Create an order
@@ -212,10 +243,8 @@ namespace ProjectLexiconWebApp.Controllers
             _context.Orders.Add(newOrder);
             _context.SaveChanges();
 
+            newOrder.Customer = currentCustomer;
 
-            //This actually works :D :D :D
-            receiptViewModel.OrderNumber = newOrder.Id; //Receipt
-            receiptViewModel.OrderDate = newOrder.OrderDate;
 
             foreach (var item in cartDictionary)
             {
@@ -225,9 +254,9 @@ namespace ProjectLexiconWebApp.Controllers
                 Product myProduct = _context.Products.FirstOrDefault(product => product.Id == currentProductIdInCart);
 
                 //Not enough product(s) in stock
-                if (currentCountProductInCart > myProduct.Quantity) 
+                if (currentCountProductInCart > myProduct.Quantity)
                 {
-                    return View("Denied");
+                    return View("Denied", $"Unfortunately, there are only {myProduct.Quantity} units left of {myProduct}");
                 }
                 else
                 {
@@ -238,7 +267,7 @@ namespace ProjectLexiconWebApp.Controllers
                     _context.Update(myProduct);
                     _context.SaveChanges();
 
-                    OrderItem newOrderItem = new OrderItem 
+                    OrderItem newOrderItem = new OrderItem
                     {
                         OrderId = newOrder.Id,
                         ProductId = myProduct.Id,
@@ -246,56 +275,18 @@ namespace ProjectLexiconWebApp.Controllers
                     };
                     _context.OrderItems.Add(newOrderItem);
                     _context.SaveChanges();
-
-                    receiptViewModel.ListItems.Add
-                    (
-                        new ReceiptLineOrder 
-                        {
-                            ProductId = myProduct.Id,
-                            ProductName = myProduct.Name,
-                            Size = myProduct.Size,
-                            Quantity = currentCountProductInCart,
-                            UnitPrice = myProduct.UnitPrice
-                        }
-                    );
-
-                    //remove customer $$$ wallet with (myProduct.UnitPrice*currentCountProductInCart) amount
-                    //currentCustomer.Wallet -= (myProduct.UnitPrice * currentCountProductInCart);
                 }
             }
 
-            //and save new state of currentCustomer to db
-            currentCustomer.Wallet -= totalCost;
-            _context.Update(currentCustomer);
-            _context.SaveChanges();
+            ReceiptViewModel model = new();
+            model.Order = newOrder;
+            model.Shippers = _context.Shippers.ToList();
+            ClearCart();
 
-            Console.WriteLine(receiptViewModel);
-
-            return View("Receipt", receiptViewModel);
-            //return View("Passed");
+            return View("CheckOut", model);
         }
 
-        //Calculate total cost based on session string "CurrentCustomerCart"
-        public async Task<decimal> GetTotalCost() 
-        {
-            decimal totalCost = 0;
-            Dictionary<int, int> cartDictionary = CreateCartDicFromSessionData();
-
-            foreach (var item in cartDictionary)
-            {
-                int currentProductIdInCart = item.Key;         //Aka product ID
-                int currentCountProductInCart = item.Value;     //Count products of that ID
-
-                Product myProduct = await _context.Products.FirstOrDefaultAsync(product => product.Id == currentProductIdInCart);
-
-                totalCost += (currentCountProductInCart * myProduct.UnitPrice);
-            }
-
-            return totalCost;
-
-        }
-
-        public IActionResult Receipt() 
+        public IActionResult Receipt()
         {
             return View();
         }
