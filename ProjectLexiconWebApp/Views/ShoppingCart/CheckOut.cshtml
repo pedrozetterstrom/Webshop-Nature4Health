@@ -1,21 +1,21 @@
 ﻿@model ReceiptViewModel
 
 @{
-    ViewData["Title"] = "Receipt";
+    ViewData["Title"] = "Check Out";
 }
 
 <h2>Logo N4H</h2>
 
 <h4>Receipt</h4>
-<h6>Order Number: @Model.OrderNumber</h6>
-<h6>CustomerId: @Model.CustomerId</h6>
-<h6>Order Date: @Model.OrderDate</h6>
+<h6>Order Number: @Model.Order.Id</h6>
+<h6>CustomerId: @Model.Order.CustomerId</h6>
+<h6>Order Date: @Model.Order.OrderDate</h6>
 
 <br />
 <h4>Billing Address</h4>
-<h6>@Model.FullName</h6>
-<h6>@Model.Address</h6>
-<h6>@Model.ZipCode</h6>
+<h6>@Model.Order.Customer.FullName</h6>
+<h6>@Model.Order.Customer.Address</h6>
+<h6>@Model.Order.Customer.ZipCode</h6>
 <br />
 
 
@@ -32,15 +32,22 @@
     </thead>
 
     <tbody>       
-        @foreach (var aOrderLine in Model.ListItems)
+        @foreach (var aOrderLine in Model.Order.OrderItems)
         {
             <tr>
                 <td>@aOrderLine.ProductId</td>
-                <td>@aOrderLine.ProductName</td>
-                <td>@aOrderLine.Size</td>
+                <td>@aOrderLine.Product.Name</td>
+                <td>@aOrderLine.Product.Size</td>
                 <td>@aOrderLine.Quantity</td>
-                <td>@aOrderLine.UnitPrice.ToString("C")</td>
-                <td>@aOrderLine.TotalUnitsPrice.ToString("C")</td>
+                @if(aOrderLine.Product.DiscountedPrice <= 0)
+                {                    
+                    <td>@aOrderLine.Product.UnitPrice</td>
+                }
+                else
+                {
+                    <td>@aOrderLine.Product.DiscountedPrice</td>
+                }
+                <td>@aOrderLine.Price</td>
             </tr>
         }
     </tbody>
@@ -59,7 +66,7 @@
             <td></td>
             <td></td>
             <td>VAT (@Model.VatInProcent)</td>
-            <td>@Model.VatCost.ToString("C")</td>
+            <td>@Model.VatCost.ToString("C")<td>
         </tr>
         <tr>
             <td></td>

@@ -1,0 +1,45 @@
+﻿@model Customer
+<div>
+    <h2>Shopping History </h2>
+    <p> <a class="btn btn-success" href="/ShoppingHistory/Index/@Model.EMail">Back to User Page</a> </p>
+    <h5>Customer Name: @Model.FirstName @Model.LastName</h5>
+    @if (Model.Orders.Count() == 0)
+    {
+        <h3>Your shopping history is empty!</h3>
+    }
+    else
+    {
+        <div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Total Cost</th>
+                        <th scope="col">Order Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Order Items</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (Model.Orders.Count() != 0)
+                    {
+                        @foreach (var order in Model.Orders)
+                        {
+                            <tr>
+                                <td>@order.Id</td>
+                                <td>@order.TotalCost</td>
+                                <td>@order.OrderDate</td>
+                                <td>@order.Status</td>
+                                <td>
+                                    <a class="btn btn-primary" asp-action="OrderDetails" asp-route-id="@order.Id">Details</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+

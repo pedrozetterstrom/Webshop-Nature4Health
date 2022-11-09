@@ -129,6 +129,24 @@ namespace ProjectLexiconWebApp.Data
                 RoleId = adminRoleId,
                 UserId = userId
             });
+
+            //Customer c2 = new Customer() { Id = 2, FirstName = "Customer Test", LastName = "Karlsson", EMail = "user@n4h.com", Address = "Kundsgatan 1", ZipCode = "10001", City = "Göteborg", Phone = "46780964", CreatedAt = DateTime.Today, Wallet = 1000.0M };
+
+            //modelBuilder.Entity<Customer>().HasData(c2);
+
+            //Order order2 = new Order() { Id = 2, OrderDate = DateTime.Today, Status = "pending", CustomerId = 2 };
+
+
+            //OrderItem item1 = new OrderItem() { Id = 5, OrderId = order2.Id, ProductId = p1.Id, Quantity = 2 };
+            //OrderItem item2 = new OrderItem() { Id = 6, OrderId = order2.Id, ProductId = p2.Id, Quantity = 2 };
+            //OrderItem item3 = new OrderItem() { Id = 7, OrderId = order2.Id, ProductId = p3.Id, Quantity = 3 };
+            //OrderItem item4 = new OrderItem() { Id = 8, OrderId = order2.Id, ProductId = p4.Id, Quantity = 2 };
+
+            //modelBuilder.Entity<Order>().HasData(order2);
+            //modelBuilder.Entity<OrderItem>().HasData(item1);
+            //modelBuilder.Entity<OrderItem>().HasData(item2);
+            //modelBuilder.Entity<OrderItem>().HasData(item3);
+            //modelBuilder.Entity<OrderItem>().HasData(item4);
         }
 
 

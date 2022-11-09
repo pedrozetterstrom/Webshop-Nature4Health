@@ -35,5 +35,9 @@
   <ItemGroup>
     <None Include="Views\Orders\Index.cshtml" />
     <None Include="Views\Role\Index.cshtml" />
+    <None Include="Views\ShoppingHistory\EditUserProfile.cshtml" />
+    <None Include="Views\ShoppingHistory\Index.cshtml" />
+    <None Include="Views\ShoppingHistory\OrderDetails.cshtml" />
+    <None Include="Views\ShoppingHistory\ShoppingHistory.cshtml" />
   </ItemGroup>
 </Project>
