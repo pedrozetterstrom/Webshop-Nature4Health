@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Models;
+using static ProjectLexiconWebApp.ViewModels.UserRoleViewModel;
 
 namespace ProjectLexiconWebApp.Data
 {
@@ -64,13 +65,8 @@ namespace ProjectLexiconWebApp.Data
             modelBuilder.Entity<Product>().HasData(p3);
             modelBuilder.Entity<Product>().HasData(p4);
 
-            //modelBuilder.Entity<Order>()
-            //    .HasMany(order => order.OrderItems)
-            //    .WithOne(items => items.Product)
-            //    .UsingEntity(j => j.HasData(new { OrdersId = 1, ProductsId = 2 }));
 
-
-            Customer c1 = new Customer() { Id = 1, FirstName = "Pedro", LastName = "Feitoza", EMail = "user@user.com", Address = "Kungsgatan 1", ZipCode = "00000", City = "Göteborg", Phone = "46780964", CreatedAt = DateTime.Today, Wallet = 1000.0M };
+            Customer c1 = new Customer() { Id = 1, FirstName = "Pedro", LastName = "Feitoza", EMail = "user@user.com", Address = "Kungsgatan 1", ZipCode = "00000", City = "Göteborg", Phone = "46780964", CreatedAt = DateTime.Today, Wallet = 1000.0M};
 
             modelBuilder.Entity<Customer>().HasData(c1);
 
@@ -130,6 +126,7 @@ namespace ProjectLexiconWebApp.Data
                 UserId = userId
             });
 
+
             //Customer c2 = new Customer() { Id = 2, FirstName = "Customer Test", LastName = "Karlsson", EMail = "user@n4h.com", Address = "Kundsgatan 1", ZipCode = "10001", City = "Göteborg", Phone = "46780964", CreatedAt = DateTime.Today, Wallet = 1000.0M };
 
             //modelBuilder.Entity<Customer>().HasData(c2);
@@ -147,6 +144,7 @@ namespace ProjectLexiconWebApp.Data
             //modelBuilder.Entity<OrderItem>().HasData(item2);
             //modelBuilder.Entity<OrderItem>().HasData(item3);
             //modelBuilder.Entity<OrderItem>().HasData(item4);
+
         }
 
 

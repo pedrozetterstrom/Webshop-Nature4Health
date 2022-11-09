@@ -88,10 +88,11 @@ namespace ProjectLexiconWebApp.Services
 
         public async Task<Product> CreateProduct(ProductModel product)
         {
+           
             try
             {
                 Product newProduct = new Product();
-                if (!_appContext.Products.Any(p => p.Name == product.Name && p.Quantity == product.Quantity))
+                if (!_appContext.Products.Any(p => p.Name == product.Name))
                 {
                     newProduct.Name = product.Name;
                     newProduct.Description = product.Description;
@@ -101,9 +102,13 @@ namespace ProjectLexiconWebApp.Services
                     newProduct.Size = product.Size;
                     newProduct.Quantity = product.Quantity;
                     newProduct.ProductRate = product.ProductRate;
+                    newProduct.BrandId = _appContext.Brands.Where(brand => brand.Name == product.BrandName).First().Id;
+                    newProduct.CategoryId = _appContext.Categories.Where(category => category.Name == product.CategoryName).First().Id;
+
+                    _appContext.Products.Add(newProduct);
+                    await _appContext.SaveChangesAsync();
                 }
-                _appContext.Products.Add(newProduct);
-                await _appContext.SaveChangesAsync();
+          
                 return newProduct;
             }
             catch

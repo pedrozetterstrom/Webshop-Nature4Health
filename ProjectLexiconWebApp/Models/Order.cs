@@ -21,7 +21,7 @@ namespace ProjectLexiconWebApp.Models
         }
         public DateTime OrderDate { get; set; }
 
-        public string Status { get; set; }
+        public string Status { get; set; } = string.Empty;
 
 
         //Navigations - Relationships to Orders
@@ -30,7 +30,7 @@ namespace ProjectLexiconWebApp.Models
 
 
         //Navigations - Relationships to Shippers
-        public Shipper Shipper { get; set; }
+        public Shipper? Shipper { get; set; }
         public int? ShipperId { get; set; } 
 
         public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();

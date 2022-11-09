@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectLexiconWebApp.Data;
 
@@ -11,9 +12,10 @@ using ProjectLexiconWebApp.Data;
 namespace ProjectLexiconWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221107142939_new_customer")]
+    partial class new_customer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,16 +55,13 @@ namespace ProjectLexiconWebApp.Migrations
                         {
                             Id = "9cf7bc96-eff0-4e0a-8414-6fab94b54889",
                             ConcurrencyStamp = "5edf1bf5-5118-416f-a13d-a7262fb41f6a",
-
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-
                             Id = "433e77f7-a4b4-4a1f-a5ac-3a24f252bb8e",
                             ConcurrencyStamp = "3bfc981e-fc63-478a-aa75-96b6729059a8",
-
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -161,7 +160,6 @@ namespace ProjectLexiconWebApp.Migrations
                         {
                             UserId = "dc6509b5-638e-431f-a8b9-8b63f01ac148",
                             RoleId = "9cf7bc96-eff0-4e0a-8414-6fab94b54889"
-
                         });
                 });
 
@@ -282,7 +280,6 @@ namespace ProjectLexiconWebApp.Migrations
                             Address = "Adminsgatan 1",
                             City = "Borås",
                             ConcurrencyStamp = "bf0486ad-67b6-45df-a0ce-d234b455690e",
-
                             Email = "admin@n4h.com",
                             EmailConfirmed = false,
                             FirstName = "Daniel",
@@ -290,12 +287,10 @@ namespace ProjectLexiconWebApp.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@N4H.COM",
                             NormalizedUserName = "ADMIN@N4H.COM",
-
                             PasswordHash = "AQAAAAEAACcQAAAAEB3ql3ND9VE5yger9wyDCNL9Z9jn7hjOlNjvX3h/UKSrgJJit1PiQLsGp9TyPwLbgg==",
                             Phone = "10101010101",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "57acaa4d-b39f-496d-9dfd-ee0bbac17be7",
-
                             TwoFactorEnabled = false,
                             UserName = "admin@n4h.com",
                             ZipCode = "10001"
@@ -441,9 +436,7 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 1,
                             Address = "Kungsgatan 1",
                             City = "Göteborg",
-
                             CreatedAt = new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Local),
-
                             EMail = "user@user.com",
                             FirstName = "Pedro",
                             LastName = "Feitoza",
