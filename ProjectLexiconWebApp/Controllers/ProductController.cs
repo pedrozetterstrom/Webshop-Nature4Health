@@ -60,7 +60,7 @@ namespace ProjectLexiconWebApp.Controllers
                     return PartialView("_ErrorPage");
                  }
              
-                Product newProduct = new Product { Name = vm.ProductName, Description = vm.Description, UnitPrice = vm.Price, DiscountedPrice = vm.Discount, Picture = vm.Picture, Size = vm.Size, Quantity = vm.Quantity, BrandId = vm.BrandId, CategoryId = vm.CategoryId };
+                Product newProduct = new Product { Name = vm.ProductName, Description = vm.Description, UnitPrice = vm.Price, DiscountedPrice = vm.Discount, Picture = vm.Picture, Size = vm.Size, Quantity = vm.Quantity, ProductRate = vm.ProductRate, BrandId = vm.BrandId, CategoryId = vm.CategoryId };
 
                  _dbContext.Products.Add(newProduct);
                 await _dbContext.SaveChangesAsync();
@@ -110,6 +110,7 @@ namespace ProjectLexiconWebApp.Controllers
                     product.Picture = pmodel.Picture;
                     product.Size = pmodel.Size;
                     product.Quantity = pmodel.Quantity;
+                    product.ProductRate = pmodel.ProductRate;
                     product.BrandId = pmodel.BrandId;
                     product.CategoryId = pmodel.CategoryId;
 
@@ -144,6 +145,24 @@ namespace ProjectLexiconWebApp.Controllers
                 return PartialView("_ErrorPage");
             }
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SearchProduct(string search)
+        {
+            string filter = "%" + search + "%";
+
+            productsModel.Products = _dbContext.Products
+                                     .Include(product => product.Brand)
+                                     .Include(product => product.Category)
+                                     .Where(p => EF.Functions.Like(p.Name, filter) || EF.Functions.Like(p.Brand.Name, filter) || EF.Functions.Like(p.Category.Name, filter))
+                                     .ToList();
+
+            return View("Index", productsModel);
+
+        }
+
+
 
     }
 }

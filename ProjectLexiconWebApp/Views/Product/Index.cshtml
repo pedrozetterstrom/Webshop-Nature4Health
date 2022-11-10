@@ -4,9 +4,14 @@
 
 
 <div>
-
     <div>
         <p> <a class="btn btn-success" href="/Product/Create">Add new product</a> </p>
+    </div>
+    <div>
+        <form asp-controller="Product" asp-action="SearchProduct" method="post">
+            <input type="text" id="search" name="search">
+            <button id="submit" type="submit">Search</button>
+        </form>
     </div>
     <table class="table table-striped">
         <thead>
@@ -23,29 +28,29 @@
             </tr>
         </thead>
         <tbody>
-           @if(Model.Products.Count != 0)
+            @if (Model.Products.Count != 0)
             {
-                   foreach(var product in Model.Products)
-                   {
-                       <tr>
-                           <td>@product.Name</td>
-                           <td>@product.Description</td>
-                           <td>@product.UnitPrice</td>
-                           <td>@product.DiscountedPrice</td>
-                           <td>@product.Size</td>
-                           <td>@product.Quantity</td>
-                           <td>@product.Brand?.Name</td>
-                           <td>@product.Category?.Name</td>
-                           <td>@product.ProductRate</td>
-                           <td>
-                               <a class="btn btn-primary" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
-                               
-                           </td>
-                           <td>
-                               <a class="btn btn-danger" asp-action="Delete" asp-route-id="@product.Id">Delete</a>
-                           </td>
-                       </tr>
-                   }
+                foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Description</td>
+                        <td>@product.UnitPrice</td>
+                        <td>@product.DiscountedPrice</td>
+                        <td>@product.Size</td>
+                        <td>@product.Quantity</td>
+                        <td>@product.Brand?.Name</td>
+                        <td>@product.Category?.Name</td>
+                        <td>@product.ProductRate</td>
+                        <td>
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@product.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>

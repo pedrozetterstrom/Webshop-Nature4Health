@@ -131,36 +131,19 @@ namespace ProjectLexiconWebApp.Controllers
 
             }
 
-            
+        }
 
-           /* List<Product> productsList = await _context.Products.Where(product => product.CategoryId == id).ToListAsync();
-            if(productsList.Count() != 0)
-            {
-                foreach(var product in productsList)
-                {
-                    product.Name = product.Name;
-                    product.Description = product.Description;
-                    product.UnitPrice = product.UnitPrice;
-                    product.DiscountedPrice = product.DiscountedPrice;
-                    product.Picture = product.Picture;
-                    product.Size = product.Size;
-                    product.Quantity = product.Quantity;
-                    product.CategoryId = null;
 
-                    _context.Products.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-            }
 
-            if (categoryToDelete != null)
-            {
-                ViewBag.CategoryDeleted = $"The Category '{categoryToDelete.Name}' was deleted!";
+        [HttpPost]
+        public async Task<IActionResult> SearchCategory(string search)
+        {
+            string filter = "%" + search + "%";
 
-                _context.Categories.Remove(categoryToDelete);
-                await _context.SaveChangesAsync();
-            }
+            List<Category> categories = await _context.Categories.Where(category => EF.Functions.Like(category.Name, filter)).ToListAsync();
 
-            return View("Index", _context.Categories.ToList());*/
+
+            return View("Index", categories);
 
         }
 

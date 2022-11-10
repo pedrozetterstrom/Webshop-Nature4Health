@@ -3,49 +3,54 @@
 
 <div>
     <h3>Add a new product</h3>
-    <form asp-controller="Product" asp-action="Create" method="post">
+    <form class="form-control" asp-controller="Product" asp-action="Create" method="post">
         <fieldset>
-            <div>
+            <div class="form-group">
                 <label asp-for="@Model.ProductName"></label>
-                <input class="form-input" asp-for="@Model.ProductName" placeholder="Product Name">
+                <input class="form-control" asp-for="@Model.ProductName" placeholder="Product Name">
                 <span asp-validation-for="@Model.ProductName"> </span>
             </div>
-            <div>
+            <div class="form-group">
                 <label asp-for="@Model.Description"></label>
-                <input class="form-input" asp-for="@Model.Description" placeholder="Description">
+                <input class="form-control" asp-for="@Model.Description" placeholder="Description">
                 <span asp-validation-for="@Model.Description"> </span>
             </div>
-            <div>
+            <div class="form-group">
                 <label asp-for="@Model.Price"></label>
-                <input class="form-input" asp-for="@Model.Price" placeholder="0,00">
+                <input class="form-control" asp-for="@Model.Price" placeholder="0,00">
                 <span asp-validation-for="@Model.Price"> </span>
             </div>
-            <div>
+            <div class="form-group">
                 <label asp-for="@Model.Discount"></label>
-                <input class="form-input" asp-for="@Model.Discount" placeholder="0,00">
+                <input class="form-control" asp-for="@Model.Discount" placeholder="0,00">
                 <span asp-validation-for="@Model.Discount"> </span>
             </div>
-            <div>
+            <div class="form-group">
                 <label asp-for="@Model.Picture"></label>
-                <input class="form-input" asp-for="@Model.Picture">
+                <input class="form-control" asp-for="@Model.Picture">
                 <span asp-validation-for="@Model.Picture"> </span>
             </div>
-            <div>
+            <div class="form-group">
                 <label asp-for="@Model.Size"></label>
-                <input class="form-input" asp-for="@Model.Size" placeholder="Size">
+                <input class="form-control" asp-for="@Model.Size" placeholder="Size">
                 <span asp-validation-for="@Model.Size"> </span>
             </div>
-            <div>
+            <div class="form-group">
                 <label asp-for="@Model.Quantity"></label>
-                <input class="form-input" asp-for="@Model.Quantity" placeholder="Quantity">
+                <input class="form-control" asp-for="@Model.Quantity" placeholder="Quantity">
                 <span asp-validation-for="@Model.Quantity"> </span>
             </div>
-            <div>
+            <div class="form-group">
+                <label asp-for="@Model.ProductRate"></label>
+                <input class="form-control" asp-for="@Model.ProductRate" placeholder="Product Rate">
+                <span asp-validation-for="@Model.ProductRate"> </span>
+            </div>
+            <div class="form-group">
                 <label>Select Product Brand:</label>
                 <select asp-for="@Model.BrandId" asp-items="@ViewBag.Brands"></select>
                 <span asp-validation-for="@Model.BrandId"> </span>
             </div>
-            <div>
+            <div class="form-group">
                 <label>Select Product Category:</label>
                 <select asp-for="@Model.CategoryId" asp-items="@ViewBag.Categories"></select>
                 <span asp-validation-for="@Model.CategoryId"> </span>
