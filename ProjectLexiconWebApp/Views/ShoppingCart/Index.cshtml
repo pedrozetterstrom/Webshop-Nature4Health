@@ -10,7 +10,7 @@
 @*Dont show if cart is empty*@
 @if(Model.Any())
 {
-    <a class="btn btn-primary" asp-controller="ShoppingCart" asp-action="PlaceAnOrder">Place An Order</a>
+    <a class="btn btn-success btn-lg" asp-controller="ShoppingCart" asp-action="PlaceAnOrder">Place An Order</a>
 }
 
 @*<h6>DEBUG - Session string content={@ViewBag.SessionString}</h6>*@
@@ -30,10 +30,10 @@
         {
             <tr>
                 <td>
-                    <a asp-controller="Product" asp-action="Details" asp-route-id=@aShoppingCartViewModel.Id class="text-decoration-none">
+                    <a asp-controller="Home" asp-action="Details" asp-route-id=@aShoppingCartViewModel.Id class="text-decoration-none">
                         <img src=@aShoppingCartViewModel.Picture alt="Not found pic" width="80" height="45" />
                     </a>
-                    <a asp-controller="Product" asp-action="Details" asp-route-id=@aShoppingCartViewModel.Id class="text-decoration-none" style="color:#157347">@aShoppingCartViewModel.ProductName</a>                
+                    <a asp-controller="Home" asp-action="Details" asp-route-id=@aShoppingCartViewModel.Id class="text-decoration-none" style="color:#157347">@aShoppingCartViewModel.ProductName</a>                
                 </td>
                 <td>@aShoppingCartViewModel.Size</td>
                 <td>
@@ -47,6 +47,6 @@
         }
     </tbody>
 </table>
-<a class="btn btn-success" asp-controller="Home" asp-action="Index">Go To Product Page</a>
+<a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Go To Product Page</a>
 <a class="btn btn-danger" asp-controller="ShoppingCart" asp-action="ClearCart">Clear Cart</a>
 

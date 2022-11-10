@@ -15,5 +15,42 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-image: url('../images/forest-bg.jpeg');
+    background-size: cover;
+}
+
+header {
+    background-color: rgb(47, 79, 38);
+    /*background-color: #198754;*/
+}
+
+footer {
+    background-color: rgb(47, 79, 38);
+    /*background-color: #198754;*/
+    opacity: 0.65;
+}
+
+#nav a:hover {
+    background-color: rgb(47, 79, 38);
+    /*background-color: #198754;*/
+    opacity: 0.65;
+}
+
+.navbar-nav a:hover {
+    background-color: rgb(47, 79, 38);
+    /*background-color: #198754;*/
+    opacity: 0.65;
+}
+
+#logoutForm:hover {
+    background-color: rgb(47, 79, 38);
+    /*background-color: #198754;*/
+    opacity: 0.65;
+}
+
+#logofont {
+    font-family: 'Lobster Two', cursive;
+    font-size: 40px;
+    /*margin-right: 100px;*/
 }
