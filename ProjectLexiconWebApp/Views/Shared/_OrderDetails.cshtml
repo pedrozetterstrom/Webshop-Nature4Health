@@ -1,0 +1,88 @@
+﻿@model Order
+
+
+<div>
+    <h2>You are not loged in , but you can still see your order information!</h2>
+    <h3>Please enter the order ID:</h3>
+    <div>
+        <form asp-controller="ShoppingHistory" asp-action="GuestOrderDetails" method="post">
+            <input asp-for="@Model.Id" placeholder="Order ID">
+            <button id="submit" type="submit">View Order</button>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    @if (Model != null)
+    {
+        <h2>Order Details</h2>
+        <h5>Customer Name: @Model.Customer.FirstName @Model.Customer.LastName</h5>
+        <div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Total Cost</th>
+                        <th scope="col">Order Date</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (Model != null)
+                    {
+
+                        <tr>
+                            <td>@Model.Id</td>
+                            <td>@Model.TotalCost</td>
+                            <td>@Model.OrderDate</td>
+                            <td>@Model.Status</td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+<div>
+    @if (Model != null)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Unit Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model.OrderItems.Count() != 0)
+                {
+                    @foreach (var item in Model.OrderItems)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Product.Name</td>
+                            @if (item.Product.DiscountedPrice > 0)
+                            {
+                                <td>@item.Product.UnitPrice</td>
+                            }
+                            else
+                            {
+                                <td>@item.Product.UnitPrice</td>
+                            }
+                            <td>@item.Quantity</td>
+                            <td>@item.Price</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+
+</div>

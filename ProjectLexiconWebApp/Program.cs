@@ -19,15 +19,15 @@ builder.Services.AddSession(options =>
 });
 
 //Add EF Core support, configure/setup for Dependency Injection
-builder.Services.AddDbContext<ApplicationDbContext>(options => {                                 //What db to use
-    options.UseSqlServer(
-        builder.Configuration["ConnectionStrings:WebShopDbContextConnection"]);       //Use DefaultConnection, must match with Program.cs
-});
+//builder.Services.AddDbContext<ApplicationDbContext>(options => {                                 //What db to use
+//    options.UseSqlServer(
+//        builder.Configuration["ConnectionStrings:WebShopDbContextConnection"]);       //Use DefaultConnection, must match with Program.cs
+//});
 
-/*builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});*/
+});
 
 
 

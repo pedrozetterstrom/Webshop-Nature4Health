@@ -31,8 +31,9 @@ namespace ProjectLexiconWebApp.Controllers
         {
             if (id == null)
             {
-                ViewBag.ErrorMessage = $"Error!!! You don´t have Access to this page!";
-                return PartialView("_ErrorPage");
+                /* ViewBag.ErrorMessage = $"Error!!! You don´t have Access to this page!";
+                 return PartialView("_ErrorPage");*/
+                return PartialView("_OrderDetails");
             }
             else
             {
@@ -45,14 +46,21 @@ namespace ProjectLexiconWebApp.Controllers
 
         public async Task<IActionResult> ShoppingHistory(string email)
         {
+            if (email != null && _dbContext.Customers.Any(customer => customer.EMail == email))
+            {
+                Customer customer = _dbContext.Customers
+                .Include(customer => customer.Orders)
+                .ThenInclude(order => order.OrderItems)
+                .ThenInclude(item => item.Product)
+                .Where(customer => customer.EMail == email).First();
 
-            Customer customer = _dbContext.Customers
-                 .Include(customer => customer.Orders)
-                 .ThenInclude(order => order.OrderItems)
-                 .ThenInclude(item => item.Product)
-                 .Where(customer => customer.EMail == email).First();
-
-            return View(customer);
+                return View(customer);
+            }
+            else
+            {
+                ViewBag.ErrorMessage = $"Sorry!!! It seems you don´t have orders!";
+                return PartialView("_ErrorPage");
+            }
         }
 
 
@@ -95,7 +103,7 @@ namespace ProjectLexiconWebApp.Controllers
 
                 await _userManager.UpdateAsync(userToEdit);
 
-                if(customerToEdit != null)
+                if (customerToEdit != null)
                 {
                     customerToEdit.FirstName = user.FirstName;
                     customerToEdit.LastName = user.LastName;
@@ -104,16 +112,30 @@ namespace ProjectLexiconWebApp.Controllers
                     customerToEdit.City = user.City;
                     customerToEdit.Phone = user.Phone;
 
-                     _dbContext.Customers.Update(customerToEdit);
+                    _dbContext.Customers.Update(customerToEdit);
                     await _dbContext.SaveChangesAsync();
                 }
 
-                return RedirectToAction("Index", new { id = userToEdit.Email });     
+                return RedirectToAction("Index", new { id = userToEdit.Email });
 
             }
             return View(userToEdit);
 
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> GuestOrderDetails(Order customerOrder)
+        {
+            Order ordermodel = await _dbContext.Orders
+                .Include(order => order.Customer)
+                .Include(order => order.OrderItems)
+                .ThenInclude(item => item.Product)
+                .Where(order => order.Id == customerOrder.Id).FirstAsync();
+
+            return PartialView("_OrderDetails", ordermodel);
+        }
+
 
 
     }
