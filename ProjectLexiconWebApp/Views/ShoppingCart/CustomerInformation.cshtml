@@ -1,4 +1,4 @@
-﻿@model Customer;
+﻿@model ReceiptViewModel;
 
 @{
     ViewData["Title"] = "Customer Information";
@@ -6,38 +6,174 @@
 
 <h1>Complete order</h1>
 
-<form asp-action="CustomerInformation" method="post">
-    <div class="form-row form-control-sm">
-            <label asp-for="@Model.FirstName"></label>
-            <input asp-for="@Model.FirstName" type="text" name="FirstName" value="@Model.FirstName" required="required" />
+@*<div class="container-fluid border-1">
+    <h2>Ordered products</h2>
+    <table class="table table-striped text-center">
+        <thead>
+            <tr>
+                <th>ProductId</th>
+                <th>Product Name</th>
+                <th>Size</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
 
-            <label asp-for="@Model.LastName"></label>
-            <input asp-for="@Model.LastName" type="text" name="LastName" value="@Model.LastName" required="required" />
+        <tbody>
+            @foreach (var aOrderLine in Model.Order.OrderItems)
+            {
+                <tr>
+                    <td>@aOrderLine.ProductId</td>
+                    <td>@aOrderLine.Product.Name</td>
+                    <td>@aOrderLine.Product.Size</td>
+                    <td>@aOrderLine.Quantity</td>
+                    @if (aOrderLine.Product.DiscountedPrice <= 0)
+                    {
+                        <td>@aOrderLine.Product.UnitPrice</td>
+                    }
+                    else
+                    {
+                        <td>@aOrderLine.Product.DiscountedPrice</td>
+                    }
+                    <td>@aOrderLine.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>*@
+<div class="row">
+    <div class="col">
+        <form class="row g-3" asp-action="CustomerInformation" method="post">
+
+            <div class="col-md-6">
+
+                <label asp-for="@Model.Customer.FirstName"></label>
+                @if (Model.Customer != null)
+                {
+                    <input asp-for="@Model.Customer.FirstName" type="text" name="FirstName" value="@Model.Customer.FirstName" readonly />
+                }
+                else
+                {
+                    <input asp-for="@Model.Customer.FirstName" type="text" name="FirstName" required="required" />
+                }
+            </div>
+            <div class="col-md-6">
+                <label asp-for="@Model.Customer.LastName"></label>
+                @if (Model.Customer != null)
+                {
+                    <input asp-for="@Model.Customer.LastName" type="text" name="LastName" value="@Model.Customer.LastName" readonly />
+                }
+                else
+                {
+                    <input asp-for="@Model.Customer.LastName" type="text" name="LastName" required="required" />
+                }
+            </div>
+
+            <div class="col-md-6">
+
+                <label asp-for="@Model.Customer.Address"></label>
+                @if (Model.Customer != null)
+                {
+                    <input asp-for="@Model.Customer.Address" type="text" name="Address" value="@Model.Customer.Address" readonly />
+                }
+                else
+                {
+                    <input asp-for="@Model.Customer.Address" type="text" name="Address" required="required" />
+                }
+            </div>
+            <div class="col-md-6">
+                <label asp-for="@Model.Customer.ZipCode"></label>
+                @if (Model.Customer != null)
+                {
+                    <input asp-for="@Model.Customer.ZipCode" type="text" name="ZipCode" value="@Model.Customer.ZipCode" readonly />
+                }
+                else
+                {
+                    <input asp-for="@Model.Customer.ZipCode" type="text" name="ZipCode" required="required" />
+                }
+            </div>
+
+            <div class="col-md-12">
+
+                <label asp-for="@Model.Customer.City"></label>
+                @if (Model.Customer != null)
+                {
+                    <input asp-for="@Model.Customer.City" type="text" name="City" value="@Model.Customer.City" readonly />
+                }
+                else
+                {
+                    <input asp-for="@Model.Customer.City" type="text" name="City" required="required" />
+                }
+            </div>
+
+            <div class="col-md-6">
+
+                <label asp-for="@Model.Customer.EMail"></label>
+                @if (Model.Customer != null)
+                {
+                    <input asp-for="@Model.Customer.EMail" type="text" name="Email" value="@Model.Customer.EMail" readonly />
+                }
+                else
+                {
+                    <input asp-for="@Model.Customer.EMail" type="text" name="EMail" required="required" />
+                }
+            </div>
+            <div class="col-md-6">
+                <label asp-for="@Model.Customer.Phone"></label>
+                @if (Model.Customer != null)
+                {
+                    <input asp-for="@Model.Customer.Phone" type="text" name="Phone" value="@Model.Customer.Phone" readonly />
+                }
+                else
+                {
+                    <input asp-for="@Model.Customer.Phone" type="text" name="Phone" required="required" />
+                }
+
+                @if (Model.Customer != null)
+                {
+                    <input name="Id" type="hidden" value="@Model.Customer.Id">
+                }
+            </div>
+
+            <label>Select shippment</label>
+            <select name="shipper" asp-items="ViewBag.Shippers"></select>
+
+            <button class="btn btn-outline-success" type="submit">Confirm information</button>
+        </form>
     </div>
 
-    <div class="form-row form-control-sm">
-
-            <label asp-for="@Model.Address"></label>
-            <input asp-for="@Model.Address" type="text" name="Adress" value="@Model.Address" required="required" />
-
-            <label asp-for="@Model.ZipCode"></label>
-            <input asp-for="@Model.ZipCode" type="number" name="ZipCode" value="@Model.ZipCode" required="required" />
-
-            <label asp-for="@Model.City"></label>
-            <input asp-for="@Model.City" type="text" name="City" value="@Model.City" required="required" />
+    <div class="col">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Shipper</th>
+                    <th scope="col">Delivery method</th>
+                    <th scope="col">Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>PostNord</td>
+                    <td>Home delivery</td>
+                    <td>60:-</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>DHL</td>
+                    <td>Pick up at delivery center</td>
+                    <td>25:-</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>DB Schenker</td>
+                    <td>Pick up - Eco</td>
+                    <td>40:-</td>
+                </tr>
+            </tbody>
+        </table>
 
     </div>
-
-    <div class="form-row form-control-sm">
-
-            <label asp-for="@Model.EMail"></label>
-            <input asp-for="@Model.EMail" type="text" name="EMail" value="@Model.EMail" required="required" />
-
-            <label asp-for="@Model.Phone"></label>
-            <input asp-for="@Model.Phone" type="text" name="Phone" value="@Model.Phone" required="required" />
-
-    </div>
-
-    <button class="btn btn-outline-success" type="submit">Confirm information</button>
-</form>
-
+</div>
