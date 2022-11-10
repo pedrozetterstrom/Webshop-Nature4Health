@@ -10,8 +10,12 @@
 <p>
     <a asp-action="Create" class="btn btn-primary btn-sm">Create a Shipper</a>
 </p>
-
-
+<div>
+    <form asp-controller="Shipper" asp-action="SearchShipper" method="post">
+       <input type="text" id="search" name="search">
+       <button id="submit" type="submit">Search</button>
+    </form>
+ </div>
 <table class="table table-striped">
     <thead>
         <tr>

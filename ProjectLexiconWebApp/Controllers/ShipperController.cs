@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Data;
 using ProjectLexiconWebApp.Models;
 
@@ -76,6 +77,19 @@ namespace ProjectLexiconWebApp.Controllers
             return View("Index", _context.Shippers.ToList());
 
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SearchShipper(string search)
+        {
+            string filter = "%" + search + "%";
+            List<Shipper> shippers = await _context.Shippers.Where( shipper => EF.Functions.Like(shipper.Name, filter)).ToListAsync();
+
+            return View("Index", shippers);
+
+        }
+
+
 
     }
 }

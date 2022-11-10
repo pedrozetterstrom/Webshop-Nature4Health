@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Data;
 using ProjectLexiconWebApp.Models;
 
@@ -98,5 +99,21 @@ namespace ProjectLexiconWebApp.Controllers
             
 
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SearchCustomer(string search)
+        {
+            string filter = "%" + search + "%";
+
+            List<Customer> customers = _context.Customers
+                .Where(c => EF.Functions.Like(c.FirstName, filter) || EF.Functions.Like(c.LastName, filter) || EF.Functions.Like(c.EMail, filter) || EF.Functions.Like(c.City, filter))
+                .ToList();
+
+            return View("Index", customers);
+
+        }
+
+
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectLexiconWebApp.Data;
 using ProjectLexiconWebApp.Models;
+using ProjectLexiconWebApp.Models.APIModels;
 
 namespace ProjectLexiconWebApp.Controllers
 {
@@ -116,6 +117,21 @@ namespace ProjectLexiconWebApp.Controllers
             return View("Index", _context.Brands.ToList());
 
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SearchBrand(string search)
+        {
+            string filter = "%" + search + "%";
+
+            List<Brand> brands = await _context.Brands.Where(brand => EF.Functions.Like(brand.Name, filter)).ToListAsync();
+
+
+            return View("Index", brands);
+
+        }
+
+
 
     }
 }
