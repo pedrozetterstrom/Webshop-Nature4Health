@@ -13,13 +13,11 @@
     <a class="btn btn-primary" asp-controller="ShoppingCart" asp-action="PlaceAnOrder">Place An Order</a>
 }
 
-<h6>DEBUG - Session string content={@ViewBag.SessionString}</h6>
+@*<h6>DEBUG - Session string content={@ViewBag.SessionString}</h6>*@
 
 <table class="table table-striped w-75">
     <thead>
-        <tr>
-            @*<th>Product Picture</th>
-            <th>Product Name</th>*@            
+        <tr>     
             <th>Product</th>
             <th>Size</th>
             <th>Quantity</th>
@@ -31,8 +29,6 @@
         @foreach (var aShoppingCartViewModel in Model)
         {
             <tr>
-                @*<td><img src=@aShoppingCartViewModel.Picture alt="Not found pic" width="80" height="45" /></td>
-                <td><a class="text-decoration-none" asp-controller="Product" asp-action="Details" asp-route-id=@aShoppingCartViewModel.Id>@aShoppingCartViewModel.ProductName</a></td>*@
                 <td>
                     <a asp-controller="Product" asp-action="Details" asp-route-id=@aShoppingCartViewModel.Id class="text-decoration-none">
                         <img src=@aShoppingCartViewModel.Picture alt="Not found pic" width="80" height="45" />

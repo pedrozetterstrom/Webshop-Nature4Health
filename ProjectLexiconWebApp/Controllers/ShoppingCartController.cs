@@ -290,5 +290,28 @@ namespace ProjectLexiconWebApp.Controllers
         {
             return View();
         }
+
+        public int ItemCartCount()
+        {
+            int count = 0;
+
+            Dictionary<int, int> cartDictionary = CreateCartDicFromSessionData();
+            foreach (var item in cartDictionary)
+            {
+                int currentProductIdInCart = item.Key;         //Aka product ID
+                int currentCountProductInCart = item.Value;     //Count products of that ID
+
+                count += currentCountProductInCart;
+            }
+
+            Console.WriteLine("Current items in cart: " + count);
+
+            return count;
+        }
+
+        public bool IsCartEmpty()
+        {
+            return ItemCartCount() <= 0 ? true : false;
+        }
     }
 }

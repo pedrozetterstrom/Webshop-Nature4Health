@@ -51,18 +51,15 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9cf7bc96-eff0-4e0a-8414-6fab94b54889",
-                            ConcurrencyStamp = "5edf1bf5-5118-416f-a13d-a7262fb41f6a",
-
+                            Id = "809a7811-f42f-4cc4-b961-13dbc86bbf5e",
+                            ConcurrencyStamp = "d5154807-a968-4bef-8c9e-4c69e95c78a5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-
-                            Id = "433e77f7-a4b4-4a1f-a5ac-3a24f252bb8e",
-                            ConcurrencyStamp = "3bfc981e-fc63-478a-aa75-96b6729059a8",
-
+                            Id = "190dfb57-c41c-4b8b-8529-0f8857d7befc",
+                            ConcurrencyStamp = "bbed873b-1a17-403d-931a-7f9bf0863739",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -159,9 +156,8 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "dc6509b5-638e-431f-a8b9-8b63f01ac148",
-                            RoleId = "9cf7bc96-eff0-4e0a-8414-6fab94b54889"
-
+                            UserId = "338665ac-21d5-47d6-96fb-866a7c952265",
+                            RoleId = "809a7811-f42f-4cc4-b961-13dbc86bbf5e"
                         });
                 });
 
@@ -277,12 +273,11 @@ namespace ProjectLexiconWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dc6509b5-638e-431f-a8b9-8b63f01ac148",
+                            Id = "338665ac-21d5-47d6-96fb-866a7c952265",
                             AccessFailedCount = 0,
                             Address = "Adminsgatan 1",
                             City = "Borås",
-                            ConcurrencyStamp = "bf0486ad-67b6-45df-a0ce-d234b455690e",
-
+                            ConcurrencyStamp = "647bf48c-a69f-4cf7-94eb-1b3a7dd92915",
                             Email = "admin@n4h.com",
                             EmailConfirmed = false,
                             FirstName = "Daniel",
@@ -290,12 +285,10 @@ namespace ProjectLexiconWebApp.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@N4H.COM",
                             NormalizedUserName = "ADMIN@N4H.COM",
-
-                            PasswordHash = "AQAAAAEAACcQAAAAEB3ql3ND9VE5yger9wyDCNL9Z9jn7hjOlNjvX3h/UKSrgJJit1PiQLsGp9TyPwLbgg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKkbjfYFfUQNE4eW49MSNvhOmxfw1Df0KL1mkbl3i350eBfIQtJProMa9No7S9A9+g==",
                             Phone = "10101010101",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "57acaa4d-b39f-496d-9dfd-ee0bbac17be7",
-
+                            SecurityStamp = "04ae6100-571b-40c6-bdd9-65b018979880",
                             TwoFactorEnabled = false,
                             UserName = "admin@n4h.com",
                             ZipCode = "10001"
@@ -441,28 +434,13 @@ namespace ProjectLexiconWebApp.Migrations
                             Id = 1,
                             Address = "Kungsgatan 1",
                             City = "Göteborg",
-
-                            CreatedAt = new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Local),
-
+                            CreatedAt = new DateTime(2022, 11, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             EMail = "user@user.com",
                             FirstName = "Pedro",
                             LastName = "Feitoza",
                             Phone = "46780964",
                             Wallet = 1000.0m,
                             ZipCode = "00000"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "Kundsgatan 1",
-                            City = "Göteborg",
-                            CreatedAt = new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Local),
-                            EMail = "user@n4h.com",
-                            FirstName = "Customer Test",
-                            LastName = "Karlsson",
-                            Phone = "46780964",
-                            Wallet = 1000.0m,
-                            ZipCode = "10001"
                         });
                 });
 
@@ -500,14 +478,7 @@ namespace ProjectLexiconWebApp.Migrations
                         {
                             Id = 1,
                             CustomerId = 1,
-                            OrderDate = new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Local),
-                            Status = "pending"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CustomerId = 2,
-                            OrderDate = new DateTime(2022, 11, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            OrderDate = new DateTime(2022, 11, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             Status = "pending"
                         });
                 });
@@ -563,34 +534,6 @@ namespace ProjectLexiconWebApp.Migrations
                         {
                             Id = 4,
                             OrderId = 1,
-                            ProductId = 4,
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            OrderId = 2,
-                            ProductId = 1,
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            Id = 6,
-                            OrderId = 2,
-                            ProductId = 2,
-                            Quantity = 2
-                        },
-                        new
-                        {
-                            Id = 7,
-                            OrderId = 2,
-                            ProductId = 3,
-                            Quantity = 3
-                        },
-                        new
-                        {
-                            Id = 8,
-                            OrderId = 2,
                             ProductId = 4,
                             Quantity = 2
                         });
@@ -809,7 +752,7 @@ namespace ProjectLexiconWebApp.Migrations
 
             modelBuilder.Entity("ProjectLexiconWebApp.Models.OrderItem", b =>
                 {
-                    b.HasOne("ProjectLexiconWebApp.Models.Order", null)
+                    b.HasOne("ProjectLexiconWebApp.Models.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -820,6 +763,8 @@ namespace ProjectLexiconWebApp.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });

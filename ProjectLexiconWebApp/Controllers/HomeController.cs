@@ -30,7 +30,14 @@ namespace ProjectLexiconWebApp.Controllers
         }
 
         public IActionResult Index()
-        {            
+        {
+            //MAke sure that the session string gets created
+            string currentSessionString = HttpContext.Session.GetString("CurrentCustomerCart");
+            if (string.IsNullOrEmpty(currentSessionString))
+            {
+                HttpContext.Session.SetString("CurrentCustomerCart", "");
+            }
+
             IEnumerable<Product> allProducts = _context.Products.ToList();
 
 
