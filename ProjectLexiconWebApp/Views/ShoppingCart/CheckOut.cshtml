@@ -41,13 +41,13 @@
                 <td>@aOrderLine.Quantity</td>
                 @if(aOrderLine.Product.DiscountedPrice <= 0)
                 {                    
-                    <td>@aOrderLine.Product.UnitPrice</td>
+                    <td>@aOrderLine.Product.UnitPrice.ToString("C")</td>
                 }
                 else
                 {
-                    <td>@aOrderLine.Product.DiscountedPrice</td>
+                    <td>@aOrderLine.Product.DiscountedPrice.ToString("C")</td>
                 }
-                <td>@aOrderLine.Price</td>
+                <td>@aOrderLine.Price.ToString("C")</td>
             </tr>
         }
     </tbody>
