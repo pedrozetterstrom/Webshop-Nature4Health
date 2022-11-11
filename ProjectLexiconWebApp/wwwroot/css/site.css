@@ -21,7 +21,7 @@ body {
 
 header {
     background-color: rgb(47, 79, 38);
-    font-size: 20px;
+    /*font-size: 20px;*/
 }
 
 footer {
@@ -75,4 +75,8 @@ footer {
 footer > div {
     display: flex;
     justify-content: center;
+}
+
+#navfont {
+    font-size: 20px;
 }
