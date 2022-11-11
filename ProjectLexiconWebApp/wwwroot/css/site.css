@@ -21,6 +21,7 @@ body {
 
 header {
     background-color: rgb(47, 79, 38);
+    font-size: 20px;
 }
 
 footer {
@@ -69,4 +70,9 @@ footer {
 
 #txtgreen {
     color: rgb(47, 79, 38);
+}
+
+footer > div {
+    display: flex;
+    justify-content: center;
 }
