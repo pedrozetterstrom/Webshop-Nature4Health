@@ -47,6 +47,7 @@ footer {
 #logofont {
     font-family: 'Lobster Two', cursive;
     font-size: 40px;
+    text-shadow: 2px 2px #000000;
     /*margin-right: 100px;*/
 }
 
@@ -55,6 +56,16 @@ footer {
 }
 
 .btn-success:hover {
+    background-color: rgb(47, 79, 38);
+    opacity: 0.85;
+}
+
+.btn-primary {
+    background-color: rgb(47, 79, 38);
+    border-color: black;
+}
+
+.btn-primary:hover {
     background-color: rgb(47, 79, 38);
     opacity: 0.85;
 }
