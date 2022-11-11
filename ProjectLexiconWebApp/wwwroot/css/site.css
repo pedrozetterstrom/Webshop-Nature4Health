@@ -1,6 +1,5 @@
-html {
-  font-size: 14px;
-  
+  html {
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -53,4 +52,13 @@ footer {
     font-family: 'Lobster Two', cursive;
     font-size: 40px;
     /*margin-right: 100px;*/
+}
+
+.btn-success {
+    background-color: rgb(47, 79, 38);
+}
+
+.btn-success:hover {
+    background-color: rgb(47, 79, 38);
+    opacity: 0.85;
 }
