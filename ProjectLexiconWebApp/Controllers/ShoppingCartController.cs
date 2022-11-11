@@ -177,6 +177,7 @@ namespace ProjectLexiconWebApp.Controllers
         public static ReceiptViewModel model = new();
         public IActionResult PlaceAnOrder()
         {
+            model = new ReceiptViewModel();
             Order newOrder = new()
             {
                 OrderDate = DateTime.Now,
@@ -197,7 +198,7 @@ namespace ProjectLexiconWebApp.Controllers
 
                 if (currentCountProductInCart > myProduct.Quantity)
                 {
-                    return View("Denied", $"Unfortunately, there are only {myProduct.Quantity} units left of {myProduct}");
+                    return View("Denied", $"Unfortunately, there are only {myProduct.Quantity} units left of {myProduct.Name}");
                 }
                 else
                 {
