@@ -5,6 +5,8 @@ namespace ProjectLexiconWebApp.ViewModels
     public class ReceiptViewModel
     {
         public Order Order { get; set; }
+        public Customer Customer { get; set; }
+        public Shipper Shipper { get; set; }
         public List<Shipper> Shippers { get; set; }
 
         //In decimal form

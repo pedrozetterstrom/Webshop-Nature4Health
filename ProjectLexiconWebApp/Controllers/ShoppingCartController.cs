@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjectLexiconWebApp.Data;
-using System.Collections.Generic;
 using ProjectLexiconWebApp.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Text;
-using Microsoft.AspNetCore.Http;
 using ProjectLexiconWebApp.ViewModels;
-using System.Security.Policy;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.AspNetCore.Identity;
+using System.Text;
 
 namespace ProjectLexiconWebApp.Controllers
 {
@@ -177,9 +173,47 @@ namespace ProjectLexiconWebApp.Controllers
         //3. Customer logged in
         //4. 
         //[HttpPost]
+
+        public static ReceiptViewModel model = new();
         public IActionResult PlaceAnOrder()
         {
+            model = new ReceiptViewModel();
+            Order newOrder = new()
+            {
+                OrderDate = DateTime.Now,
+                Status = "pending"
+            };
             Customer currentCustomer = new();
+            ViewBag.Shippers = new SelectList(_context.Shippers, "Id", "Name", "Orders");
+
+            string currentSessionString = HttpContext.Session.GetString("CurrentCustomerCart");
+            Dictionary<int, int> cartDictionary = CreateCartDicFromSessionData();
+
+            foreach (var item in cartDictionary)
+            {
+                int currentProductIdInCart = item.Key;         //Aka product ID
+                int currentCountProductInCart = item.Value;     //Count products of that ID
+
+                Product myProduct = _context.Products.FirstOrDefault(product => product.Id == currentProductIdInCart);
+
+                if (currentCountProductInCart > myProduct.Quantity)
+                {
+                    return View("Denied", $"Unfortunately, there are only {myProduct.Quantity} units left of {myProduct.Name}");
+                }
+                else
+                {
+                    OrderItem newOrderItem = new OrderItem
+                    {
+                        OrderId = newOrder.Id,
+                        ProductId = myProduct.Id,
+                        Product = myProduct,
+                        Quantity = currentCountProductInCart
+                    };
+                    newOrder.OrderItems.Add(newOrderItem);
+                }
+            }
+
+            model.Order = newOrder;
 
             if (User.Identity.IsAuthenticated)
             {
@@ -203,84 +237,89 @@ namespace ProjectLexiconWebApp.Controllers
                     _context.Customers.Add(currentCustomer);
                     _context.SaveChanges();
                 }
-
-
             }
             else
             {
-                return View("CustomerInformation", currentCustomer);
+                return View("CustomerInformation", model);
             }
 
-            return RedirectToAction("RegisterOrder", currentCustomer);
+            newOrder.Customer = currentCustomer;
+            newOrder.CustomerId = currentCustomer.Id;
+            model.Customer = currentCustomer;
 
+            return View("CustomerInformation", model);
         }
 
         [HttpPost]
-        public IActionResult CustomerInformation(Customer currentCustomer)
+        public IActionResult CustomerInformation(Customer currentCustomer, int shipper)
         {
-            currentCustomer.CreatedAt = DateTime.Now;
-            currentCustomer.Wallet = 0.0m;
-            _context.Customers.Add(currentCustomer);
-            _context.SaveChanges();
+            if (_context.Customers.FirstOrDefault(c => c.EMail == currentCustomer.EMail) != null)
+            {
+                currentCustomer = _context.Customers.FirstOrDefault(c => c.EMail == currentCustomer.EMail);
+            }
+            else
+            {
+                currentCustomer.CreatedAt = DateTime.Now;
+                currentCustomer.Wallet = 0.0m;
+                _context.Customers.Add(currentCustomer);
+                _context.SaveChanges();
+            }
+            
+            model.Order.ShipperId = shipper;
+            model.Order.Shipper = _context.Shippers.FirstOrDefault(s => s.Id == shipper);
+
             return RedirectToAction("RegisterOrder", currentCustomer);
         }
 
         public IActionResult RegisterOrder(Customer currentCustomer)
         {
-
             string currentSessionString = HttpContext.Session.GetString("CurrentCustomerCart");
             Dictionary<int, int> cartDictionary = CreateCartDicFromSessionData();
 
-            //Create an order
-            Order newOrder = new Order
+            model.Customer = currentCustomer;
+            model.Order.Customer = currentCustomer;
+            model.Order.CustomerId = currentCustomer.Id;
+
+            Order newOrder = new()
             {
-                //TotalCost = totalCost,
-                OrderDate = DateTime.Now,
-                Status = "pending",
-                CustomerId = currentCustomer.Id,
-                ShipperId = null
+                CustomerId = model.Order.CustomerId,
+                OrderDate = model.Order.OrderDate,
+                ShipperId = model.Order.ShipperId,
+                Status = model.Order.Status
             };
+            foreach(var item in model.Order.OrderItems)
+            {
+                item.Product = null;
+                newOrder.OrderItems.Add(item);
+            }
+
             _context.Orders.Add(newOrder);
             _context.SaveChanges();
 
-            newOrder.Customer = currentCustomer;
+            model.Order.Id = newOrder.Id;
 
-
-            foreach (var item in cartDictionary)
+            foreach (var item in model.Order.OrderItems)
             {
-                int currentProductIdInCart = item.Key;         //Aka product ID
-                int currentCountProductInCart = item.Value;     //Count products of that ID
+                Product myProduct = _context.Products.FirstOrDefault(product => product.Id == item.ProductId);
 
-                Product myProduct = _context.Products.FirstOrDefault(product => product.Id == currentProductIdInCart);
-
-                //Not enough product(s) in stock
-                if (currentCountProductInCart > myProduct.Quantity)
+                if (item.Quantity > myProduct.Quantity)
                 {
                     return View("Denied", $"Unfortunately, there are only {myProduct.Quantity} units left of {myProduct}");
                 }
                 else
                 {
-                    //remove currentCountProductInCart cartItem(s) from db products
-                    //Update product database database(s) here
-                    //Lager saldo
-                    myProduct.Quantity -= currentCountProductInCart;
+                    myProduct.Quantity -= item.Quantity;
                     _context.Update(myProduct);
                     _context.SaveChanges();
 
-                    OrderItem newOrderItem = new OrderItem
-                    {
-                        OrderId = newOrder.Id,
-                        ProductId = myProduct.Id,
-                        Quantity = currentCountProductInCart
-                    };
-                    _context.OrderItems.Add(newOrderItem);
+                    item.OrderId = model.Order.Id;
+                    item.ProductId = myProduct.Id;
+
+                    _context.OrderItems.Update(item);
                     _context.SaveChanges();
                 }
             }
 
-            ReceiptViewModel model = new();
-            model.Order = newOrder;
-            model.Shippers = _context.Shippers.ToList();
             ClearCart();
 
             return View("CheckOut", model);
