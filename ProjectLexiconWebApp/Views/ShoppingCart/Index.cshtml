@@ -5,7 +5,7 @@
 }
 
 
-<h1>Current item(s) in ShoppingCart</h1>
+<h1>Shopping Cart</h1>
 <h4>Total Price: @ViewBag.TotalCost</h4>
 @*Dont show if cart is empty*@
 @if(Model.Any())
@@ -33,7 +33,7 @@
                     <a asp-controller="Home" asp-action="Details" asp-route-id=@aShoppingCartViewModel.Id class="text-decoration-none">
                         <img src=@aShoppingCartViewModel.Picture alt="Not found pic" width="80" height="45" />
                     </a>
-                    <a asp-controller="Home" asp-action="Details" asp-route-id=@aShoppingCartViewModel.Id class="text-decoration-none" style="color:#157347">@aShoppingCartViewModel.ProductName</a>                
+                    <a asp-controller="Home" asp-action="Details" asp-route-id=@aShoppingCartViewModel.Id class="text-decoration-none" style="color:rgb(47, 79, 38)">@aShoppingCartViewModel.ProductName</a>
                 </td>
                 <td>@aShoppingCartViewModel.Size</td>
                 <td>
