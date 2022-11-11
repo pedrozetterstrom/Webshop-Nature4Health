@@ -33,11 +33,11 @@ namespace ProjectLexiconWebApp.ViewModels
             get
             {
                 decimal totalSum = 0.0M;
-
-                foreach (var item in Order.OrderItems) 
-                {
-                    totalSum += (item.Product.UnitPrice * item.Quantity);
-                }
+                totalSum = Order.TotalCost;
+                //foreach (var item in Order.OrderItems) 
+                //{
+                //    totalSum += (item.Product.UnitPrice * item.Quantity);
+                //}
 
                 return totalSum; 
             }

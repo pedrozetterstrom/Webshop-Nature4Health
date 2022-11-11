@@ -16,6 +16,9 @@ namespace ProjectLexiconWebApp.Models
                 {
                     TotalCost = TotalCost + i.Price;
                 }
+                if(ShipperId == 1) { TotalCost += 60; }
+                else if(ShipperId == 2) { TotalCost += 25; }
+                else if(ShipperId == 3) { TotalCost += 40; }
                 return TotalCost;
             }
         }
