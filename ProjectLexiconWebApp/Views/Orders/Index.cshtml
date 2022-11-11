@@ -7,28 +7,28 @@
 
 <ul class="list-group list-group-horizontal-sm">
 
-    <li class="list-group-item">
-        <a class="nav-link text-dark" asp-controller="Customer" asp-action="Index">Customers</a>
+    <li id="managementlinks" class="list-group-item">
+        <a class="nav-link text-light" asp-controller="Customer" asp-action="Index">Customers</a>
     </li>
-    <li class="list-group-item">
-        <a class="nav-link text-dark" asp-controller="Brand" asp-action="Index">Brands</a>
+    <li id="managementlinks" class="list-group-item">
+        <a class="nav-link text-light" asp-controller="Brand" asp-action="Index">Brands</a>
     </li>
-    <li class="list-group-item">
-        <a class="nav-link text-dark" asp-controller="Shipper" asp-action="Index">Shippers</a>
+    <li id="managementlinks" class="list-group-item">
+        <a class="nav-link text-light" asp-controller="Shipper" asp-action="Index">Shippers</a>
     </li>
-    <li class="list-group-item">
-        <a class="nav-link text-dark" asp-controller="Category" asp-action="Index">Categories</a>
+    <li id="managementlinks" class="list-group-item">
+        <a class="nav-link text-light" asp-controller="Category" asp-action="Index">Categories</a>
     </li>
-    <li class="list-group-item">
-        <a class="nav-link text-dark" asp-controller="Product" asp-action="Index">Products</a>
+    <li id="managementlinks" class="list-group-item">
+        <a class="nav-link text-light" asp-controller="Product" asp-action="Index">Products</a>
     </li>
-    <li class="list-group-item">
-        <a class="nav-link text-dark" asp-controller="Role" asp-action="Index">Roles</a>
+    <li id="managementlinks" class="list-group-item">
+        <a class="nav-link text-light" asp-controller="Role" asp-action="Index">Roles</a>
     </li>
 </ul>
 
 <div>
-    <h2 class="text-info">Orders</h2>
+    <h2 id="txtgreen">Orders</h2>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -54,7 +54,7 @@
                         <td>@order.Status</td>
                         <td>@order.CustomerId</td>
                         <td>@order.Customer.FullName</td>
-                        <td><p><a class="text-info" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id">Details</a></p></td>
+                        <td><p><a id="txtgreen" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id">Details</a></p></td>
                     </tr>
                 }
             }
