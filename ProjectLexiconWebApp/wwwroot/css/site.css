@@ -21,30 +21,25 @@ body {
 
 header {
     background-color: rgb(47, 79, 38);
-    /*background-color: #198754;*/
 }
 
 footer {
     background-color: rgb(47, 79, 38);
-    /*background-color: #198754;*/
     opacity: 0.65;
 }
 
 #nav a:hover {
     background-color: rgb(47, 79, 38);
-    /*background-color: #198754;*/
     opacity: 0.65;
 }
 
 .navbar-nav a:hover {
     background-color: rgb(47, 79, 38);
-    /*background-color: #198754;*/
     opacity: 0.65;
 }
 
 #logoutForm:hover {
     background-color: rgb(47, 79, 38);
-    /*background-color: #198754;*/
     opacity: 0.65;
 }
 
@@ -61,4 +56,17 @@ footer {
 .btn-success:hover {
     background-color: rgb(47, 79, 38);
     opacity: 0.85;
+}
+
+#managementlinks {
+    background-color: rgb(47, 79, 38);
+}
+
+#managementlinks:hover {
+    background-color: rgb(47, 79, 38);
+    opacity: 0.65;
+}
+
+#txtgreen {
+    color: rgb(47, 79, 38);
 }
