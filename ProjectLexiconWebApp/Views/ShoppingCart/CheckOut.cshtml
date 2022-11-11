@@ -4,7 +4,7 @@
     ViewData["Title"] = "Check Out";
 }
 
-<h2>Logo N4H</h2>
+<h2 id="logofont" class="navbar-brand">Nature4Health</h2>
 
 <h4>Receipt</h4>
 <h6>Order Number: @Model.Order.Id</h6>
@@ -13,6 +13,7 @@
 
 <br />
 <h4>Billing Address</h4>
+<h6>@Model.Order.Shipper.Name to:</h6>
 <h6>@Model.Customer.FullName</h6>
 <h6>@Model.Customer.Address</h6>
 <h6>@Model.Customer.ZipCode</h6>
@@ -31,7 +32,7 @@
         </tr>
     </thead>
 
-    <tbody>       
+    <tbody>
         @foreach (var aOrderLine in Model.Order.OrderItems)
         {
             <tr>
@@ -39,8 +40,8 @@
                 <td>@aOrderLine.Product.Name</td>
                 <td>@aOrderLine.Product.Size</td>
                 <td>@aOrderLine.Quantity</td>
-                @if(aOrderLine.Product.DiscountedPrice <= 0)
-                {                    
+                @if (aOrderLine.Product.DiscountedPrice <= 0)
+                {
                     <td>@aOrderLine.Product.UnitPrice.ToString("C")</td>
                 }
                 else
@@ -57,6 +58,25 @@
             <td></td>
             <td></td>
             <td></td>
+            <td>@Model.Order.Shipper.Name Delivery</td>
+            @switch (Model.Order.ShipperId)
+            {
+                @case 1:
+                    <td>60:-</td>
+                    break;
+                @case 2:
+                    <td>25:-</td>
+                    break;
+                @case 3:
+                    <td>40:-</td>
+                    break;
+            }
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>Net Price</td>
             <td>@Model.NetPrice.ToString("C")</td>
         </tr>
@@ -66,7 +86,8 @@
             <td></td>
             <td></td>
             <td>VAT (@Model.VatInProcent)</td>
-            <td>@Model.VatCost.ToString("C")<td>
+            <td>@Model.VatCost.ToString("C")
+            <td>
         </tr>
         <tr>
             <td></td>

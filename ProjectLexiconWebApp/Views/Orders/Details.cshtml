@@ -27,17 +27,17 @@
         </dt>
         <dd class="col-sm-10">
             @if (Model.Status.Contains("pending"))
-                {
-                    <a class="text-warning" asp-action="ChangeStatus" asp-route-id="@Model.Id">@Model.Status</a>
-                }
-                @if (Model.Status.Contains("sent"))
-                {
-                    <a class="text-primary" asp-action="ChangeStatus" asp-route-id="@Model.Id">@Model.Status</a>
-                }
-                @if (Model.Status.Contains("delivered"))
-                {
-                    <a class="text-success" asp-action="ChangeStatus" asp-route-id="@Model.Id">@Model.Status</a>
-                }
+            {
+                <a class="text-warning" asp-action="ChangeStatus" asp-route-id="@Model.Id">@Model.Status</a>
+            }
+            @if (Model.Status.Contains("sent"))
+            {
+                <a class="text-primary" asp-action="ChangeStatus" asp-route-id="@Model.Id">@Model.Status</a>
+            }
+            @if (Model.Status.Contains("delivered"))
+            {
+                <a class="text-success" asp-action="ChangeStatus" asp-route-id="@Model.Id">@Model.Status</a>
+            }
         </dd>
         <dt class="col-sm-2">
             Full Name
@@ -61,9 +61,24 @@
         <dt class="col-sm-2">
             Shipper
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Shipper)
-        </dd>
+        @switch (Model.ShipperId)
+        {
+            case 1:
+                <dd class="col-sm-10">
+                    PostNord
+                </dd>
+                break;
+            case 2:
+                <dd class="col-sm-10">
+                    DHL
+                </dd>
+                break;
+            case 3:
+                <dd class="col-sm-10">
+                    DB Schenker
+                </dd>
+                break;
+        }
     </dl>
 </div>
 <div>
@@ -85,10 +100,17 @@
                 @foreach (var orderitem in Model.OrderItems)
                 {
                     <tr>
-                        <td>@orderitem.Id</td>
+                        <td>@orderitem.ProductId</td>
                         <td>@orderitem.Product.Name</td>
-                        @if(orderitem.Product.DiscountedPrice > 0){ <td>@orderitem.Product.UnitPrice</td> } else{ <td>@orderitem.Product.UnitPrice</td> }
-                        <td><form asp-action="Edit" method="post"><input type="hidden" name="id" value="@orderitem.Id" /><input type="number" min="0" name= "quantity" value="@orderitem.Quantity" onclick="" /><button class="btn btn-outline-success" type="submit" value="Edit">Change quantity</button></form></td>
+                        @if (orderitem.Product.DiscountedPrice > 0)
+                        {
+                            <td>@orderitem.Product.UnitPrice</td>
+                        }
+                        else
+                        {
+                            <td>@orderitem.Product.UnitPrice</td>
+                        }
+                        <td><form asp-action="Edit" method="post"><input type="hidden" name="id" value="@orderitem.Id" /><input type="number" min="0" name="quantity" value="@orderitem.Quantity" onclick="" /><button class="btn btn-outline-success" type="submit" value="Edit">Change quantity</button></form></td>
                         <td>@orderitem.Price</td>
                         <td><a class="text-danger" asp-action="DeleteOrderItem" asp-route-id="@orderitem.Id">Delete</a></td>
                     </tr>

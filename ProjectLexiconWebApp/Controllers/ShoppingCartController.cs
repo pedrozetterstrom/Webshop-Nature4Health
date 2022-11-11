@@ -265,6 +265,7 @@ namespace ProjectLexiconWebApp.Controllers
                 _context.SaveChanges();
             }
             
+            model.Order.Shipper = _context.Shippers.FirstOrDefault(s => s.Id == shipper);
             model.Order.ShipperId = shipper;
             model.Order.Shipper = _context.Shippers.FirstOrDefault(s => s.Id == shipper);
 
