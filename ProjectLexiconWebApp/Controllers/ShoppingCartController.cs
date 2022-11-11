@@ -195,7 +195,6 @@ namespace ProjectLexiconWebApp.Controllers
 
                 Product myProduct = _context.Products.FirstOrDefault(product => product.Id == currentProductIdInCart);
 
-                //Not enough product(s) in stock
                 if (currentCountProductInCart > myProduct.Quantity)
                 {
                     return View("Denied", $"Unfortunately, there are only {myProduct.Quantity} units left of {myProduct}");
@@ -206,7 +205,7 @@ namespace ProjectLexiconWebApp.Controllers
                     {
                         OrderId = newOrder.Id,
                         ProductId = myProduct.Id,
-                        //Product = myProduct,
+                        Product = myProduct,
                         Quantity = currentCountProductInCart
                     };
                     newOrder.OrderItems.Add(newOrderItem);
@@ -237,8 +236,6 @@ namespace ProjectLexiconWebApp.Controllers
                     _context.Customers.Add(currentCustomer);
                     _context.SaveChanges();
                 }
-
-
             }
             else
             {
@@ -250,7 +247,6 @@ namespace ProjectLexiconWebApp.Controllers
             model.Customer = currentCustomer;
 
             return View("CustomerInformation", model);
-
         }
 
         [HttpPost]
@@ -269,42 +265,48 @@ namespace ProjectLexiconWebApp.Controllers
             }
             
             model.Order.ShipperId = shipper;
-            //model.Order.Shipper =  _context.Shippers.FirstOrDefault(s => s.Id == shipper);
+            model.Order.Shipper = _context.Shippers.FirstOrDefault(s => s.Id == shipper);
 
             return RedirectToAction("RegisterOrder", currentCustomer);
         }
 
         public IActionResult RegisterOrder(Customer currentCustomer)
         {
-
             string currentSessionString = HttpContext.Session.GetString("CurrentCustomerCart");
             Dictionary<int, int> cartDictionary = CreateCartDicFromSessionData();
 
             model.Customer = currentCustomer;
-            //model.Order.Customer = currentCustomer;
+            model.Order.Customer = currentCustomer;
             model.Order.CustomerId = currentCustomer.Id;
 
-            _context.Orders.Add(model.Order);
+            Order newOrder = new()
+            {
+                CustomerId = model.Order.CustomerId,
+                OrderDate = model.Order.OrderDate,
+                ShipperId = model.Order.ShipperId,
+                Status = model.Order.Status
+            };
+            foreach(var item in model.Order.OrderItems)
+            {
+                item.Product = null;
+                newOrder.OrderItems.Add(item);
+            }
+
+            _context.Orders.Add(newOrder);
             _context.SaveChanges();
 
+            model.Order.Id = newOrder.Id;
 
             foreach (var item in model.Order.OrderItems)
             {
-                //int currentProductIdInCart = item.Key;         //Aka product ID
-                //int currentCountProductInCart = item.Value;     //Count products of that ID
-
                 Product myProduct = _context.Products.FirstOrDefault(product => product.Id == item.ProductId);
 
-                //Not enough product(s) in stock
                 if (item.Quantity > myProduct.Quantity)
                 {
                     return View("Denied", $"Unfortunately, there are only {myProduct.Quantity} units left of {myProduct}");
                 }
                 else
                 {
-                    //remove currentCountProductInCart cartItem(s) from db products
-                    //Update product database database(s) here
-                    //Lager saldo
                     myProduct.Quantity -= item.Quantity;
                     _context.Update(myProduct);
                     _context.SaveChanges();
