@@ -21,7 +21,7 @@ body {
 
 header {
     background-color: rgb(47, 79, 38);
-    font-size: 20px;
+    /*font-size: 20px;*/
 }
 
 footer {
@@ -47,6 +47,7 @@ footer {
 #logofont {
     font-family: 'Lobster Two', cursive;
     font-size: 40px;
+    text-shadow: 2px 2px #000000;
     /*margin-right: 100px;*/
 }
 
@@ -55,6 +56,16 @@ footer {
 }
 
 .btn-success:hover {
+    background-color: rgb(47, 79, 38);
+    opacity: 0.85;
+}
+
+.btn-primary {
+    background-color: rgb(47, 79, 38);
+    border-color: black;
+}
+
+.btn-primary:hover {
     background-color: rgb(47, 79, 38);
     opacity: 0.85;
 }
@@ -75,4 +86,19 @@ footer {
 footer > div {
     display: flex;
     justify-content: center;
+}
+
+#navfont {
+    font-size: 20px;
+}
+
+/* Set the border color */
+
+.custom-toggler.navbar-toggler {
+    border-color: white;
+}
+/* Setting the stroke to green using rgb values (0, 128, 0) */
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url( "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }

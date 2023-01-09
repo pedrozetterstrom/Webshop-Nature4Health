@@ -17,12 +17,12 @@
         <nav id="nav" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a id="logofont" class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Nature4Health</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul id="navfont" class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -35,12 +35,30 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
                         </li>
-                        <li class="nav-item">
-
+@*                        <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="ShoppingHistory" asp-action="Index" asp-route-id="@User.Identity.Name">Customer area</a>
-                        </li>
-                        <li class="nav-item">
+                        </li>*@
+                        @if (User.IsInRole("Admin") || User.IsInRole("User"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="ShoppingHistory" asp-action="Index" asp-route-id="@User.Identity.Name">Customer area</a>
+                            </li>
+                        }
+                        @*                        <li class="nav-item">
 
+                            <partial name="_LoginPartial" />
+                        </li>
+
+                        <li class="nav-item text-light">
+                            <vc:shopping-cart-summary></vc:shopping-cart-summary>
+                        </li>*@
+
+
+
+                    </ul>
+                    <ul class="navbar-nav text-right">
+
+                        <li class="nav-item">
                             <partial name="_LoginPartial" />
                         </li>
 

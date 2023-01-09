@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjectLexiconWebApp.Migrations
 {
-    public partial class initseed : Migration
+    public partial class initdatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -312,14 +312,14 @@ namespace ProjectLexiconWebApp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "190dfb57-c41c-4b8b-8529-0f8857d7befc", "bbed873b-1a17-403d-931a-7f9bf0863739", "User", "USER" },
-                    { "809a7811-f42f-4cc4-b961-13dbc86bbf5e", "d5154807-a968-4bef-8c9e-4c69e95c78a5", "Admin", "ADMIN" }
+                    { "38bd7203-448e-4927-869e-acaf5ddca3ea", "a0b14c23-b185-4560-a208-49711beb93ce", "Admin", "ADMIN" },
+                    { "98af08d5-09e9-4358-8c78-44b35a1d7f75", "9aa05513-59b4-4cf2-a1f4-95c4d47bf8a6", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Address", "City", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "ZipCode" },
-                values: new object[] { "338665ac-21d5-47d6-96fb-866a7c952265", 0, "Adminsgatan 1", "Borås", "647bf48c-a69f-4cf7-94eb-1b3a7dd92915", "admin@n4h.com", false, "Daniel", "O.", false, null, "ADMIN@N4H.COM", "ADMIN@N4H.COM", "AQAAAAEAACcQAAAAEKkbjfYFfUQNE4eW49MSNvhOmxfw1Df0KL1mkbl3i350eBfIQtJProMa9No7S9A9+g==", "10101010101", null, false, "04ae6100-571b-40c6-bdd9-65b018979880", false, "admin@n4h.com", "10001" });
+                values: new object[] { "00c9486c-3875-46b4-acf9-772a4bbb1996", 0, "Adminsgatan 1", "Borås", "31c6da89-2e19-4944-a333-3bf4a5995c57", "admin@n4h.com", false, "Daniel", "O.", false, null, "ADMIN@N4H.COM", "ADMIN@N4H.COM", "AQAAAAEAACcQAAAAEPi/6NRwB3RtLODdUh4VuHf2Ff1CpAAlnW+LQ2VmP/kDxq7aNOB12FtOQS2RAbPUIg==", "10101010101", null, false, "cf032676-0023-41df-95e8-69b624bf777e", false, "admin@n4h.com", "10001" });
 
             migrationBuilder.InsertData(
                 table: "Brands",
@@ -347,7 +347,7 @@ namespace ProjectLexiconWebApp.Migrations
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "Id", "Address", "City", "CreatedAt", "EMail", "FirstName", "LastName", "Phone", "UserId", "Wallet", "ZipCode" },
-                values: new object[] { 1, "Kungsgatan 1", "Göteborg", new DateTime(2022, 11, 10, 0, 0, 0, 0, DateTimeKind.Local), "user@user.com", "Pedro", "Feitoza", "46780964", null, 1000.0m, "00000" });
+                values: new object[] { 1, "Kungsgatan 1", "Göteborg", new DateTime(2022, 11, 14, 0, 0, 0, 0, DateTimeKind.Local), "user@user.com", "Pedro", "Feitoza", "46780964", null, 1000.0m, "00000" });
 
             migrationBuilder.InsertData(
                 table: "Shippers",
@@ -362,12 +362,12 @@ namespace ProjectLexiconWebApp.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "809a7811-f42f-4cc4-b961-13dbc86bbf5e", "338665ac-21d5-47d6-96fb-866a7c952265" });
+                values: new object[] { "38bd7203-448e-4927-869e-acaf5ddca3ea", "00c9486c-3875-46b4-acf9-772a4bbb1996" });
 
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "CustomerId", "OrderDate", "ShipperId", "Status" },
-                values: new object[] { 1, 1, new DateTime(2022, 11, 10, 0, 0, 0, 0, DateTimeKind.Local), null, "pending" });
+                values: new object[] { 1, 1, new DateTime(2022, 11, 14, 0, 0, 0, 0, DateTimeKind.Local), null, "pending" });
 
             migrationBuilder.InsertData(
                 table: "Products",
